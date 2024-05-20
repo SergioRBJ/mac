@@ -1,11 +1,11 @@
-const {nextui} = require('@nextui-org/theme');
+const { nextui } = require("@nextui-org/theme");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/components/[object Object].js"
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -14,7 +14,20 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        primary: "#4f5de3",
+        secondary: "#4654e0",
+        terciary: "#e9ecfc",
+        question: "#aab3e3",
+      },
+      backgroundColor: {
+        header: "#8692cf",
+      },
+      borderColor: {
+        primary: "#4f5de3",
+      },
     },
   },
+  darkMode: "class",
   plugins: [nextui()],
 };

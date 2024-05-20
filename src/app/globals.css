@@ -6,6 +6,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 233, 236, 252;
   --background-end-rgb: 192, 201, 225;
+  --nextui-foreground: #000;
 }
 
 body {
