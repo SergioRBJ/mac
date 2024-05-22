@@ -3,7 +3,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { Header } from "@/components/Header";
 
-const kanit = Poppins({ subsets: ["latin"], weight: "500" });
+const poppins = Poppins({ subsets: ["latin"], weight: "500" });
 
 export const metadata = {
   title: "MAC",
@@ -13,9 +13,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={kanit.className}>
-        <Header />
-        <Providers>{children}</Providers>
+      <body className={poppins.className}>
+        <div className="min-h-screen">
+          <Header />
+          <Providers>{children}</Providers>
+        </div>
       </body>
     </html>
   );

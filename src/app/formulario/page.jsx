@@ -3,7 +3,7 @@ import { FormButton } from "@/components/FormButton";
 
 const Home = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center pt-10 gap-10">
+    <main className="flex flex-col items-center pt-10 gap-10">
       <h1 className="text-5xl text-center w-full text-primary">
         FORMULÁRIO DE ANAMNESE
       </h1>
