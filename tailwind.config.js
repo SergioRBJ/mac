@@ -21,7 +21,9 @@ module.exports = {
         question: "#aab3e3",
       },
       backgroundColor: {
-        header: "#8692cf",
+        primary: "#8692cf",
+        secondary: "#282A36",
+        button: "#4f5de3",
       },
       borderColor: {
         primary: "#4f5de3",
