@@ -24,3 +24,16 @@ body {
     text-wrap: balance;
   }
 }
+
+.radio-group-responsive {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem; /* Espaçamento horizontal entre os itens */
+}
+
+@media (max-width: 810px) {
+  .radio-group-responsive {
+    flex-direction: column;
+    gap: 0.5rem; /* Espaçamento vertical entre os itens */
+  }
+}
