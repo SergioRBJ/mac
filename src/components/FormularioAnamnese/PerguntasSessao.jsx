@@ -1,10 +1,15 @@
 import { Pergunta } from "./Pergunta";
 import { perguntasFormulario } from "@/mock/perguntas";
 import { Divider } from "@nextui-org/react";
+import { useFormContext } from "react-hook-form";
 
 const PerguntasSessao = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   return (
-    <>
+    <div className="w-full box-pergunta">
       {perguntasFormulario.map((perguntas) => (
         <>
           <p
@@ -13,17 +18,21 @@ const PerguntasSessao = () => {
           >
             {perguntas.texto}
           </p>
-          <div className="shadow-xl w-[65%] rounded-lg overflow-hidden">
+          <div className="shadow-xl rounded-lg overflow-hidden">
             {perguntas.perguntas.map((pergunta, index) => (
               <div key={pergunta.id}>
-                <Pergunta pergunta={pergunta} />
+                <Pergunta
+                  pergunta={pergunta}
+                  register={register}
+                  errors={errors}
+                />
                 {perguntas.perguntas.length !== index + 1 ? <Divider /> : null}
               </div>
             ))}
           </div>
         </>
       ))}
-    </>
+    </div>
   );
 };
 

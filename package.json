@@ -9,14 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.6.0",
+    "@nextui-org/date-input": "^2.1.1",
     "@nextui-org/react": "^2.3.6",
     "@nextui-org/theme": "^2.2.3",
     "@nivo/pie": "^0.87.0",
     "@svgr/webpack": "^8.1.0",
+    "date-fns": "^3.6.0",
+    "form": "^0.2.4",
     "framer-motion": "^11.2.4",
+    "mongoose": "^8.4.3",
     "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hook-form": "^7.52.0",
+    "react-select": "^5.8.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "eslint": "^8",

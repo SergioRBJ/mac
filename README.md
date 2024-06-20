@@ -2,6 +2,16 @@
 
 Plataforma para pacientes e terapeutas.
 
+## Tecnologias
+
+- [x] Next.js
+- [x] React Hook Form
+
+### Backend
+
+- [ ] Next.js Serverless Functions
+- [ ] Mongoose
+
 ## TO DO
 
 Formulário

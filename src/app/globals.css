@@ -37,3 +37,10 @@ body {
     gap: 0.5rem; /* Espaçamento vertical entre os itens */
   }
 }
+
+@media (max-width: 440px) {
+  .box-pergunta {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
