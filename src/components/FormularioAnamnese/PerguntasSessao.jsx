@@ -1,16 +1,16 @@
 import { Pergunta } from "./Pergunta";
-import { perguntasFormulario } from "@/mock/perguntas";
 import { Divider } from "@nextui-org/react";
 import { useFormContext } from "react-hook-form";
 
-const PerguntasSessao = () => {
+const PerguntasSessao = ({ perguntas }) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
+
   return (
     <div className="w-full box-pergunta">
-      {perguntasFormulario.map((perguntas) => (
+      {perguntas.map((perguntas) => (
         <>
           <p
             key={perguntas.id}

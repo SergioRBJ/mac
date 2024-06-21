@@ -6,7 +6,7 @@ import { SimOuNaoSessao } from "@/components/FormularioAnamnese/SimOuNaoSessao";
 import { FormButton } from "@/components/FormButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as z from "zod";
 
 const formularioSchema = z.object({
@@ -42,7 +42,24 @@ const Formulario = () => {
     },
   });
 
+  const [perguntasPolar, setPerguntasPolar] = useState([]);
+  const [perguntasMultiplaEscolha, setPerguntasMultiplaEscolha] = useState([]);
   const [hasSimOuNaoErrors, setHasSimOuNaoErrors] = useState("");
+
+  const fetchPerguntas = async () => {
+    try {
+      const response = await fetch("/api/questions");
+      const data = await response.json();
+      setPerguntasPolar(data.perguntasPolar);
+      setPerguntasMultiplaEscolha(data.perguntasMultiplaEscolha);
+    } catch (error) {
+      console.error("Erro ao carregar perguntas:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPerguntas();
+  }, []);
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -87,8 +104,11 @@ const Formulario = () => {
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <DadosCadastrais />
-          <SimOuNaoSessao hasSimOuNaoErrors={hasSimOuNaoErrors} />
-          {/* <PerguntasSessao /> */}
+          <SimOuNaoSessao
+            hasSimOuNaoErrors={hasSimOuNaoErrors}
+            perguntas={perguntasPolar}
+          />
+          <PerguntasSessao perguntas={perguntasMultiplaEscolha} />
           <div className="my-8 flex justify-center">
             <FormButton />
           </div>
