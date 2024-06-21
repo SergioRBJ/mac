@@ -1,4 +1,5 @@
 import Paciente from "@/app/api/models/Paciente";
+import PacienteRespostaFormulario from "@/app/api/models/PacienteRespostaFormulario";
 import connectToDatabase from "@/app/api/lib/mongodb";
 
 export const dynamic = "force-dynamic";
@@ -9,15 +10,53 @@ export function GET(request) {
 
 export async function POST(request) {
   try {
-    await connectToDatabase(process.env.MONGODB_DATABASE);
+    const dbName = process.env.MONGODB_DATABASE;
+
+    await connectToDatabase(dbName);
     const body = await request.json();
-    const paciente = await Paciente.create(body);
-    return new Response(JSON.stringify({ success: true, data: paciente }), {
-      status: 201,
-      headers: {
-        "Content-Type": "application/json",
-      },
+
+    const {
+      nomeCompleto,
+      idade,
+      dataNascimento,
+      estadoCivil,
+      profissao,
+      peso,
+      altura,
+      tipoSanguineo,
+      simOuNao,
+    } = body;
+
+    const paciente = await Paciente.create({
+      nomeCompleto,
+      idade,
+      dataNascimento,
+      estadoCivil,
+      profissao,
+      peso,
+      altura,
+      tipoSanguineo,
     });
+
+    const respostas = Object.keys(simOuNao).map((perguntaId) => ({
+      perguntaId,
+      resposta: simOuNao[perguntaId] === "true",
+    }));
+
+    await PacienteRespostaFormulario.create({
+      pacienteId: paciente._id,
+      respostas,
+    });
+
+    return new Response(
+      JSON.stringify({ success: true, data: { paciente, respostas } }),
+      {
+        status: 201,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
   } catch (error) {
     return new Response(
       JSON.stringify({ success: false, error: error.message }),

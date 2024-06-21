@@ -6,36 +6,58 @@ import { SimOuNaoSessao } from "@/components/FormularioAnamnese/SimOuNaoSessao";
 import { FormButton } from "@/components/FormButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
+import { useState } from "react";
 import * as z from "zod";
 
-const onSubmit = (data) => {
-  console.log(data);
-  // Adicione aqui a lógica para enviar os dados para o servidor ou processar o formulário
-};
-
-// Definindo o esquema de validação com zod
 const formularioSchema = z.object({
-  nomeCompleto: z.string().min(1, { message: "Nome Completo é obrigatório" }),
-  idade: z.number().int().positive("Idade deve ser um número positivo"),
-  dataNascimento: z.date().refine(
-    (date) => {
-      return date instanceof Date && !isNaN(date.getTime());
-    },
-    { message: "Data de Nascimento é obrigatória" }
-  ),
-  estadoCivil: z.string().min(1, { message: "Estado Civil é obrigatório" }),
-  profissao: z.string().min(1, { message: "Profissão é obrigatória" }),
-  peso: z.number().positive("Peso deve ser um número positivo"),
-  altura: z.number().positive("Altura deve ser um número positivo"),
-  tipoSanguineo: z.string().min(1, { message: "Tipo Sanguíneo é obrigatório" }),
+  nomeCompleto: z.string().min(1, { message: "Nome Completo é obrigatório." }),
+  idade: z.coerce
+    .number({ message: "Idade é obrigatória." })
+    .min(1, { message: "Idade é obrigatória." }),
+  dataNascimento: z.coerce.date({
+    errorMap: (issue, { defaultError }) => ({
+      message:
+        issue.code === "invalid_date"
+          ? "Data de Nascimento é obrigatória."
+          : defaultError,
+    }),
+  }),
+  estadoCivil: z.string({ required_error: "Estado Civil é obrigatório." }),
+  profissao: z.string().min(1, { message: "Profissão é obrigatória." }),
+  peso: z.coerce
+    .number({ message: "Peso é obrigatório." })
+    .positive("Peso deve ser um número positivo."),
+  altura: z.coerce
+    .number({ message: "Altura é obrigatória." })
+    .positive("Altura deve ser um número positivo."),
+  tipoSanguineo: z.string({ required_error: "Tipo Sanguíneo é obrigatório." }),
+  simOuNao: z.any(),
 });
 
 const Formulario = () => {
   const methods = useForm({
     resolver: zodResolver(formularioSchema),
+    defaultValues: {
+      simOuNao: {},
+    },
   });
 
+  const [hasSimOuNaoErrors, setHasSimOuNaoErrors] = useState("");
+
   const onSubmit = async (data) => {
+    console.log(data);
+    console.log(methods.errors);
+    const simOuNaoValues = data.simOuNao || {};
+
+    const unansweredQuestions = Object.values(simOuNaoValues).some(
+      (value) => value === "null"
+    );
+
+    if (unansweredQuestions) {
+      setHasSimOuNaoErrors("Por favor, responda todas as perguntas.");
+      return;
+    }
+
     try {
       const response = await fetch("/api/users", {
         method: "POST",
@@ -49,12 +71,11 @@ const Formulario = () => {
         throw new Error("Erro ao enviar formulário");
       }
 
+      setHasSimOuNaoErrors("");
       const result = await response.json();
       console.log("Dados enviados com sucesso:", result);
-      // Adicione aqui a lógica para tratar a resposta do servidor, como redirecionamento ou exibição de mensagem de sucesso
     } catch (error) {
       console.error("Erro ao enviar formulário:", error);
-      // Adicione aqui a lógica para tratar erros, como exibição de mensagem de erro
     }
   };
 
@@ -66,8 +87,8 @@ const Formulario = () => {
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <DadosCadastrais />
-          {/* <SimOuNaoSessao />
-          <PerguntasSessao /> */}
+          <SimOuNaoSessao hasSimOuNaoErrors={hasSimOuNaoErrors} />
+          {/* <PerguntasSessao /> */}
           <div className="my-8 flex justify-center">
             <FormButton />
           </div>

@@ -21,8 +21,6 @@ async function connectToDatabase(dbName) {
 
   if (!cached.promise) {
     const opts = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       dbName,
     };
 
