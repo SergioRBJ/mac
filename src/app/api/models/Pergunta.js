@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const PerguntaMultiplaEscolhaSchema = new mongoose.Schema(
+const PerguntaSchema = new mongoose.Schema(
   {
     _id: {
       type: mongoose.Schema.Types.ObjectId,
@@ -36,8 +36,8 @@ const PerguntaMultiplaEscolhaSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { collection: "perguntas_multipla_escolha", timestamps: true }
+  { collection: "perguntas", timestamps: true }
 );
 
-export default mongoose.models.PerguntaMultiplaEscolha ||
-  mongoose.model("PerguntaMultiplaEscolha", PerguntaMultiplaEscolhaSchema);
+export default mongoose.models.Pergunta ||
+  mongoose.model("Pergunta", PerguntaSchema);

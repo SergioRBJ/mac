@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={poppins.className}>
+      <body className={poppins.className} suppressHydrationWarning={true}>
         <div className="min-h-screen">
           <Header />
           <Providers>{children}</Providers>

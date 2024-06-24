@@ -11,7 +11,7 @@ const PerguntasSessao = ({ perguntas, hasMultiplaEscolhaErrors }) => {
   return (
     <div className="w-full box-pergunta">
       {perguntas.map((perguntas) => (
-        <>
+        <div key={perguntas._id}>
           <p
             key={perguntas._id}
             className="text-2xl w-[64%] p-2 mt-8 text-primary"
@@ -35,7 +35,7 @@ const PerguntasSessao = ({ perguntas, hasMultiplaEscolhaErrors }) => {
               </div>
             ))}
           </div>
-        </>
+        </div>
       ))}
     </div>
   );

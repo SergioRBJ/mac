@@ -67,6 +67,7 @@ const DadosCadastrais = () => {
           options={estadosCivis}
           onChange={(option) => setValue("estadoCivil", option.value)}
           placeholder="Estado Civil"
+          instanceId={"estadoCivil"}
         />
         {errors.estadoCivil && (
           <span className="text-red-500">{errors.estadoCivil.message}</span>
@@ -105,6 +106,7 @@ const DadosCadastrais = () => {
           options={tiposSanguineos}
           onChange={(option) => setValue("tipoSanguineo", option.value)}
           placeholder="Tipo Sanguíneo"
+          instanceId={"tipoSanguineo"}
         />
         {errors.tipoSanguineo && (
           <span className="text-red-500">{errors.tipoSanguineo.message}</span>

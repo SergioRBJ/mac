@@ -1,5 +1,4 @@
-import PerguntaPolar from "@/app/api/models/PerguntaPolar";
-import PerguntaMultiplaEscolha from "@/app/api/models/PerguntaMultiplaEscolha";
+import Pergunta from "@/app/api/models/Pergunta";
 import connectToDatabase from "@/app/api/lib/mongodb";
 
 export const dynamic = "force-dynamic";
@@ -10,19 +9,14 @@ export async function GET(request) {
 
     await connectToDatabase(dbName);
 
-    const perguntasPolar = await PerguntaPolar.find().lean();
-    const perguntasMultiplaEscolha =
-      await PerguntaMultiplaEscolha.find().lean();
+    const perguntas = await Pergunta.find().lean();
 
-    return new Response(
-      JSON.stringify({ perguntasPolar, perguntasMultiplaEscolha }),
-      {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    return new Response(JSON.stringify({ perguntas }), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   } catch (error) {
     console.error(error);
     return new Response(

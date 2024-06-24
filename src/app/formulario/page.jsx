@@ -7,6 +7,7 @@ import { FormButton } from "@/components/FormButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
 import { useState, useEffect } from "react";
+import { Spinner } from "@nextui-org/react";
 import * as z from "zod";
 
 const formularioSchema = z.object({
@@ -48,15 +49,28 @@ const Formulario = () => {
   const [perguntasMultiplaEscolha, setPerguntasMultiplaEscolha] = useState([]);
   const [hasSimOuNaoErrors, setHasSimOuNaoErrors] = useState("");
   const [hasMultiplaEscolhaErrors, setHasMultiplaEscolhaErrors] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchPerguntas = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch("/api/questions");
       const data = await response.json();
-      setPerguntasPolar(data.perguntasPolar);
-      setPerguntasMultiplaEscolha(data.perguntasMultiplaEscolha);
+
+      const perguntasPolarResultado = data.perguntas.filter(
+        (pergunta) => pergunta.tipo === "POLAR"
+      );
+
+      const perguntasMultiplaEscolhaResultado = data.perguntas.filter(
+        (pergunta) => pergunta.tipo !== "POLAR"
+      );
+
+      setPerguntasPolar(perguntasPolarResultado);
+      setPerguntasMultiplaEscolha(perguntasMultiplaEscolhaResultado);
+      setIsLoading(false);
     } catch (error) {
       console.error("Erro ao carregar perguntas:", error);
+      setIsLoading(false);
     }
   };
 
@@ -109,6 +123,17 @@ const Formulario = () => {
       console.error("Erro ao enviar formulário:", error);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 flex flex-col items-center justify-center h-screen">
+        <Spinner type="points" size="lg" />
+        <p className="mt-4 text-2xl p-2 text-primary">
+          Carregando formulário...
+        </p>
+      </div>
+    );
+  }
 
   return (
     <main className="flex flex-col items-center pt-10">
