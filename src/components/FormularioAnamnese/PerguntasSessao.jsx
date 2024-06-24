@@ -2,7 +2,7 @@ import { Pergunta } from "./Pergunta";
 import { Divider } from "@nextui-org/react";
 import { useFormContext } from "react-hook-form";
 
-const PerguntasSessao = ({ perguntas }) => {
+const PerguntasSessao = ({ perguntas, hasMultiplaEscolhaErrors }) => {
   const {
     register,
     formState: { errors },
@@ -13,14 +13,19 @@ const PerguntasSessao = ({ perguntas }) => {
       {perguntas.map((perguntas) => (
         <>
           <p
-            key={perguntas.id}
+            key={perguntas._id}
             className="text-2xl w-[64%] p-2 mt-8 text-primary"
           >
             {perguntas.texto}
           </p>
+          {hasMultiplaEscolhaErrors && (
+            <p className="text-red-600">
+              Por favor, responda todas as perguntas.
+            </p>
+          )}
           <div className="shadow-xl rounded-lg overflow-hidden">
             {perguntas.perguntas.map((pergunta, index) => (
-              <div key={pergunta.id}>
+              <div key={pergunta._id}>
                 <Pergunta
                   pergunta={pergunta}
                   register={register}

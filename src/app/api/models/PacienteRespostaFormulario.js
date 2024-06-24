@@ -6,7 +6,7 @@ const PacienteRespostaFormularioSchema = new mongoose.Schema(
     respostas: [
       {
         perguntaId: String,
-        resposta: Boolean,
+        resposta: String,
       },
     ],
   },

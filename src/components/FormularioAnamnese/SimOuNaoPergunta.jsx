@@ -11,7 +11,7 @@ const SimOuNaoPergunta = ({ pergunta }) => {
       </div>
       <div className="bg-slate-400 p-4 flex-grow flex items-center w-[57%]">
         <Controller
-          name={`simOuNao.${pergunta.id}`}
+          name={`simOuNao.${pergunta._id}`}
           control={control}
           defaultValue={"null"}
           render={({ field }) => (

@@ -10,7 +10,7 @@ const SimOuNaoSessao = ({ hasSimOuNaoErrors, perguntas }) => {
       )}
       <div className="shadow-xl rounded-lg overflow-hidden">
         {perguntas.map((pergunta, index) => (
-          <div key={pergunta.id}>
+          <div key={pergunta._id}>
             <SimOuNaoPergunta pergunta={pergunta} />
             {perguntas.length !== index + 1 ? <Divider /> : null}
           </div>

@@ -1,5 +1,6 @@
 import Paciente from "@/app/api/models/Paciente";
 import PacienteRespostaFormulario from "@/app/api/models/PacienteRespostaFormulario";
+import PerguntaMultiplaEscolha from "@/app/api/models/PerguntaMultiplaEscolha";
 import connectToDatabase from "@/app/api/lib/mongodb";
 
 export const dynamic = "force-dynamic";
@@ -25,7 +26,10 @@ export async function POST(request) {
       altura,
       tipoSanguineo,
       simOuNao,
+      multiplaEscolha,
     } = body;
+
+    console.log(body);
 
     const paciente = await Paciente.create({
       nomeCompleto,
@@ -38,10 +42,21 @@ export async function POST(request) {
       tipoSanguineo,
     });
 
-    const respostas = Object.keys(simOuNao).map((perguntaId) => ({
+    const respostasSimOuNao = Object.keys(simOuNao).map((perguntaId) => ({
       perguntaId,
-      resposta: simOuNao[perguntaId] === "true",
+      resposta: simOuNao[perguntaId],
     }));
+
+    console.log([...respostasSimOuNao]);
+
+    const respostasMultiplaEscolha = Object.keys(multiplaEscolha).map(
+      (perguntaId) => ({
+        perguntaId,
+        resposta: multiplaEscolha[perguntaId],
+      })
+    );
+
+    const respostas = [...respostasSimOuNao, ...respostasMultiplaEscolha];
 
     await PacienteRespostaFormulario.create({
       pacienteId: paciente._id,
@@ -58,6 +73,7 @@ export async function POST(request) {
       }
     );
   } catch (error) {
+    console.log(error);
     return new Response(
       JSON.stringify({ success: false, error: error.message }),
       {

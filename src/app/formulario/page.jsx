@@ -32,6 +32,7 @@ const formularioSchema = z.object({
     .positive("Altura deve ser um número positivo."),
   tipoSanguineo: z.string({ required_error: "Tipo Sanguíneo é obrigatório." }),
   simOuNao: z.any(),
+  multiplaEscolha: z.any(),
 });
 
 const Formulario = () => {
@@ -39,12 +40,14 @@ const Formulario = () => {
     resolver: zodResolver(formularioSchema),
     defaultValues: {
       simOuNao: {},
+      multiplaEscolha: {},
     },
   });
 
   const [perguntasPolar, setPerguntasPolar] = useState([]);
   const [perguntasMultiplaEscolha, setPerguntasMultiplaEscolha] = useState([]);
   const [hasSimOuNaoErrors, setHasSimOuNaoErrors] = useState("");
+  const [hasMultiplaEscolhaErrors, setHasMultiplaEscolhaErrors] = useState("");
 
   const fetchPerguntas = async () => {
     try {
@@ -63,17 +66,28 @@ const Formulario = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
-    console.log(methods.errors);
     const simOuNaoValues = data.simOuNao || {};
+    const multiplaEscolhaValues = data.multiplaEscolha || {};
 
-    const unansweredQuestions = Object.values(simOuNaoValues).some(
+    // VALIDAR QUE TODAS AS PERGUNTAS POLARES SEJAM RESPONDIDAS
+    const perguntasPolaresVazias = Object.values(simOuNaoValues).some(
       (value) => value === "null"
     );
 
-    if (unansweredQuestions) {
+    if (perguntasPolaresVazias) {
       setHasSimOuNaoErrors("Por favor, responda todas as perguntas.");
-      return;
     }
+
+    // // VALIDAR DE TODAS AS PERGUNTAS DE MULTIPLA ESCOLHE SEJAM RESPONDIDAS
+    // const perguntasMultiplaEscolhaRespondidas = Object.values(
+    //   multiplaEscolhaValues
+    // ).some((value) => value === "null");
+
+    // if (perguntasMultiplaEscolhaRespondidas) {
+    //   setHasMultiplaEscolhaErrors("Por favor, responda todas as perguntas.");
+    // } else {
+    //   setHasMultiplaEscolhaErrors("");
+    // }
 
     try {
       const response = await fetch("/api/users", {
@@ -108,7 +122,10 @@ const Formulario = () => {
             hasSimOuNaoErrors={hasSimOuNaoErrors}
             perguntas={perguntasPolar}
           />
-          <PerguntasSessao perguntas={perguntasMultiplaEscolha} />
+          <PerguntasSessao
+            perguntas={perguntasMultiplaEscolha}
+            hasMultiplaEscolhaErrors={hasMultiplaEscolhaErrors}
+          />
           <div className="my-8 flex justify-center">
             <FormButton />
           </div>
