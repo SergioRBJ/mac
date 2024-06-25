@@ -50,8 +50,9 @@ const Formulario = () => {
   const [hasSimOuNaoErrors, setHasSimOuNaoErrors] = useState("");
   const [hasMultiplaEscolhaErrors, setHasMultiplaEscolhaErrors] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [formSent, setFormSent] = useState(false);
 
-  const fetchPerguntas = async () => {
+  const fetchData = async () => {
     setIsLoading(true);
     try {
       const response = await fetch("/api/questions");
@@ -75,7 +76,7 @@ const Formulario = () => {
   };
 
   useEffect(() => {
-    fetchPerguntas();
+    fetchData();
   }, []);
 
   const onSubmit = async (data) => {
@@ -104,7 +105,7 @@ const Formulario = () => {
     // }
 
     try {
-      const response = await fetch("/api/users", {
+      const response = await fetch("/api/users/form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -118,8 +119,10 @@ const Formulario = () => {
 
       setHasSimOuNaoErrors("");
       const result = await response.json();
+      setFormSent(true);
       console.log("Dados enviados com sucesso:", result);
     } catch (error) {
+      setFormSent(false);
       console.error("Erro ao enviar formulário:", error);
     }
   };
@@ -135,27 +138,40 @@ const Formulario = () => {
     );
   }
 
+  const formSuccess = (
+    <div className="fixed inset-0 flex flex-col items-center justify-center h-screen">
+      <p className="mt-4 text-2xl p-2 text-primary">
+        Formulário enviado com sucesso!
+      </p>
+    </div>
+  );
+
   return (
     <main className="flex flex-col items-center pt-10">
       <h1 className="text-5xl text-center w-full text-primary">
         FORMULÁRIO DE ANAMNESE
       </h1>
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <DadosCadastrais />
-          <SimOuNaoSessao
-            hasSimOuNaoErrors={hasSimOuNaoErrors}
-            perguntas={perguntasPolar}
-          />
-          <PerguntasSessao
-            perguntas={perguntasMultiplaEscolha}
-            hasMultiplaEscolhaErrors={hasMultiplaEscolhaErrors}
-          />
-          <div className="my-8 flex justify-center">
-            <FormButton />
-          </div>
-        </form>
-      </FormProvider>
+
+      {!formSent ? (
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <DadosCadastrais />
+            <SimOuNaoSessao
+              hasSimOuNaoErrors={hasSimOuNaoErrors}
+              perguntas={perguntasPolar}
+            />
+            <PerguntasSessao
+              perguntas={perguntasMultiplaEscolha}
+              hasMultiplaEscolhaErrors={hasMultiplaEscolhaErrors}
+            />
+            <div className="my-8 flex justify-center">
+              <FormButton />
+            </div>
+          </form>
+        </FormProvider>
+      ) : (
+        formSuccess
+      )}
     </main>
   );
 };

@@ -1,4 +1,5 @@
 import Paciente from "@/app/api/models/Paciente";
+import PacienteMetaDados from "@/app/api/models/PacienteMetaDados";
 import PacienteRespostaFormulario from "@/app/api/models/PacienteRespostaFormulario";
 import connectToDatabase from "@/app/api/lib/mongodb";
 
@@ -30,13 +31,13 @@ export async function POST(request) {
 
     const paciente = await Paciente.create({
       nomeCompleto,
-      idade,
-      dataNascimento,
-      estadoCivil,
-      profissao,
-      peso,
-      altura,
       tipoSanguineo,
+      dataNascimento,
+    });
+
+    await PacienteMetaDados.create({
+      pacienteId: paciente._id,
+      responderFormularioAnamnese: false,
     });
 
     const respostasSimOuNao = Object.keys(simOuNao).map((perguntaId) => ({
@@ -55,6 +56,11 @@ export async function POST(request) {
 
     await PacienteRespostaFormulario.create({
       pacienteId: paciente._id,
+      idade,
+      estadoCivil,
+      profissao,
+      peso,
+      altura,
       respostas,
     });
 
