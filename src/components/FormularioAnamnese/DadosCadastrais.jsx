@@ -43,14 +43,14 @@ const DadosCadastrais = () => {
         )}
       </div>
       <div className="mb-4">
-        <Input
-          fullWidth
-          placeholder="Idade"
-          type="number"
-          {...register("idade", { valueAsNumber: true })}
+        <Select
+          options={tiposSanguineos}
+          onChange={(option) => setValue("tipoSanguineo", option.value)}
+          placeholder="Tipo Sanguíneo"
+          instanceId={"tipoSanguineo"}
         />
-        {errors.idade && (
-          <span className="text-red-500">{errors.idade.message}</span>
+        {errors.tipoSanguineo && (
+          <span className="text-red-500">{errors.tipoSanguineo.message}</span>
         )}
       </div>
       <div className="mb-4">
@@ -60,6 +60,17 @@ const DadosCadastrais = () => {
         />
         {errors.dataNascimento && (
           <span className="text-red-500">{errors.dataNascimento.message}</span>
+        )}
+      </div>
+      <div className="mb-4">
+        <Input
+          fullWidth
+          placeholder="Idade"
+          type="number"
+          {...register("idade", { valueAsNumber: true })}
+        />
+        {errors.idade && (
+          <span className="text-red-500">{errors.idade.message}</span>
         )}
       </div>
       <div className="mb-4">
@@ -82,7 +93,7 @@ const DadosCadastrais = () => {
       <div className="mb-4">
         <Input
           fullWidth
-          placeholder="Peso"
+          placeholder="Peso 00.000"
           type="number"
           {...register("peso", { valueAsNumber: true })}
         />
@@ -93,23 +104,12 @@ const DadosCadastrais = () => {
       <div className="mb-4">
         <Input
           fullWidth
-          placeholder="Altura"
+          placeholder="Altura 0.00"
           type="number"
           {...register("altura", { valueAsNumber: true })}
         />
         {errors.altura && (
           <span className="text-red-500">{errors.altura.message}</span>
-        )}
-      </div>
-      <div className="mb-4">
-        <Select
-          options={tiposSanguineos}
-          onChange={(option) => setValue("tipoSanguineo", option.value)}
-          placeholder="Tipo Sanguíneo"
-          instanceId={"tipoSanguineo"}
-        />
-        {errors.tipoSanguineo && (
-          <span className="text-red-500">{errors.tipoSanguineo.message}</span>
         )}
       </div>
     </>

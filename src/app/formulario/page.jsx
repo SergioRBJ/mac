@@ -6,6 +6,7 @@ import { SimOuNaoSessao } from "@/components/FormularioAnamnese/SimOuNaoSessao";
 import { FormButton } from "@/components/FormButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
+import PlaneIcon from "@/icons/PlaneIcon.svg";
 import { useState, useEffect } from "react";
 import { Spinner } from "@nextui-org/react";
 import * as z from "zod";
@@ -165,7 +166,7 @@ const Formulario = () => {
               hasMultiplaEscolhaErrors={hasMultiplaEscolhaErrors}
             />
             <div className="my-8 flex justify-center">
-              <FormButton />
+              <FormButton label="Enviar Formulário" icon={<PlaneIcon />} />
             </div>
           </form>
         </FormProvider>

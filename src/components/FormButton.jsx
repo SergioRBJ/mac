@@ -1,10 +1,7 @@
-// components/FormButton.jsx
-
 import { useFormContext } from "react-hook-form";
 import { Button } from "@nextui-org/react";
-import PlaneIcon from "@/icons/PlaneIcon.svg";
 
-const FormButton = () => {
+const FormButton = ({ label, icon, props }) => {
   const { handleSubmit } = useFormContext();
 
   return (
@@ -12,11 +9,12 @@ const FormButton = () => {
       className="text-primary border-primary"
       size="lg"
       variant="bordered"
-      startContent={<PlaneIcon />}
+      startContent={icon}
       onClick={handleSubmit}
       type="submit"
+      {...props}
     >
-      Enviar Formulário
+      {label}
     </Button>
   );
 };
