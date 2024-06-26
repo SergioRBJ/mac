@@ -8,6 +8,7 @@ import { useState } from "react";
 import PatientIcon from "@/icons/PatientIcon.svg";
 import { PlusIcon } from "@/icons/PlusIcon.jsx";
 import { Button } from "@nextui-org/react";
+
 import * as z from "zod";
 
 const formularioSchema = z.object({
@@ -54,7 +55,7 @@ const CadastroPaciente = () => {
   };
 
   const formSuccess = (
-    <div className="flex flex-col items-center pt-10">
+    <div className="fixed inset-0 flex flex-col items-center justify-center h-screen">
       <p className="my-4 text-2xl p-2 text-primary">
         Cadastro de paciente realizado com sucesso!
       </p>
