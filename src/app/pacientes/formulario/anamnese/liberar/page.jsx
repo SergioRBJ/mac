@@ -5,7 +5,7 @@ import { FormButton } from "@/components/FormButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
 import { useState } from "react";
-import PatientIcon from "@/icons/PatientIcon.svg";
+import FileIcon from "@/icons/FileIcon.svg";
 import { PlusIcon } from "@/icons/PlusIcon.jsx";
 import { Button } from "@nextui-org/react";
 
@@ -33,13 +33,17 @@ const CadastroPaciente = () => {
     console.log(data);
 
     try {
-      const response = await fetch("/api/patients", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const paciente = await fetch(`/api/patciente/${data.email}`);
+      let response;
+      if (!paciente) {
+        response = await fetch("/api/patients", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+      }
 
       if (!response.ok) {
         throw new Error("Erro ao enviar formulário");
@@ -57,7 +61,7 @@ const CadastroPaciente = () => {
   const formSuccess = (
     <div className="fixed inset-0 flex flex-col items-center justify-center h-screen">
       <p className="my-4 text-2xl p-2 text-primary">
-        Cadastro de paciente realizado com sucesso!
+        Formulário de anamnese liberado para o paciente!
       </p>
       <Button
         className="text-primary border-primary"
@@ -69,7 +73,7 @@ const CadastroPaciente = () => {
           methods.reset();
         }}
       >
-        Cadastrar Novo Paciente
+        Liberar Novo Paciente
       </Button>
     </div>
   );
@@ -77,15 +81,18 @@ const CadastroPaciente = () => {
   return (
     <main className="flex flex-col items-center pt-10">
       <h1 className="text-5xl text-center w-full text-primary">
-        CADASTRO DE PACIENTE
+        FORMULÁRIO ANAMNESE
       </h1>
 
       {!formSent ? (
         <FormProvider {...methods}>
+          <p className="text-2xl w-[48%] p-2 mt-8 text-primary">
+            Dados do Paciente
+          </p>
           <form onSubmit={methods.handleSubmit(onSubmit)} className="w-[50%]">
             <DadosIniciais />
-            <div className="my-8 flex justify-center">
-              <FormButton label="Cadastrar Paciente" icon={<PatientIcon />} />
+            <div className="mt-8 flex justify-center">
+              <FormButton label="Liberar Acesso" icon={<FileIcon />} />
             </div>
           </form>
         </FormProvider>

@@ -29,16 +29,44 @@ export async function POST(request) {
       multiplaEscolha,
     } = body;
 
-    const paciente = await Paciente.create({
-      nomeCompleto,
-      tipoSanguineo,
-      dataNascimento,
-    });
+    const paciente = await Paciente.findOneAndUpdate(
+      { email },
+      { $set: { nomeCompleto, tipoSanguineo, dataNascimento } },
+      { new: true }
+    ).exec();
 
-    await PacienteMetaDados.create({
-      pacienteId: paciente._id,
-      responderFormularioAnamnese: false,
-    });
+    if (!paciente) {
+      return new Response(
+        JSON.stringify({ success: false, error: "Paciente não encontrado" }),
+        {
+          status: 404,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
+
+    const updatedPacienteMetaDados = await PacienteMetaDados.findOneAndUpdate(
+      { pacienteId: paciente._id },
+      { $set: { responderFormularioAnamnese: false } },
+      { new: true, upsert: true }
+    ).exec();
+
+    if (!updatedPacienteMetaDados) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "Meta dados do paciente não encontrado",
+        }),
+        {
+          status: 404,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
 
     const respostasSimOuNao = Object.keys(simOuNao).map((perguntaId) => ({
       perguntaId,

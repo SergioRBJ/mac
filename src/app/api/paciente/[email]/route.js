@@ -18,7 +18,9 @@ export async function GET(request, { params }) {
       pacienteId: paciente._id,
     }).exec();
 
-    return new Response(JSON.stringify({ success: true }), {
+    const data = {};
+
+    return new Response(JSON.stringify({ success: true, data: {} }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",

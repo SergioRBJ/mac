@@ -8,7 +8,7 @@ const DadosIniciais = () => {
   } = useFormContext();
 
   return (
-    <div className="mt-12">
+    <div>
       <div className="mb-4">
         <Input
           fullWidth
