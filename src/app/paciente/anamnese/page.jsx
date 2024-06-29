@@ -3,10 +3,11 @@
 import { Input } from "@nextui-org/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import PatientIcon from "@/icons/PatientIcon.svg";
 import { Button } from "@nextui-org/react";
 import * as z from "zod";
+import { usePacienteContext } from "@/contexts/pacienteContext";
 
 const formularioSchema = z.object({
   email: z
@@ -19,22 +20,19 @@ const formularioSchema = z.object({
 });
 
 const CadastroPaciente = () => {
+  const router = useRouter();
   const {
-    reset,
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({
     resolver: zodResolver(formularioSchema),
   });
+  const { setPaciente } = usePacienteContext();
 
   const onSubmit = async (data) => {
-    console.log(data);
-
     try {
-      const response = await fetch(`/api/patient/${data.email}`);
-
-      console.log(response, "response");
+      const response = await fetch(`/api/paciente/${data.email}`);
 
       if (!response.ok) {
         throw new Error("Erro ao enviar formulário");
@@ -42,6 +40,10 @@ const CadastroPaciente = () => {
 
       const result = await response.json();
       console.log("Dados enviados com sucesso:", result);
+
+      setPaciente(result.data);
+
+      router.push(`/formulario`);
     } catch (error) {
       console.error("Erro ao enviar formulário:", error);
     }

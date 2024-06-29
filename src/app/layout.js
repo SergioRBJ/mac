@@ -5,7 +5,7 @@ import { Header } from "@/components/Header";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "500", display: "swap" });
 
-export const metadata = {
+const metadata = {
   title: "MAC",
   description: "Microscopia a Chinesa",
 };

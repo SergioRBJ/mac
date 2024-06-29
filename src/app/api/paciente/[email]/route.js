@@ -9,18 +9,21 @@ export async function GET(request, { params }) {
     const dbName = process.env.MONGODB_DATABASE;
     await connectToDatabase(dbName);
 
-    console.log(request, "request");
-    console.log(params, "params");
-
     const paciente = await Paciente.findOne({ email: params.email }).exec();
-    console.log(paciente, "paciente");
+
     const pacienteMetaDados = await PacienteMetaDados.findOne({
       pacienteId: paciente._id,
-    }).exec();
+    })
+      .select("-createdAt -updatedAt -pacienteId -_id -__v")
+      .exec();
 
-    const data = {};
+    const data = {
+      nomeCompleto: paciente.nomeCompleto,
+      email: paciente.email,
+      metadados: pacienteMetaDados,
+    };
 
-    return new Response(JSON.stringify({ success: true, data: {} }), {
+    return new Response(JSON.stringify({ success: true, data }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",

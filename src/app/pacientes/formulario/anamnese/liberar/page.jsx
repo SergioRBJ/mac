@@ -8,6 +8,7 @@ import { useState } from "react";
 import FileIcon from "@/icons/FileIcon.svg";
 import { PlusIcon } from "@/icons/PlusIcon.jsx";
 import { Button } from "@nextui-org/react";
+import { Spinner } from "@nextui-org/react";
 
 import * as z from "zod";
 
@@ -28,38 +29,39 @@ const CadastroPaciente = () => {
   });
 
   const [formSent, setFormSent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data) => {
-    console.log(data);
+    setIsLoading(true);
 
     try {
-      const paciente = await fetch(`/api/patciente/${data.email}`);
-      let response;
-      if (!paciente) {
-        response = await fetch("/api/patients", {
+      const response = await fetch(
+        "/api/paciente/formulario/anamnese/liberar",
+        {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
-        });
-      }
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Erro ao enviar formulário");
       }
 
-      const result = await response.json();
       setFormSent(true);
-      console.log("Dados enviados com sucesso:", result);
+      setIsLoading(false);
+      console.log("Dados enviados com sucesso:");
     } catch (error) {
       setFormSent(false);
+      setTimeout(() => setIsLoading(false), 500);
       console.error("Erro ao enviar formulário:", error);
     }
   };
 
   const formSuccess = (
-    <div className="fixed inset-0 flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center pt-10">
       <p className="my-4 text-2xl p-2 text-primary">
         Formulário de anamnese liberado para o paciente!
       </p>
@@ -92,7 +94,10 @@ const CadastroPaciente = () => {
           <form onSubmit={methods.handleSubmit(onSubmit)} className="w-[50%]">
             <DadosIniciais />
             <div className="mt-8 flex justify-center">
-              <FormButton label="Liberar Acesso" icon={<FileIcon />} />
+              <FormButton
+                label="Liberar Acesso"
+                icon={isLoading ? <Spinner /> : <FileIcon />}
+              />
             </div>
           </form>
         </FormProvider>

@@ -9,6 +9,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import PlaneIcon from "@/icons/PlaneIcon.svg";
 import { useState, useEffect } from "react";
 import { Spinner } from "@nextui-org/react";
+import { usePacienteContext } from "@/contexts/pacienteContext";
 import * as z from "zod";
 
 const formularioSchema = z.object({
@@ -45,6 +46,7 @@ const Formulario = () => {
       multiplaEscolha: {},
     },
   });
+  const { paciente: pacienteData, setPaciente } = usePacienteContext();
 
   const [perguntasPolar, setPerguntasPolar] = useState([]);
   const [perguntasMultiplaEscolha, setPerguntasMultiplaEscolha] = useState([]);
@@ -54,6 +56,7 @@ const Formulario = () => {
   const [formSent, setFormSent] = useState(false);
 
   const fetchData = async () => {
+    console.log(pacienteData, "IMPOSSIVEL");
     setIsLoading(true);
     try {
       const response = await fetch("/api/questions");
@@ -81,7 +84,6 @@ const Formulario = () => {
   }, []);
 
   const onSubmit = async (data) => {
-    console.log(data);
     const simOuNaoValues = data.simOuNao || {};
     const multiplaEscolhaValues = data.multiplaEscolha || {};
 
