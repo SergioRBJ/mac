@@ -10,6 +10,8 @@ import PlaneIcon from "@/icons/PlaneIcon.svg";
 import { useState, useEffect } from "react";
 import { Spinner } from "@nextui-org/react";
 import { usePacienteContext } from "@/contexts/pacienteContext";
+import { useRouter } from "next/navigation";
+import { useNavegacaoContext } from "@/contexts/navegacaoContext";
 import * as z from "zod";
 
 const formularioSchema = z.object({
@@ -36,6 +38,7 @@ const formularioSchema = z.object({
 });
 
 const Formulario = () => {
+  const router = useRouter();
   const methods = useForm({
     resolver: zodResolver(formularioSchema),
     defaultValues: {
@@ -44,6 +47,7 @@ const Formulario = () => {
     },
   });
   const { paciente: pacienteData } = usePacienteContext();
+  const { navegacaoValida, setNavegacaoValida } = useNavegacaoContext();
 
   const [perguntasPolar, setPerguntasPolar] = useState([]);
   const [perguntasMultiplaEscolha, setPerguntasMultiplaEscolha] = useState([]);
@@ -76,7 +80,12 @@ const Formulario = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    if (!navegacaoValida) {
+      router.push("/paciente/anamnese/preencher");
+    } else {
+      fetchData();
+      setNavegacaoValida(false);
+    }
   }, []);
 
   const onSubmit = async (data) => {

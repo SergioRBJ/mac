@@ -8,6 +8,7 @@ import PatientIcon from "@/icons/PatientIcon.svg";
 import { Button } from "@nextui-org/react";
 import * as z from "zod";
 import { usePacienteContext } from "@/contexts/pacienteContext";
+import { useNavegacaoContext } from "@/contexts/navegacaoContext";
 import { useState } from "react";
 
 const formularioSchema = z.object({
@@ -30,6 +31,7 @@ const CadastroPaciente = () => {
     resolver: zodResolver(formularioSchema),
   });
   const { setPaciente } = usePacienteContext();
+  const { setNavegacaoValida } = useNavegacaoContext();
   const [errorAPI, setErrorAPI] = useState();
 
   const onSubmit = async (data) => {
@@ -47,6 +49,7 @@ const CadastroPaciente = () => {
       }
 
       setPaciente(result.data);
+      setNavegacaoValida(true);
 
       router.push(`/paciente/anamnese/formulario`);
     } catch (error) {

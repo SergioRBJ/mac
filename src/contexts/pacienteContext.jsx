@@ -4,7 +4,7 @@ import { createContext, useState, useContext } from "react";
 
 const PacienteContext = createContext({});
 
-export const PacienteWrapper = ({ children }) => {
+export const PacienteProvider = ({ children }) => {
   const [paciente, setPaciente] = useState({});
 
   return (

@@ -6,13 +6,14 @@ import { Header } from "@/components/Header";
 const poppins = Poppins({ subsets: ["latin"], weight: "500", display: "swap" });
 
 const metadata = {
-  title: "MAC",
+  title: "MAC 2.0",
   description: "Microscopia a Chinesa",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <title>{metadata.title}</title>
       <body className={poppins.className} suppressHydrationWarning={true}>
         <div className="min-h-screen">
           <Header />
