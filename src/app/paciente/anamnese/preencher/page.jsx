@@ -8,6 +8,7 @@ import PatientIcon from "@/icons/PatientIcon.svg";
 import { Button } from "@nextui-org/react";
 import * as z from "zod";
 import { usePacienteContext } from "@/contexts/pacienteContext";
+import { useState } from "react";
 
 const formularioSchema = z.object({
   email: z
@@ -29,17 +30,21 @@ const CadastroPaciente = () => {
     resolver: zodResolver(formularioSchema),
   });
   const { setPaciente } = usePacienteContext();
+  const [errorAPI, setErrorAPI] = useState();
 
   const onSubmit = async (data) => {
+    setErrorAPI(null);
     try {
       const response = await fetch(`/api/paciente/${data.email}`);
 
-      if (!response.ok) {
-        throw new Error("Erro ao enviar formulário");
-      }
-
       const result = await response.json();
-      console.log("Dados enviados com sucesso:", result);
+      if (!response.ok) {
+        setErrorAPI("Formulário ainda não liberado para este paciente.");
+        return;
+      } else if (!result.data.metadados.responderFormularioAnamnese) {
+        setErrorAPI("Formulário ainda não liberado para este paciente.");
+        return;
+      }
 
       setPaciente(result.data);
 
@@ -70,7 +75,7 @@ const CadastroPaciente = () => {
               <span className="text-red-500">{errors.email.message}</span>
             )}
           </div>
-
+          {errorAPI && <span className="text-red-500 mb-2">{errorAPI}</span>}
           <Button
             className="text-primary border-primary"
             size="lg"

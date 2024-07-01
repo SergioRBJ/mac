@@ -43,7 +43,7 @@ const Formulario = () => {
       multiplaEscolha: {},
     },
   });
-  const { paciente: pacienteData, setPaciente } = usePacienteContext();
+  const { paciente: pacienteData } = usePacienteContext();
 
   const [perguntasPolar, setPerguntasPolar] = useState([]);
   const [perguntasMultiplaEscolha, setPerguntasMultiplaEscolha] = useState([]);
