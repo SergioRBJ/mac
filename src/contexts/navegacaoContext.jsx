@@ -5,7 +5,7 @@ import { createContext, useContext, useState } from "react";
 const NavegacaoContext = createContext();
 
 export const NavegacaoProvider = ({ children }) => {
-  const [navegacaoValida, setNavegacaoValida] = useState(false);
+  const [navegacaoValida, setNavegacaoValida] = useState("");
 
   return (
     <NavegacaoContext.Provider value={{ navegacaoValida, setNavegacaoValida }}>

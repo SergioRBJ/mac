@@ -49,7 +49,7 @@ const CadastroPaciente = () => {
       }
 
       setPaciente(result.data);
-      setNavegacaoValida(true);
+      setNavegacaoValida("/paciente/anamnese/preencher");
 
       router.push(`/paciente/anamnese/formulario`);
     } catch (error) {

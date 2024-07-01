@@ -80,11 +80,12 @@ const Formulario = () => {
   };
 
   useEffect(() => {
-    if (!navegacaoValida) {
-      router.push("/paciente/anamnese/preencher");
+    const rotaValida = "/paciente/anamnese/preencher";
+    if (navegacaoValida !== rotaValida) {
+      router.push(rotaValida);
     } else {
       fetchData();
-      setNavegacaoValida(false);
+      setNavegacaoValida("");
     }
   }, []);
 
