@@ -20,6 +20,13 @@ export async function GET(request, { params }) {
     const data = {
       nomeCompleto: paciente.nomeCompleto,
       email: paciente.email,
+      idade: paciente.idade,
+      dataNascimento: paciente.dataNascimento,
+      estadoCivil: paciente.estadoCivil,
+      profissao: paciente.profissao,
+      peso: paciente.peso,
+      altura: paciente.altura,
+      tipoSanguineo: paciente.tipoSanguineo,
       metadados: pacienteMetaDados,
     };
 

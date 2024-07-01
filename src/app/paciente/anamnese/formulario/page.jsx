@@ -14,9 +14,6 @@ import * as z from "zod";
 
 const formularioSchema = z.object({
   nomeCompleto: z.string().min(1, { message: "Nome Completo é obrigatório." }),
-  idade: z.coerce
-    .number({ message: "Idade é obrigatória." })
-    .min(1, { message: "Idade é obrigatória." }),
   dataNascimento: z.coerce.date({
     errorMap: (issue, { defaultError }) => ({
       message:
@@ -56,7 +53,6 @@ const Formulario = () => {
   const [formSent, setFormSent] = useState(false);
 
   const fetchData = async () => {
-    console.log(pacienteData, "IMPOSSIVEL");
     setIsLoading(true);
     try {
       const response = await fetch("/api/questions");
@@ -115,7 +111,7 @@ const Formulario = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify({ ...data, email: pacienteData.email }),
         }
       );
 

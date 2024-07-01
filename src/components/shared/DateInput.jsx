@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import { Input } from "@nextui-org/react";
-import { format, parse } from "date-fns";
+import { format, parse, isValid } from "date-fns";
 
-const DateInput = ({ value, onChange, onBlur, placeholder }) => {
-  const [formattedDate, setFormattedDate] = useState("");
+const DateInput = ({ value, onChange, onBlur, placeholder, defaultValue }) => {
+  const [formattedDate, setFormattedDate] = useState(defaultValue || "");
 
   useEffect(() => {
-    if (value instanceof Date && !isNaN(value.getTime())) {
+    if (defaultValue) {
+      setFormattedDate(defaultValue);
+    }
+  }, [defaultValue]);
+
+  useEffect(() => {
+    if (value && isValid(value)) {
       setFormattedDate(format(value, "dd/MM/yyyy"));
-    } else {
-      setFormattedDate("");
     }
   }, [value]);
 
@@ -38,7 +42,11 @@ const DateInput = ({ value, onChange, onBlur, placeholder }) => {
         "yyyy-MM-dd",
         new Date()
       );
-      onChange(parsedDate);
+      if (isValid(parsedDate)) {
+        onChange(parsedDate);
+      } else {
+        onChange(null);
+      }
     } else {
       onChange(null);
     }

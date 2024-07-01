@@ -1,6 +1,8 @@
 import { Input } from "@nextui-org/react";
 import { DateInput } from "@/components/shared/DateInput";
 import { useFormContext } from "react-hook-form";
+import { usePacienteContext } from "@/contexts/pacienteContext";
+import { format } from "date-fns";
 import Select from "react-select";
 
 const estadosCivis = [
@@ -27,6 +29,15 @@ const DadosCadastrais = () => {
     setValue,
     formState: { errors },
   } = useFormContext();
+  const { paciente } = usePacienteContext();
+
+  const defaultTipoSanguineo = tiposSanguineos.find(
+    (tipo) => tipo.value === paciente.tipoSanguineo
+  );
+
+  const defaultEstadoCivil = estadosCivis.find(
+    (estado) => estado.value === paciente.estadoCivil
+  );
 
   return (
     <>
@@ -34,6 +45,7 @@ const DadosCadastrais = () => {
 
       <div className="mb-4">
         <Input
+          defaultValue={paciente.nomeCompleto}
           fullWidth
           placeholder="Nome Completo"
           {...register("nomeCompleto")}
@@ -44,6 +56,7 @@ const DadosCadastrais = () => {
       </div>
       <div className="mb-4">
         <Select
+          defaultValue={defaultTipoSanguineo}
           options={tiposSanguineos}
           onChange={(option) => setValue("tipoSanguineo", option.value)}
           placeholder="Tipo Sanguíneo"
@@ -55,6 +68,11 @@ const DadosCadastrais = () => {
       </div>
       <div className="mb-4">
         <DateInput
+          defaultValue={
+            paciente.dataNascimento
+              ? format(new Date(paciente.dataNascimento), "dd/MM/yyyy")
+              : ""
+          }
           placeholder="Data de Nascimento DD/MM/AAAA"
           onChange={(value) => setValue("dataNascimento", value)}
         />
@@ -63,18 +81,8 @@ const DadosCadastrais = () => {
         )}
       </div>
       <div className="mb-4">
-        <Input
-          fullWidth
-          placeholder="Idade"
-          type="number"
-          {...register("idade", { valueAsNumber: true })}
-        />
-        {errors.idade && (
-          <span className="text-red-500">{errors.idade.message}</span>
-        )}
-      </div>
-      <div className="mb-4">
         <Select
+          defaultValue={defaultEstadoCivil}
           options={estadosCivis}
           onChange={(option) => setValue("estadoCivil", option.value)}
           placeholder="Estado Civil"
@@ -85,13 +93,19 @@ const DadosCadastrais = () => {
         )}
       </div>
       <div className="mb-4">
-        <Input fullWidth placeholder="Profissão" {...register("profissao")} />
+        <Input
+          defaultValue={paciente.profissao}
+          fullWidth
+          placeholder="Profissão"
+          {...register("profissao")}
+        />
         {errors.profissao && (
           <span className="text-red-500">{errors.profissao.message}</span>
         )}
       </div>
       <div className="mb-4">
         <Input
+          defaultValue={paciente.peso}
           fullWidth
           placeholder="Peso 00.000"
           type="number"
@@ -103,6 +117,7 @@ const DadosCadastrais = () => {
       </div>
       <div className="mb-4">
         <Input
+          defaultValue={paciente.altura}
           fullWidth
           placeholder="Altura 0.00"
           type="number"

@@ -43,7 +43,7 @@ const CadastroPaciente = () => {
 
       setPaciente(result.data);
 
-      router.push(`/formulario`);
+      router.push(`/paciente/anamnese/formulario`);
     } catch (error) {
       console.error("Erro ao enviar formulário:", error);
     }

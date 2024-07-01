@@ -1,6 +1,7 @@
 import Paciente from "@/app/api/models/Paciente";
 import PacienteMetaDados from "@/app/api/models/PacienteMetaDados";
 import PacienteRespostaFormulario from "@/app/api/models/PacienteRespostaFormulario";
+import { calculateAge } from "@/app/api/utils/calculateAge";
 import connectToDatabase from "@/app/api/lib/mongodb";
 
 export const dynamic = "force-dynamic";
@@ -18,7 +19,6 @@ export async function POST(request) {
 
     const {
       nomeCompleto,
-      idade,
       dataNascimento,
       estadoCivil,
       profissao,
@@ -27,11 +27,21 @@ export async function POST(request) {
       tipoSanguineo,
       simOuNao,
       multiplaEscolha,
+      email,
     } = body;
 
     const paciente = await Paciente.findOneAndUpdate(
       { email },
-      { $set: { nomeCompleto, tipoSanguineo, dataNascimento } },
+      {
+        $set: {
+          dataNascimento,
+          estadoCivil,
+          profissao,
+          peso,
+          altura,
+          tipoSanguineo,
+        },
+      },
       { new: true }
     ).exec();
 
@@ -84,7 +94,7 @@ export async function POST(request) {
 
     await PacienteRespostaFormulario.create({
       pacienteId: paciente._id,
-      idade,
+      idade: calculateAge(dataNascimento),
       estadoCivil,
       profissao,
       peso,

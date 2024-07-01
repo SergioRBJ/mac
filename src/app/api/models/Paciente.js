@@ -15,6 +15,18 @@ const PacienteSchema = new mongoose.Schema(
       type: String,
       enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
     },
+    estadoCivil: {
+      type: String,
+    },
+    profissao: {
+      type: String,
+    },
+    peso: {
+      type: Number,
+    },
+    altura: {
+      type: Number,
+    },
   },
   { collection: "pacientes", timestamps: true }
 );
