@@ -8,29 +8,25 @@ const DadosIniciais = () => {
   } = useFormContext();
 
   return (
-    <div>
-      <div className="mb-4">
-        <Input
-          fullWidth
-          placeholder="Nome Completo"
-          {...register("nomeCompleto")}
-        />
-        {errors.nomeCompleto && (
-          <span className="text-red-500">{errors.nomeCompleto.message}</span>
-        )}
-      </div>
+    <div className="flex flex-col gap-4">
+      <Input
+        fullWidth
+        placeholder="Nome Completo"
+        {...register("nomeCompleto")}
+      />
+      {errors.nomeCompleto && (
+        <span className="text-red-500">{errors.nomeCompleto.message}</span>
+      )}
 
-      <div className="mb-4">
-        <Input
-          fullWidth
-          placeholder="Email"
-          type="email"
-          {...register("email")}
-        />
-        {errors.email && (
-          <span className="text-red-500">{errors.email.message}</span>
-        )}
-      </div>
+      <Input
+        fullWidth
+        placeholder="Email"
+        type="email"
+        {...register("email")}
+      />
+      {errors.email && (
+        <span className="text-red-500">{errors.email.message}</span>
+      )}
     </div>
   );
 };

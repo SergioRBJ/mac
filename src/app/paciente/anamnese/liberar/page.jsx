@@ -88,12 +88,15 @@ const CadastroPaciente = () => {
 
       {!formSent ? (
         <FormProvider {...methods}>
-          <p className="text-2xl w-[48%] p-2 mt-8 text-primary">
+          <p className="text-2xl w-[28%] p-2 mt-8 text-primary">
             Dados do Paciente
           </p>
-          <form onSubmit={methods.handleSubmit(onSubmit)} className="w-[50%]">
+          <form
+            onSubmit={methods.handleSubmit(onSubmit)}
+            className="flex flex-col w-96 gap-4"
+          >
             <DadosIniciais />
-            <div className="mt-8 flex justify-center">
+            <div className="flex justify-center w-full">
               <FormButton
                 label="Liberar Acesso"
                 icon={isLoading ? <Spinner /> : <FileIcon />}

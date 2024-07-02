@@ -6,7 +6,7 @@ const FormButton = ({ label, icon, props }) => {
 
   return (
     <Button
-      className="text-primary border-primary"
+      className="text-primary border-primary w-full"
       size="lg"
       variant="bordered"
       startContent={icon}
