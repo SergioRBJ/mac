@@ -4,6 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { usePacienteContext } from "@/contexts/pacienteContext";
 import { format } from "date-fns";
 import Select from "react-select";
+import { useEffect } from "react";
 
 const estadosCivis = [
   { value: "Solteiro(a)", label: "Solteiro(a)" },
@@ -38,6 +39,18 @@ const DadosCadastrais = () => {
   const defaultEstadoCivil = estadosCivis.find(
     (estado) => estado.value === paciente.estadoCivil
   );
+
+  useEffect(() => {
+    if (defaultTipoSanguineo) {
+      setValue("tipoSanguineo", defaultTipoSanguineo.value);
+    }
+    if (defaultEstadoCivil) {
+      setValue("estadoCivil", defaultEstadoCivil.value);
+    }
+    if (paciente.dataNascimento) {
+      setValue("dataNascimento", paciente.dataNascimento);
+    }
+  }, [defaultTipoSanguineo, defaultEstadoCivil, setValue, paciente]);
 
   return (
     <>
