@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import PatientIcon from "@/icons/PatientIcon.svg";
-import { Button } from "@nextui-org/react";
+import { Button, Spinner } from "@nextui-org/react";
 import * as z from "zod";
 import { usePacienteContext } from "@/contexts/pacienteContext";
 import { useNavegacaoContext } from "@/contexts/navegacaoContext";
@@ -33,8 +33,10 @@ const CadastroPaciente = () => {
   const { setPaciente } = usePacienteContext();
   const { setNavegacaoValida } = useNavegacaoContext();
   const [errorAPI, setErrorAPI] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data) => {
+    setIsLoading(true);
     setErrorAPI(null);
     try {
       const response = await fetch(`/api/paciente/${data.email}`);
@@ -51,9 +53,12 @@ const CadastroPaciente = () => {
       setPaciente(result.data);
       setNavegacaoValida("/paciente/anamnese/preencher");
 
+      setIsLoading(false);
+
       router.push(`/paciente/anamnese/formulario`);
     } catch (error) {
       console.error("Erro ao enviar formulário:", error);
+      setIsLoading(false);
     }
   };
 
@@ -83,7 +88,7 @@ const CadastroPaciente = () => {
             className="text-primary border-primary"
             size="lg"
             variant="bordered"
-            startContent={<PatientIcon />}
+            startContent={isLoading ? <Spinner /> : <PatientIcon />}
             type="submit"
           >
             Preencher Formulário

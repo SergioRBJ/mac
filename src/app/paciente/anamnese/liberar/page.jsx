@@ -1,10 +1,12 @@
 "use client";
 
 import { DadosIniciais } from "@/components/CadastroPacienteAnamnese/DadosIniciais";
+import { useNavegacaoContext } from "@/contexts/navegacaoContext";
 import { FormButton } from "@/components/FormButton";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FileIcon from "@/icons/FileIcon.svg";
 import { PlusIcon } from "@/icons/PlusIcon.jsx";
 import { Button } from "@nextui-org/react";
@@ -24,6 +26,18 @@ const formularioSchema = z.object({
 });
 
 const CadastroPaciente = () => {
+  const router = useRouter();
+  const { navegacaoValida, setNavegacaoValida } = useNavegacaoContext();
+
+  useEffect(() => {
+    const rotaValida = "/paciente/anamnese/liberar";
+    if (navegacaoValida !== rotaValida) {
+      router.push("/profissional/login");
+    } else {
+      setNavegacaoValida("");
+    }
+  }, []);
+
   const methods = useForm({
     resolver: zodResolver(formularioSchema),
   });

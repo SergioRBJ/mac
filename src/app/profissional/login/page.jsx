@@ -32,20 +32,35 @@ const ProfissionalLogin = () => {
     resolver: zodResolver(formularioSchema),
   });
   const { setNavegacaoValida } = useNavegacaoContext();
-  const [errorAPI, setErrorAPI] = useState();
+  const [errorLogin, setErrorLogin] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data) => {
-    try {
-      setIsLoading(true);
-      setNavegacaoValida("/paciente/anamnese/liberar");
+    setErrorLogin(null);
+    setIsLoading(true);
 
+    //DUMMY VALIDATION
+    if (
+      data.email === "sergiobernardi.dev@gmail.com" &&
+      data.password === "123"
+    ) {
+      try {
+        setNavegacaoValida("/paciente/anamnese/liberar");
+
+        setTimeout(() => {
+          setIsLoading(false);
+          router.push(`/paciente/anamnese/liberar`);
+        }, 2000);
+      } catch (error) {
+        console.error("Erro ao tentar realizar o login:", error);
+      }
+    } else {
       setTimeout(() => {
+        setErrorLogin("Email ou senha incorretos.");
         setIsLoading(false);
-        router.push(`/paciente/anamnese/liberar`);
-      }, 800);
-    } catch (error) {
-      console.error("Erro ao tentar realizar o login:", error);
+      }, 2000);
+
+      return;
     }
   };
 
@@ -85,7 +100,7 @@ const ProfissionalLogin = () => {
             </span>
           )}
 
-          {errorAPI && <span className="text-red-500 mb-2">{errorAPI}</span>}
+          {errorLogin && <span className="text-red-500">{errorLogin}</span>}
           <Button
             className="text-primary border-primary w-full"
             size="lg"

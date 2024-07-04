@@ -16,8 +16,10 @@ export default function RootLayout({ children }) {
       <title>{metadata.title}</title>
       <body className={poppins.className} suppressHydrationWarning={true}>
         <div className="min-h-screen">
-          <Header />
-          <Providers>{children}</Providers>
+          <Providers>
+            <Header />
+            {children}
+          </Providers>
         </div>
       </body>
     </html>

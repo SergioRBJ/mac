@@ -19,6 +19,7 @@ module.exports = {
         secondary: "#4654e0",
         terciary: "#e9ecfc",
         question: "#aab3e3",
+        clear: "#8692cf",
       },
       backgroundColor: {
         primary: "#8692cf",
