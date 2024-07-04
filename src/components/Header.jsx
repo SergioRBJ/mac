@@ -93,6 +93,25 @@ const Header = () => {
               >
                 Liberar Formulário
               </DropdownItem>
+              <DropdownItem
+                key="paciente-listar-formularios"
+                description="Listar todos os formulários preenchidos pelos pacientes."
+                startContent={
+                  <Image
+                    alt="formulario"
+                    height={40}
+                    radius="sm"
+                    src="/icons/FilePatientIcon.svg"
+                    width={40}
+                    className="text-primary"
+                  />
+                }
+                onClick={() =>
+                  handleNavigation("/paciente/anamnese/listar-formularios")
+                }
+              >
+                Listar Formulários
+              </DropdownItem>
               {/* <DropdownItem
                 key="usage_metrics"
                 description="Real-time metrics to debug issues. Slow query added? We’ll show you exactly where."

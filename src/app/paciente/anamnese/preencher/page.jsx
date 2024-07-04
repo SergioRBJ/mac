@@ -44,9 +44,11 @@ const CadastroPaciente = () => {
       const result = await response.json();
       if (!response.ok) {
         setErrorAPI("Formulário ainda não liberado para este paciente.");
+        setIsLoading(false);
         return;
       } else if (!result.data.metadados.responderFormularioAnamnese) {
         setErrorAPI("Formulário ainda não liberado para este paciente.");
+        setIsLoading(false);
         return;
       }
 
