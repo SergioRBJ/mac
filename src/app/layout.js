@@ -1,6 +1,7 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import { AuthProvider } from "./clientProviders";
 import { Header } from "@/components/Header";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "500", display: "swap" });
@@ -17,8 +18,10 @@ export default function RootLayout({ children }) {
       <body className={poppins.className} suppressHydrationWarning={true}>
         <div className="min-h-screen">
           <Providers>
-            <Header />
-            {children}
+            <AuthProvider>
+              <Header />
+              {children}
+            </AuthProvider>
           </Providers>
         </div>
       </body>

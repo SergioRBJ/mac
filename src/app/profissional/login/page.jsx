@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import LoginIcon from "@/icons/LoginIcon.svg";
 import { Button } from "@nextui-org/react";
+import { signIn } from "next-auth/react";
 import * as z from "zod";
 import { useNavegacaoContext } from "@/contexts/navegacaoContext";
 import { useState } from "react";
@@ -38,6 +39,14 @@ const ProfissionalLogin = () => {
   const onSubmit = async (data) => {
     setErrorLogin(null);
     setIsLoading(true);
+
+    // NEXTAUTH AUTHENTICATION
+    const resdata = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
+    console.log(resdata, "DADOS");
 
     //DUMMY VALIDATION
     if (

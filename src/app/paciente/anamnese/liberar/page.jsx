@@ -2,6 +2,7 @@
 
 import { DadosIniciais } from "@/components/CadastroPacienteAnamnese/DadosIniciais";
 import { useNavegacaoContext } from "@/contexts/navegacaoContext";
+import { useSessionValidation } from "@/hooks/useSessionValidation";
 import { FormButton } from "@/components/FormButton";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,17 +27,18 @@ const formularioSchema = z.object({
 });
 
 const CadastroPaciente = () => {
-  const router = useRouter();
-  const { navegacaoValida, setNavegacaoValida } = useNavegacaoContext();
+  // useSessionValidation();
+  // const router = useRouter();
+  // const { navegacaoValida, setNavegacaoValida } = useNavegacaoContext();
 
-  useEffect(() => {
-    const rotaValida = "/paciente/anamnese/liberar";
-    if (navegacaoValida !== rotaValida) {
-      router.push("/profissional/login");
-    } else {
-      setNavegacaoValida("");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const rotaValida = "/paciente/anamnese/liberar";
+  //   if (navegacaoValida !== rotaValida) {
+  //     router.push("/profissional/login");
+  //   } else {
+  //     setNavegacaoValida("");
+  //   }
+  // }, []);
 
   const methods = useForm({
     resolver: zodResolver(formularioSchema),
@@ -49,16 +51,13 @@ const CadastroPaciente = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(
-        "/api/paciente/formulario/anamnese/liberar",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch("/api/paciente/anamnese/liberar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
       if (!response.ok) {
         throw new Error("Erro ao enviar formulário");

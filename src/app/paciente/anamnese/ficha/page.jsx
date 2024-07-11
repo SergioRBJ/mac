@@ -114,16 +114,13 @@ const Formulario = () => {
     // }
 
     try {
-      const response = await fetch(
-        "/api/paciente/formulario/anamnese/preencher",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ ...data, email: pacienteData.email }),
-        }
-      );
+      const response = await fetch("/api/paciente/anamnese/preencher", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...data, email: pacienteData.email }),
+      });
 
       if (!response.ok) {
         throw new Error("Erro ao enviar formulário");

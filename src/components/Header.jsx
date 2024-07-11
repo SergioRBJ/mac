@@ -22,7 +22,7 @@ const Header = () => {
   const hiddenRoutes = [
     "/profissional/login",
     "/paciente/anamnese/preencher",
-    "/paciente/anamnese/formulario",
+    "/paciente/anamnese/ficha",
   ];
   const { setNavegacaoValida } = useNavegacaoContext();
 
@@ -78,10 +78,10 @@ const Header = () => {
             >
               <DropdownItem
                 key="paciente-liberar"
-                description="Liberar acesso do paciente ao preenchimento do formulário de anamnese."
+                description="Liberar acesso do paciente ao preenchimento da ficha de anamnese."
                 startContent={
                   <Image
-                    alt="formulario"
+                    alt="ficha"
                     height={40}
                     radius="sm"
                     src="/icons/FileIcon.svg"
@@ -91,14 +91,14 @@ const Header = () => {
                 }
                 onClick={() => handleNavigation("/paciente/anamnese/liberar")}
               >
-                Liberar Formulário
+                Liberar Ficha
               </DropdownItem>
               <DropdownItem
-                key="paciente-listar-formularios"
-                description="Listar todos os formulários preenchidos pelos pacientes."
+                key="paciente-listar-fichas"
+                description="Listar todas as fichas de anamnese preenchidas pelos pacientes."
                 startContent={
                   <Image
-                    alt="formulario"
+                    alt="fichas"
                     height={40}
                     radius="sm"
                     src="/icons/FilePatientIcon.svg"
@@ -107,10 +107,10 @@ const Header = () => {
                   />
                 }
                 onClick={() =>
-                  handleNavigation("/paciente/anamnese/listar-formularios")
+                  handleNavigation("/paciente/anamnese/listar-fichas")
                 }
               >
-                Listar Formulários
+                Listar Fichas
               </DropdownItem>
               {/* <DropdownItem
                 key="usage_metrics"

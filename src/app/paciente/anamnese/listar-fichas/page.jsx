@@ -9,53 +9,48 @@ import {
   TableCell,
   Input,
   Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
   Chip,
-  User,
   Pagination,
   Tooltip,
+  Spinner,
 } from "@nextui-org/react";
-import { PlusIcon } from "@/icons/PlusIcon";
 import { SearchIcon } from "@/icons/SearchIcon";
 import { EyeIcon } from "@/icons/EyeIcon";
-import { ChevronDownIcon } from "@/icons/ChevronDownIcon";
-import { columns, users, statusOptions } from "@/mock/data";
-import { capitalize } from "@/utils/capitalize";
-import { useState, useCallback, useMemo } from "react";
+import { columns } from "./options";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { UserDetails } from "@/components/UserDetails/UserDetails";
 import { format } from "date-fns";
-
-const statusColorMap = {
-  active: "success",
-  paused: "danger",
-  vacation: "warning",
-};
+import { useNavegacaoContext } from "@/contexts/navegacaoContext";
+import { useRouter } from "next/navigation";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "nomeCompleto",
+  "idade",
   "profissao",
   "dataResposta",
   "acoes",
 ];
 
-const ListaFormularioPacientes = () => {
+const ListarFichaPacientes = () => {
+  const router = useRouter();
   const [filterValue, setFilterValue] = useState("");
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = useState(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
   const [statusFilter, setStatusFilter] = useState("all");
+  const [isLoading, setIsLoading] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(6);
   const [sortDescriptor, setSortDescriptor] = useState({
     column: "age",
     direction: "ascending",
   });
   const [page, setPage] = useState(1);
+  const [rowData, setRowData] = useState([]);
 
   const hasSearchFilter = Boolean(filterValue);
+
+  const { navegacaoValida, setNavegacaoValida } = useNavegacaoContext();
 
   const headerColumns = useMemo(() => {
     if (visibleColumns === "all") return columns;
@@ -65,25 +60,40 @@ const ListaFormularioPacientes = () => {
     );
   }, [visibleColumns]);
 
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch("/api/paciente/anamnese/listar");
+      const data = await response.json();
+      setRowData(data.data);
+
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Erro ao carregar as fichas dos pacientes.", error);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const rotaValida = "/paciente/anamnese/listar-fichas";
+    if (navegacaoValida !== rotaValida) {
+      router.push("/profissional/login");
+    } else {
+      fetchData();
+    }
+  }, []);
+
   const filteredItems = useMemo(() => {
-    let filteredUsers = [...users];
+    let filteredUsers = [...rowData];
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
         user.nomeCompleto.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
-    if (
-      statusFilter !== "all" &&
-      Array.from(statusFilter).length !== statusOptions.length
-    ) {
-      filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status)
-      );
-    }
 
     return filteredUsers;
-  }, [users, filterValue, statusFilter]);
+  }, [rowData, filterValue]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -110,6 +120,12 @@ const ListaFormularioPacientes = () => {
     switch (columnKey) {
       case "nomeCompleto":
         return <UserDetails name={user.nomeCompleto} email={user.email} />;
+      case "idade":
+        return (
+          <div className="flex flex-col">
+            <p className="text-bold text-small">{cellValue}</p>
+          </div>
+        );
       case "profissao":
         return (
           <div className="flex flex-col">
@@ -197,73 +213,7 @@ const ListaFormularioPacientes = () => {
             onClear={() => onClear()}
             onValueChange={onSearchChange}
           />
-          <div className="flex gap-3">
-            {/* <Dropdown>
-              <DropdownTrigger className="hidden sm:flex">
-                <Button
-                  endContent={<ChevronDownIcon className="text-small" />}
-                  variant="flat"
-                >
-                  Status
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                aria-label="Table Columns"
-                closeOnSelect={false}
-                selectedKeys={statusFilter}
-                selectionMode="multiple"
-                onSelectionChange={setStatusFilter}
-              >
-                {statusOptions.map((status) => (
-                  <DropdownItem key={status.uid} className="capitalize">
-                    {capitalize(status.name)}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </Dropdown>
-            <Dropdown>
-              <DropdownTrigger className="hidden sm:flex">
-                <Button
-                  endContent={<ChevronDownIcon className="text-small" />}
-                  variant="flat"
-                >
-                  Columns
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                aria-label="Table Columns"
-                closeOnSelect={false}
-                selectedKeys={visibleColumns}
-                selectionMode="multiple"
-                onSelectionChange={setVisibleColumns}
-              >
-                {columns.map((column) => (
-                  <DropdownItem key={column.uid} className="capitalize">
-                    {capitalize(column.name)}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </Dropdown> */}
-          </div>
         </div>
-        {/* <div className="flex justify-between items-center">
-          <span className="text-small">
-            Total de {users.length} formulários
-          </span>
-          <label className="flex items-center text-black text-small">
-            Linhas por página:
-            <select
-              className="bg-transparent outline-none text-small"
-              onChange={onRowsPerPageChange}
-            >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-            </select>
-          </label>
-        </div> */}
       </div>
     );
   }, [
@@ -271,7 +221,7 @@ const ListaFormularioPacientes = () => {
     statusFilter,
     visibleColumns,
     onRowsPerPageChange,
-    users.length,
+    rowData,
     onSearchChange,
     hasSearchFilter,
   ]);
@@ -325,11 +275,22 @@ const ListaFormularioPacientes = () => {
     );
   }, [selectedKeys, items.length, page, pages, hasSearchFilter]);
 
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 flex flex-col items-center justify-center h-screen">
+        <Spinner type="points" size="lg" />
+        <p className="mt-4 text-2xl p-2 text-primary">
+          Carregando fichas dos pacientes...
+        </p>
+      </div>
+    );
+  }
+
   return (
     <main className="flex flex-col items-center pt-4 px-5">
       <Table
-        className="w-[70%]"
-        aria-label="lista-formularios"
+        className="w-[80%]"
+        aria-label="lista-fichas"
         isHeaderSticky
         bottomContent={bottomContent}
         bottomContentPlacement="outside"
@@ -349,12 +310,11 @@ const ListaFormularioPacientes = () => {
           )}
         </TableHeader>
         <TableBody
-          emptyContent={"Não há nenhum formulário."}
+          emptyContent={"Não há nenhuma ficha de paciente no momento."}
           items={sortedItems}
-          className="h-[500px]"
         >
           {(item) => (
-            <TableRow key={item.id}>
+            <TableRow key={item.idFormulario}>
               {(columnKey) => (
                 <TableCell>{renderCell(item, columnKey)}</TableCell>
               )}
@@ -366,4 +326,4 @@ const ListaFormularioPacientes = () => {
   );
 };
 
-export default ListaFormularioPacientes;
+export default ListarFichaPacientes;

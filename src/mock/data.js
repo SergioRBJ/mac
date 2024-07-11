@@ -1,11 +1,9 @@
 const columns = [
-  { name: "ID", uid: "id", sortable: true },
+  { name: "ID", uid: "idFormulario", sortable: true },
   { name: "NOME COMPLETO", uid: "nomeCompleto", sortable: true },
-  { name: "AGE", uid: "age", sortable: true },
+  { name: "IDADE", uid: "idade", sortable: true },
   { name: "PROFISSÃO", uid: "profissao", sortable: true },
-  { name: "TEAM", uid: "team" },
   { name: "EMAIL", uid: "email" },
-  { name: "STATUS", uid: "status", sortable: true },
   { name: "DATA RESPOSTA", uid: "dataResposta" },
   { name: "AÇÕES", uid: "acoes" },
 ];
