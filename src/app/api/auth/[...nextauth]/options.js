@@ -27,7 +27,7 @@ export const options = {
           profissional.password
         );
 
-        if (profissional) {
+        if (isPasswordValid) {
           return {
             id: profissional._id,
             name: profissional.nameCompleto,
@@ -41,15 +41,13 @@ export const options = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      // the user present here gets the same data as received
-      // from DB call  made above -> fetchUserInfo(credentials.opt)
+      // The user present here gets the same data as received from DB call
       return { ...token, ...user };
     },
     async session({ session, user, token }) {
-      // user param present in the session(function) does not recive
-      //all the data from DB call -> fetchUserInfo(credentials.opt)
+      // User param present in the session(function) does not recive all the data from DB call
       return token;
     },
   },
-  secret: process.env.JWT_SECRET,
+  secret: process.env.NEXTAUTH_JWT_SECRET,
 };

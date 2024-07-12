@@ -14,7 +14,6 @@ import {
 } from "@nextui-org/react";
 import { usePathname, useRouter } from "next/navigation";
 import { ChevronDownIcon } from "@/icons/ChevronDownIcon";
-import { useNavegacaoContext } from "@/contexts/navegacaoContext";
 
 const Header = () => {
   const pathname = usePathname();
@@ -24,12 +23,10 @@ const Header = () => {
     "/paciente/anamnese/preencher",
     "/paciente/anamnese/ficha",
   ];
-  const { setNavegacaoValida } = useNavegacaoContext();
 
   const shouldHideNavbarContent = hiddenRoutes.includes(pathname);
 
   const handleNavigation = (path) => {
-    setNavegacaoValida(path);
     router.push(path);
   };
   return (
@@ -112,13 +109,6 @@ const Header = () => {
               >
                 Listar Fichas
               </DropdownItem>
-              {/* <DropdownItem
-                key="usage_metrics"
-                description="Real-time metrics to debug issues. Slow query added? We’ll show you exactly where."
-                startContent={icons.activity}
-              >
-                Usage Metrics
-              </DropdownItem> */}
             </DropdownMenu>
           </Dropdown>
         </NavbarContent>

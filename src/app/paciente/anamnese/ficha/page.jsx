@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import { useNavegacaoContext } from "@/contexts/navegacaoContext";
 import * as z from "zod";
 
-const formularioSchema = z.object({
+const fichaSchema = z.object({
   nomeCompleto: z.string().min(1, { message: "Nome Completo é obrigatório." }),
   dataNascimento: z.coerce.date({
     errorMap: (issue, { defaultError }) => ({
@@ -37,10 +37,10 @@ const formularioSchema = z.object({
   multiplaEscolha: z.any(),
 });
 
-const Formulario = () => {
+const Ficha = () => {
   const router = useRouter();
   const methods = useForm({
-    resolver: zodResolver(formularioSchema),
+    resolver: zodResolver(fichaSchema),
     defaultValues: {
       simOuNao: {},
       multiplaEscolha: {},
@@ -158,7 +158,7 @@ const Formulario = () => {
   return (
     <main className="flex flex-col items-center pt-10">
       <h1 className="text-5xl text-center w-full text-primary">
-        FORMULÁRIO DE ANAMNESE
+        Ficha de Aanamnese
       </h1>
 
       {!formSent ? (
@@ -174,7 +174,7 @@ const Formulario = () => {
               hasMultiplaEscolhaErrors={hasMultiplaEscolhaErrors}
             />
             <div className="my-8 flex justify-center">
-              <FormButton label="Enviar Formulário" icon={<PlaneIcon />} />
+              <FormButton label="Enviar Ficha" icon={<PlaneIcon />} />
             </div>
           </form>
         </FormProvider>
@@ -185,4 +185,4 @@ const Formulario = () => {
   );
 };
 
-export default Formulario;
+export default Ficha;

@@ -8,11 +8,10 @@ import LoginIcon from "@/icons/LoginIcon.svg";
 import { Button } from "@nextui-org/react";
 import { signIn } from "next-auth/react";
 import * as z from "zod";
-import { useNavegacaoContext } from "@/contexts/navegacaoContext";
 import { useState } from "react";
 import { Spinner } from "@nextui-org/react";
 
-const formularioSchema = z.object({
+const loginSchema = z.object({
   email: z
     .string()
     .email({ message: "Por favor, insira um endereço de email válido." })
@@ -30,9 +29,8 @@ const ProfissionalLogin = () => {
     formState: { errors },
     handleSubmit,
   } = useForm({
-    resolver: zodResolver(formularioSchema),
+    resolver: zodResolver(loginSchema),
   });
-  const { setNavegacaoValida } = useNavegacaoContext();
   const [errorLogin, setErrorLogin] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -41,31 +39,29 @@ const ProfissionalLogin = () => {
     setIsLoading(true);
 
     // NEXTAUTH AUTHENTICATION
-    const resdata = await signIn("credentials", {
+    const response = await signIn("credentials", {
       email: data.email,
       password: data.password,
       redirect: false,
     });
-    console.log(resdata, "DADOS");
+    console.log(response, "DADOS");
 
-    //DUMMY VALIDATION
-    if (
-      data.email === "sergiobernardi.dev@gmail.com" &&
-      data.password === "123"
-    ) {
+    if (response.ok) {
       try {
-        setNavegacaoValida("/paciente/anamnese/liberar");
-
         setTimeout(() => {
           setIsLoading(false);
-          router.push(`/paciente/anamnese/liberar`);
+          router.push("/paciente/anamnese/liberar");
         }, 2000);
       } catch (error) {
         console.error("Erro ao tentar realizar o login:", error);
       }
     } else {
+      const errorMessage =
+        response.error === "CredentialsSignin"
+          ? "Email ou senha incorretos."
+          : "Erro ao tentar realizar o login.";
       setTimeout(() => {
-        setErrorLogin("Email ou senha incorretos.");
+        setErrorLogin(errorMessage);
         setIsLoading(false);
       }, 2000);
 

@@ -20,7 +20,6 @@ import { columns } from "./options";
 import { useState, useCallback, useMemo, useEffect } from "react";
 import { UserDetails } from "@/components/UserDetails/UserDetails";
 import { format } from "date-fns";
-import { useNavegacaoContext } from "@/contexts/navegacaoContext";
 import { useRouter } from "next/navigation";
 
 const INITIAL_VISIBLE_COLUMNS = [
@@ -50,8 +49,6 @@ const ListarFichaPacientes = () => {
 
   const hasSearchFilter = Boolean(filterValue);
 
-  const { navegacaoValida, setNavegacaoValida } = useNavegacaoContext();
-
   const headerColumns = useMemo(() => {
     if (visibleColumns === "all") return columns;
 
@@ -75,12 +72,7 @@ const ListarFichaPacientes = () => {
   };
 
   useEffect(() => {
-    const rotaValida = "/paciente/anamnese/listar-fichas";
-    if (navegacaoValida !== rotaValida) {
-      router.push("/profissional/login");
-    } else {
-      fetchData();
-    }
+    fetchData();
   }, []);
 
   const filteredItems = useMemo(() => {
