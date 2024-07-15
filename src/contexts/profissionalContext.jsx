@@ -2,7 +2,7 @@
 
 import { createContext, useState, useContext } from "react";
 import { getToken } from "next-auth/jwt";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const ProfissionalContext = createContext({});
 
@@ -23,7 +23,12 @@ export const ProfissionalProvider = ({ children }) => {
       router.push("/profissional/login");
     }
 
-    setProfissional(token);
+    const data = {
+      email: token.email,
+    };
+
+    setProfissional(data);
+    return profissional;
   };
 
   return (

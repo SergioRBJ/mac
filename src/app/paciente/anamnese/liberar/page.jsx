@@ -9,7 +9,7 @@ import FileIcon from "@/icons/FileIcon.svg";
 import { PlusIcon } from "@/icons/PlusIcon.jsx";
 import { Button } from "@nextui-org/react";
 import { Spinner } from "@nextui-org/react";
-
+import { useSession } from "next-auth/react";
 import * as z from "zod";
 
 const formularioSchema = z.object({
@@ -27,20 +27,22 @@ const CadastroPaciente = () => {
   const methods = useForm({
     resolver: zodResolver(formularioSchema),
   });
-
+  const { data: profissionalSession } = useSession();
   const [formSent, setFormSent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data) => {
     setIsLoading(true);
-
     try {
       const response = await fetch("/api/paciente/anamnese/liberar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          profissionalId: profissionalSession.id,
+        }),
       });
 
       if (!response.ok) {

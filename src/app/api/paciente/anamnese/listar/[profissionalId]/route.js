@@ -1,14 +1,18 @@
 import PacienteRespostaFormulario from "@/app/api/models/PacienteRespostaFormulario";
+import PacienteMetaDados from "@/app/api/models/PacienteMetaDados";
 import connectToDatabase from "@/app/api/lib/mongodb";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(request) {
+export async function GET(request, { params }) {
   try {
     const dbName = process.env.MONGODB_DATABASE;
     await connectToDatabase(dbName);
+    const { profissionalId } = params;
 
-    const formularios = await PacienteRespostaFormulario.find({})
+    const formularios = await PacienteRespostaFormulario.find({
+      profissionalId,
+    })
       .populate("pacienteId", "nomeCompleto email")
       .exec();
 

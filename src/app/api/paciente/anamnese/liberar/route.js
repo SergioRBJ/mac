@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { nomeCompleto, email } = body;
+    const { nomeCompleto, email, profissionalId } = body;
     const dbName = process.env.MONGODB_DATABASE;
     await connectToDatabase(dbName);
 
@@ -22,6 +22,7 @@ export async function POST(request) {
 
       await PacienteMetaDados.create({
         pacienteId: pacienteCriado._id,
+        profissionalId,
         responderFormularioAnamnese: true,
       });
 
@@ -32,7 +33,7 @@ export async function POST(request) {
       const pacienteMetaDadosAlterado =
         await PacienteMetaDados.findOneAndUpdate(
           { pacienteId: paciente._id },
-          { $set: { responderFormularioAnamnese: true } },
+          { $set: { responderFormularioAnamnese: true, profissionalId } },
           { new: true }
         ).exec();
 

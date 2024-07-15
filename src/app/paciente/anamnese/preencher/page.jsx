@@ -57,9 +57,9 @@ const CadastroPaciente = () => {
 
       setIsLoading(false);
 
-      router.push(`/paciente/anamnese/formulario`);
+      router.push(`/paciente/anamnese/ficha`);
     } catch (error) {
-      console.error("Erro ao enviar formulário:", error);
+      console.error("Erro ao enviar ficha:", error);
       setIsLoading(false);
     }
   };

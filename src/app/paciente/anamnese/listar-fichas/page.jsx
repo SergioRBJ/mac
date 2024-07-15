@@ -21,6 +21,7 @@ import { useState, useCallback, useMemo, useEffect } from "react";
 import { UserDetails } from "@/components/UserDetails/UserDetails";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "nomeCompleto",
@@ -32,13 +33,14 @@ const INITIAL_VISIBLE_COLUMNS = [
 
 const ListarFichaPacientes = () => {
   const router = useRouter();
+  const { data: profissionalSession } = useSession();
   const [filterValue, setFilterValue] = useState("");
   const [selectedKeys, setSelectedKeys] = useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = useState(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
   const [statusFilter, setStatusFilter] = useState("all");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [rowsPerPage, setRowsPerPage] = useState(6);
   const [sortDescriptor, setSortDescriptor] = useState({
     column: "age",
@@ -57,23 +59,26 @@ const ListarFichaPacientes = () => {
     );
   }, [visibleColumns]);
 
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch("/api/paciente/anamnese/listar");
-      const data = await response.json();
-      setRowData(data.data);
-
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Erro ao carregar as fichas dos pacientes.", error);
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchData();
-  }, []);
+    setIsLoading(true);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `/api/paciente/anamnese/listar/${profissionalSession.id}`
+        );
+        const data = await response.json();
+        setRowData(data.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Erro ao carregar as fichas dos pacientes.", error);
+        setIsLoading(false);
+      }
+    };
+
+    if (profissionalSession) {
+      fetchData();
+    }
+  }, [profissionalSession]);
 
   const filteredItems = useMemo(() => {
     let filteredUsers = [...rowData];

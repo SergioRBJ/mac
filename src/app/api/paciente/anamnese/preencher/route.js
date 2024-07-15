@@ -92,8 +92,14 @@ export async function POST(request) {
 
     const respostas = [...respostasSimOuNao, ...respostasMultiplaEscolha];
 
+    console.log(
+      updatedPacienteMetaDados.profissionalId,
+      "updatedPacienteMetaDados.profissionalId"
+    );
+
     await PacienteRespostaFormulario.create({
       pacienteId: paciente._id,
+      profissionalId: updatedPacienteMetaDados.profissionalId,
       idade: calculateAge(dataNascimento),
       estadoCivil,
       profissao,

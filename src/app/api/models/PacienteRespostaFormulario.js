@@ -3,6 +3,10 @@ import mongoose from "mongoose";
 const PacienteRespostaFormularioSchema = new mongoose.Schema(
   {
     pacienteId: { type: mongoose.Schema.Types.ObjectId, ref: "Paciente" },
+    profissionalId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Profissional",
+    },
     idade: {
       type: Number,
       required: [true, "Idade é obrigatória"],
