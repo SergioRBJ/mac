@@ -1,4 +1,5 @@
 import PacienteRespostaFormulario from "@/app/api/models/PacienteRespostaFormulario";
+import Paciente from "@/app/api/models/Paciente";
 import connectToDatabase from "@/app/api/lib/mongodb";
 
 export const dynamic = "force-dynamic";
@@ -13,12 +14,34 @@ export async function GET(request, { params }) {
       _id: idFicha,
     }).exec();
 
-    return new Response(JSON.stringify({ success: true, data: ficha }), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const paciente = await Paciente.findOne({
+      _id: ficha.pacienteId,
+    }).exec();
+
+    const data = {
+      nomeCompleto: paciente.nomeCompleto,
+      email: paciente.email,
+      idade: ficha.idade,
+      peso: ficha.peso,
+      altura: ficha.altura,
+      estadoCivil: ficha.estadoCivil,
+      tipoSanguineo: paciente.tipoSanguineo,
+      profissao: ficha.profissao,
+      respostas: ficha.respostas,
+    };
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        data,
+      }),
+      {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
   } catch (error) {
     console.error(error);
     return new Response(
