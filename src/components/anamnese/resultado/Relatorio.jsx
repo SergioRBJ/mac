@@ -1,3 +1,5 @@
+"use client";
+
 import { PieChart } from "@/components/PieChart";
 import {
   Table,
@@ -40,11 +42,11 @@ const columns = [
 
 const Relatorio = ({ anamnese }) => {
   return (
-    <section>
+    <section className="px-6">
       <p className="text-primary text-lg py-4">Relatório</p>
 
       <div className="flex items-start flex-col sm:flex-row">
-        <div className="w-full sm:max-w-[50%]">
+        <div className="w-full sm:max-w-[50%] pb-4">
           <Table
             aria-label="Rows actions table example with dynamic content"
             selectionMode="none"
@@ -77,7 +79,7 @@ const Relatorio = ({ anamnese }) => {
             </TableBody>
           </Table>
         </div>
-        <div className="h-52 w-full">
+        <div className="h-52 w-full p-0 m-0">
           <PieChart data={rows} />
         </div>
       </div>

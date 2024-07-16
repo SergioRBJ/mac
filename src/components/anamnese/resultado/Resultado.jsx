@@ -5,11 +5,10 @@ import {
   Divider,
   CardBody,
   CardFooter,
-  Button,
-  Link,
 } from "@nextui-org/react";
 import { BackButton } from "@/components/BackButton";
 import { CardDadosPaciente } from "@/components/anamnese/resultado/CardDadosPaciente";
+import { Relatorio } from "./Relatorio";
 
 const getRespostaFicha = async ({ idFicha }) => {
   const response = await fetch(
@@ -68,6 +67,8 @@ const Resultado = async ({ idFicha }) => {
           </div>
         </div>
       </CardBody>
+      <Divider />
+      <Relatorio />
       <CardFooter className="gap-5 p-6">
         <BackButton>Voltar</BackButton>
         {/* <Button className="bg-slate-700" color="primary">
