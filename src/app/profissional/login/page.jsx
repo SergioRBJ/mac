@@ -44,7 +44,6 @@ const ProfissionalLogin = () => {
       password: data.password,
       redirect: false,
     });
-    console.log(response, "DADOS");
 
     if (response.ok) {
       try {

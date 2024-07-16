@@ -7,52 +7,19 @@ import {
   CardFooter,
   Button,
   Link,
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableCell,
-  TableRow,
-  getKeyValue,
-  table,
 } from "@nextui-org/react";
-import { PieChart } from "@/components/PieChart";
 
-const rows = [
-  {
-    key: "2",
-    name: "Nunca",
-    peso: 0,
-  },
-  {
-    key: "3",
-    name: "Raro",
-    peso: 6,
-  },
-  {
-    key: "1",
-    name: "Às vezes",
-    peso: 2,
-  },
-  {
-    key: "4",
-    name: "Frequentemente",
-    peso: 2,
-  },
-];
+const getRespostaFicha = async ({ idFicha }) => {
+  const response = await fetch(
+    `${process.env.BASE_URL_PATH}/api/paciente/anamnese/resposta-ficha/${idFicha}`
+  );
+  const data = await response.json();
+  return data;
+};
 
-const columns = [
-  {
-    key: "name",
-    label: "Secura do Pulmão",
-  },
-  {
-    key: "peso",
-    label: "Respostas",
-  },
-];
-
-const DadosPaciente = ({ nome, email }) => {
+const Resultado = async ({ idFicha }) => {
+  const ficha = await getRespostaFicha({ idFicha });
+  console.log(ficha);
   return (
     <Card className="w-full">
       <CardHeader className="flex gap-3 px-6">
@@ -100,49 +67,7 @@ const DadosPaciente = ({ nome, email }) => {
             </CardBody>
           </Card>
         </div>
-
-        <p className="text-primary text-lg py-4">Relatório</p>
-
-        <div className="flex items-start flex-col sm:flex-row">
-          <div className="w-full sm:max-w-[50%]">
-            <Table
-              aria-label="Rows actions table example with dynamic content"
-              selectionMode="none"
-              removeWrapper
-              className="bg-slate-700 rounded-lg border-collapse"
-            >
-              <TableHeader columns={columns}>
-                {(column) => (
-                  <TableColumn
-                    key={column.key}
-                    className="bg-slate-700 text-md text-question text-center font-normal"
-                  >
-                    {column.label}
-                  </TableColumn>
-                )}
-              </TableHeader>
-              <TableBody items={rows}>
-                {(item) => (
-                  <TableRow
-                    key={item.key}
-                    className="text-center bg-slate-300 rounded-full border-collapse"
-                  >
-                    {(columnKey) => (
-                      <TableCell className="text-center text-slate-800">
-                        {getKeyValue(item, columnKey)}
-                      </TableCell>
-                    )}
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </div>
-          <div className="h-52 w-full">
-            <PieChart data={rows} />
-          </div>
-        </div>
       </CardBody>
-      <Divider />
       <CardFooter className="gap-5 p-6">
         <Link href="/lista-pacientes">
           <Button className="bg-slate-700" color="primary">
@@ -157,4 +82,4 @@ const DadosPaciente = ({ nome, email }) => {
   );
 };
 
-export { DadosPaciente };
+export { Resultado };

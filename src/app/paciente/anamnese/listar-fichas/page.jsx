@@ -152,9 +152,16 @@ const ListarFichaPacientes = () => {
         return (
           <div className="relative flex items-center gap-2">
             <Tooltip content="Ver Resultado">
-              <span className=" text-lg cursor-pointer active:opacity-50">
+              <button
+                className=" text-lg cursor-pointer active:opacity-50"
+                onClick={() =>
+                  router.push(
+                    `/paciente/anamnese/resultado/${user.idFormulario}`
+                  )
+                }
+              >
                 <EyeIcon />
-              </span>
+              </button>
             </Tooltip>
           </div>
         );

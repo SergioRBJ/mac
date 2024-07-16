@@ -7,25 +7,13 @@ export async function GET(request, { params }) {
   try {
     const dbName = process.env.MONGODB_DATABASE;
     await connectToDatabase(dbName);
-    const { profissionalId } = params;
+    const { idFicha } = params;
 
-    const formularios = await PacienteRespostaFormulario.find({
-      profissionalId,
-    })
-      .populate("pacienteId", "nomeCompleto email")
-      .exec();
+    const ficha = await PacienteRespostaFormulario.findOne({
+      _id: idFicha,
+    }).exec();
 
-    const resultado = formularios.map((formulario) => ({
-      idPaciente: formulario.pacienteId._id,
-      idFormulario: formulario._id,
-      nomeCompleto: formulario.pacienteId.nomeCompleto,
-      email: formulario.pacienteId.email,
-      idade: formulario.idade,
-      profissao: formulario.profissao,
-      dataResposta: formulario.createdAt,
-    }));
-
-    return new Response(JSON.stringify({ success: true, data: resultado }), {
+    return new Response(JSON.stringify({ success: true, data: ficha }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
