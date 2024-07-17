@@ -59,15 +59,16 @@ const Ficha = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("/api/questions");
+      const response = await fetch("/api/paciente/anamnese/perguntas");
       const data = await response.json();
+      console.log(data, "DATA");
 
       const perguntasPolarResultado = data.perguntas.filter(
-        (pergunta) => pergunta.tipo === "POLAR"
+        (pergunta) => pergunta.tipo === "SIM_NAO"
       );
 
       const perguntasMultiplaEscolhaResultado = data.perguntas.filter(
-        (pergunta) => pergunta.tipo !== "POLAR"
+        (pergunta) => pergunta.tipo !== "SIM_NAO"
       );
 
       setPerguntasPolar(perguntasPolarResultado);
