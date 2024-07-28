@@ -81,7 +81,7 @@ const ListarFichaPacientes = () => {
   }, [profissionalSession]);
 
   const filteredItems = useMemo(() => {
-    let filteredUsers = [...rowData];
+    let filteredUsers = [...(rowData || [])];
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>

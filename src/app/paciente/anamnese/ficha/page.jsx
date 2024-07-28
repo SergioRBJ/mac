@@ -157,9 +157,9 @@ const Ficha = () => {
   );
 
   return (
-    <main className="flex flex-col items-center pt-10">
+    <main className="flex flex-col items-center pt-10 px-5">
       <h1 className="text-5xl text-center w-full text-primary">
-        Ficha de Aanamnese
+        Ficha de Anamnese
       </h1>
 
       {!formSent ? (

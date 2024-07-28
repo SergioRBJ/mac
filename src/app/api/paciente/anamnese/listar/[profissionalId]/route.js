@@ -1,6 +1,9 @@
 import PacienteRespostaFormulario from "@/app/api/models/PacienteRespostaFormulario";
 import connectToDatabase from "@/app/api/lib/mongodb";
 
+// MODEL IMPORT REQUIRED
+import Paciente from "@/app/api/models/Paciente";
+
 export const dynamic = "force-dynamic";
 
 export async function GET(request, { params }) {
