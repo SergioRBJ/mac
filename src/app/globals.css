@@ -51,3 +51,11 @@ body {
   word-break: break-word;
   white-space: normal;
 }
+
+.sub-container {
+  @apply mx-auto flex size-full flex-col py-10;
+}
+
+.side-img {
+  @apply hidden h-full object-cover md:block;
+}

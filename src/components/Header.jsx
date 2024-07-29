@@ -29,7 +29,7 @@ const Header = () => {
   const handleNavigation = (path) => {
     router.push(path);
   };
-  return (
+  return !shouldHideNavbarContent ? (
     <Navbar
       maxWidth="full"
       className=" bg-secondary text-clear"
@@ -50,69 +50,68 @@ const Header = () => {
         ],
       }}
     >
-      {!shouldHideNavbarContent && (
-        <NavbarContent className="gap-4">
-          <Dropdown>
-            <NavbarItem>
-              <DropdownTrigger>
-                <Button
-                  disableRipple
-                  className="p-0 data-[hover=true]:bg-transparent text-clear text-medium"
-                  endContent={<ChevronDownIcon />}
+      <NavbarContent className="gap-4">
+        <Dropdown>
+          <NavbarItem>
+            <DropdownTrigger>
+              <Button
+                disableRipple
+                className="p-0 data-[hover=true]:bg-transparent text-clear text-medium"
+                endContent={<ChevronDownIcon />}
+                radius="sm"
+                variant="light"
+              >
+                Paciente
+              </Button>
+            </DropdownTrigger>
+          </NavbarItem>
+          <DropdownMenu
+            aria-label="ACME features"
+            className="w-[340px]"
+            itemClasses={{
+              base: "gap-4",
+            }}
+          >
+            <DropdownItem
+              key="paciente-liberar"
+              description="Liberar acesso do paciente ao preenchimento da ficha de anamnese."
+              startContent={
+                <Image
+                  alt="ficha"
+                  height={40}
                   radius="sm"
-                  variant="light"
-                >
-                  Paciente
-                </Button>
-              </DropdownTrigger>
-            </NavbarItem>
-            <DropdownMenu
-              aria-label="ACME features"
-              className="w-[340px]"
-              itemClasses={{
-                base: "gap-4",
-              }}
+                  src="/icons/FileIcon.svg"
+                  width={40}
+                  className="text-primary"
+                />
+              }
+              onClick={() => handleNavigation("/paciente/anamnese/liberar")}
             >
-              <DropdownItem
-                key="paciente-liberar"
-                description="Liberar acesso do paciente ao preenchimento da ficha de anamnese."
-                startContent={
-                  <Image
-                    alt="ficha"
-                    height={40}
-                    radius="sm"
-                    src="/icons/FileIcon.svg"
-                    width={40}
-                    className="text-primary"
-                  />
-                }
-                onClick={() => handleNavigation("/paciente/anamnese/liberar")}
-              >
-                Liberar Ficha
-              </DropdownItem>
-              <DropdownItem
-                key="paciente-listar-fichas"
-                description="Listar todas as fichas de anamnese preenchidas pelos pacientes."
-                startContent={
-                  <Image
-                    alt="fichas"
-                    height={40}
-                    radius="sm"
-                    src="/icons/FilePatientIcon.svg"
-                    width={40}
-                    className="text-primary"
-                  />
-                }
-                onClick={() =>
-                  handleNavigation("/paciente/anamnese/listar-fichas")
-                }
-              >
-                Listar Fichas
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-        </NavbarContent>
-      )}
+              Liberar Ficha
+            </DropdownItem>
+            <DropdownItem
+              key="paciente-listar-fichas"
+              description="Listar todas as fichas de anamnese preenchidas pelos pacientes."
+              startContent={
+                <Image
+                  alt="fichas"
+                  height={40}
+                  radius="sm"
+                  src="/icons/FilePatientIcon.svg"
+                  width={40}
+                  className="text-primary"
+                />
+              }
+              onClick={() =>
+                handleNavigation("/paciente/anamnese/listar-fichas")
+              }
+            >
+              Listar Fichas
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </NavbarContent>
+
       <NavbarBrand
         className={`flex items-center ${
           shouldHideNavbarContent ? "justify-start" : "justify-end"
@@ -127,6 +126,8 @@ const Header = () => {
         />
       </NavbarBrand>
     </Navbar>
+  ) : (
+    <></>
   );
 };
 
