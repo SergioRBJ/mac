@@ -29,6 +29,7 @@ const Resultado = async ({ idFicha }) => {
     estadoCivil,
     tipoSanguineo,
     profissao,
+    resultado,
   } = ficha;
 
   return (
@@ -68,7 +69,12 @@ const Resultado = async ({ idFicha }) => {
         </div>
       </CardBody>
       <Divider />
-      <Relatorio />
+      <p className="text-primary text-lg py-4 pl-6">Relatório</p>
+      {resultado &&
+        resultado.map((relatorio, index) => (
+          <Relatorio key={index} anamnese={relatorio} />
+        ))}
+
       <CardFooter className="gap-5 p-6">
         <BackButton>Voltar</BackButton>
         {/* <Button className="bg-slate-700" color="primary">

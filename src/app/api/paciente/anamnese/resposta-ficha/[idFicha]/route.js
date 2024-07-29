@@ -1,6 +1,8 @@
 import PacienteRespostaFormulario from "@/app/api/models/PacienteRespostaFormulario";
 import Paciente from "@/app/api/models/Paciente";
+import Pergunta from "@/app/api/models/Pergunta";
 import connectToDatabase from "@/app/api/lib/mongodb";
+import { calculateAnamnesis } from "@/app/api/utils/calculateAnamnesis";
 
 export const dynamic = "force-dynamic";
 
@@ -18,6 +20,10 @@ export async function GET(request, { params }) {
       _id: ficha.pacienteId,
     }).exec();
 
+    const perguntas = await Pergunta.find().lean();
+
+    const resultado = calculateAnamnesis(ficha.respostas, perguntas);
+
     const data = {
       nomeCompleto: paciente.nomeCompleto,
       email: paciente.email,
@@ -27,7 +33,7 @@ export async function GET(request, { params }) {
       estadoCivil: ficha.estadoCivil,
       tipoSanguineo: paciente.tipoSanguineo,
       profissao: ficha.profissao,
-      respostas: ficha.respostas,
+      resultado,
     };
 
     return new Response(

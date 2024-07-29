@@ -44,3 +44,10 @@ body {
     padding-right: 0.75rem;
   }
 }
+
+.break-word-column {
+  max-width: 600px;
+  width: 60%;
+  word-break: break-word;
+  white-space: normal;
+}

@@ -20,6 +20,9 @@ const CardDadosPaciente = ({ label, value, variant }) => {
     case "idade":
       value = value + " anos";
       break;
+    case "porcentagem":
+      value = value + " %";
+      break;
     default:
       break;
   }

@@ -1,17 +1,22 @@
 import { ResponsivePie } from "@nivo/pie";
 
 const PieChart = ({ data }) => {
-  const mapDataToChart = (data) =>
-    data.map((row) => ({
-      id: row.name,
-      label: row.name,
-      value: row.peso / 8,
-    }));
+  // tranformar data.quantidade em porcentagem para passar para o grafico
+  const mapDataToChart = (data) => {
+    const total = data[3].quantidade;
+    return data
+      .map((item) => ({
+        id: item.label,
+        label: item.label,
+        value: (item.quantidade / total).toFixed(2),
+      }))
+      .slice(0, 3);
+  };
 
   return (
     <ResponsivePie
       data={mapDataToChart(data)}
-      margin={{ top: 10, right: 50, bottom: 70, left: 50 }}
+      margin={{ top: 40, right: -20, bottom: 58, left: 20 }}
       innerRadius={0.5}
       padAngle={0.7}
       cornerRadius={3}
@@ -44,56 +49,6 @@ const PieChart = ({ data }) => {
           spacing: 10,
         },
       ]}
-      fill={[
-        {
-          match: {
-            id: "ruby",
-          },
-          id: "dots",
-        },
-        {
-          match: {
-            id: "c",
-          },
-          id: "dots",
-        },
-        {
-          match: {
-            id: "go",
-          },
-          id: "dots",
-        },
-        {
-          match: {
-            id: "python",
-          },
-          id: "dots",
-        },
-        {
-          match: {
-            id: "scala",
-          },
-          id: "lines",
-        },
-        {
-          match: {
-            id: "lisp",
-          },
-          id: "lines",
-        },
-        {
-          match: {
-            id: "elixir",
-          },
-          id: "lines",
-        },
-        {
-          match: {
-            id: "javascript",
-          },
-          id: "lines",
-        },
-      ]}
       legends={[
         {
           anchor: "bottom",
@@ -102,7 +57,7 @@ const PieChart = ({ data }) => {
           translateX: 0,
           translateY: 56,
           itemsSpacing: 0,
-          itemWidth: 100,
+          itemWidth: 170,
           itemHeight: 18,
           itemDirection: "left-to-right",
           itemTextColor: "#000",

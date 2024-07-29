@@ -11,62 +11,77 @@ import {
   getKeyValue,
 } from "@nextui-org/react";
 
-const rows = [
-  {
-    key: "3",
-    name: "Raro/Nunca",
-    peso: 6,
-  },
-  {
-    key: "1",
-    name: "Às vezes",
-    peso: 2,
-  },
-  {
-    key: "4",
-    name: "Frequentemente",
-    peso: 2,
-  },
-];
-
-const columns = [
-  {
-    key: "name",
-    label: "Secura do Pulmão",
-  },
-  {
-    key: "peso",
-    label: "Respostas",
-  },
-];
-
-const Relatorio = ({ anamnese }) => {
+const bottomCards = ({ pontuacao, total, porcentagem }) => {
   return (
-    <section className="px-6">
-      <p className="text-primary text-lg py-4">Relatório</p>
+    <div className="flex gap-5 justify-between px-5 pb-4 w-full">
+      <div className="flex flex-col gap-2">
+        <p className="text-question text-md">Pontuação</p>
+        <p className="flex text-lg text-slate-800 bg-slate-300 rounded-lg  justify-center">
+          {pontuacao}
+        </p>
+      </div>
+      <div className="flex flex-col gap-2">
+        <p className="text-question text-md">Pontos Totais</p>
+        <p className="flex text-lg text-slate-800 bg-slate-300 rounded-lg  justify-center">
+          {total}
+        </p>
+      </div>
+      <div className="flex flex-col gap-2">
+        <p className="text-question text-md">Porcentagem</p>
+        <p className="flex text-lg text-slate-800 bg-slate-300 rounded-lg  justify-center">
+          {porcentagem}%
+        </p>
+      </div>
+    </div>
+  );
+};
 
+const Relatorio = ({ key, anamnese }) => {
+  const { label, quantidadeTipoResposta, total, pontuacao, porcentagem } =
+    anamnese;
+
+  const columns = [
+    {
+      key: "label",
+      label,
+    },
+    {
+      key: "quantidade",
+      label: "Respostas",
+    },
+  ];
+
+  const rowsForChart = quantidadeTipoResposta.map((item) => ({
+    label: item.label,
+    quantidade: item.quantidade,
+  }));
+
+  return (
+    <section className="px-6 pb-6">
       <div className="flex items-start flex-col sm:flex-row">
-        <div className="w-full sm:max-w-[50%] pb-4">
+        <div className="w-full sm:max-w-[50%] min-w-[400px]">
           <Table
-            aria-label="Rows actions table example with dynamic content"
+            aria-label="Rows actions table with dynamic content"
             selectionMode="none"
             removeWrapper
+            fullWidth
             className="bg-slate-700 rounded-lg border-collapse"
+            bottomContent={bottomCards({ total, porcentagem, pontuacao })}
           >
             <TableHeader columns={columns}>
               {(column) => (
                 <TableColumn
                   key={column.key}
-                  className="bg-slate-700 text-md text-question text-center font-normal"
+                  className="bg-slate-700 text-md text-question text-center font-normal break-word-column pt-1"
                 >
                   {column.label}
                 </TableColumn>
               )}
             </TableHeader>
-            <TableBody items={rows}>
+            <TableBody items={quantidadeTipoResposta}>
               {(item) => (
                 <TableRow
-                  key={item.key}
+                  key={item.tipo}
                   className="text-center bg-slate-300 rounded-full border-collapse"
                 >
                   {(columnKey) => (
@@ -79,8 +94,8 @@ const Relatorio = ({ anamnese }) => {
             </TableBody>
           </Table>
         </div>
-        <div className="h-52 w-full p-0 m-0">
-          <PieChart data={rows} />
+        <div className="h-[250px] w-full p-0 m-0">
+          <PieChart data={rowsForChart} />
         </div>
       </div>
     </section>
