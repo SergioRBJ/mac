@@ -8,9 +8,6 @@ const nextConfig = {
 
     return config;
   },
-  images: {
-    domains: ["https://mac-wine.vercel.app"],
-  },
 };
 
 export default nextConfig;
