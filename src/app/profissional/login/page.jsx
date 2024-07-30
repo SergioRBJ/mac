@@ -10,7 +10,6 @@ import { signIn } from "next-auth/react";
 import * as z from "zod";
 import { useState } from "react";
 import { Spinner } from "@nextui-org/react";
-import Image from "next/image";
 
 const loginSchema = z.object({
   email: z
@@ -93,7 +92,7 @@ const ProfissionalLogin = () => {
                 placeholder="Email"
                 type="email"
                 {...register("email")}
-                className="w-full"
+                className="w-full border-primary border-2 rounded-xl"
               />
               {errors.email && (
                 <span className="text-red-500 text-left w-full">
@@ -106,7 +105,7 @@ const ProfissionalLogin = () => {
                 placeholder="Senha"
                 type="password"
                 {...register("password")}
-                className="w-full"
+                className="w-full border-primary border-2 rounded-xl"
               />
               {errors.password && (
                 <span className="text-red-500 text-left w-full">
