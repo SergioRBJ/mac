@@ -8,6 +8,13 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    domains: [
+      "mac-wine.vercel.app",
+      "mac-sergiorbjs-projects.vercel.app",
+      "mac-git-main-sergiorbjs-projects.vercel.app",
+    ],
+  },
 };
 
 export default nextConfig;
