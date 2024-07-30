@@ -72,7 +72,7 @@ const ProfissionalLogin = () => {
   return (
     <div className="flex h-screen max-h-screen">
       <Image
-        src={"/assets/login.png"}
+        src={"/static/login.png"}
         alt="Login Image"
         width={"1000"}
         height={"1000"}
