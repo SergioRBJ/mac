@@ -11,6 +11,7 @@ import * as z from "zod";
 import { useState } from "react";
 import { Spinner } from "@nextui-org/react";
 import Image from "next/image";
+import LoginImage from "../../public/static/img/login.png";
 
 const loginSchema = z.object({
   email: z
@@ -72,7 +73,7 @@ const ProfissionalLogin = () => {
   return (
     <div className="flex h-screen max-h-screen">
       <Image
-        src={"/static/img/login.png"}
+        src={LoginImage}
         alt="Login Image"
         width={"1000"}
         height={"1000"}
