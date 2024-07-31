@@ -74,7 +74,7 @@ const CadastroPaciente = () => {
           methods.reset();
         }}
       >
-        Liberar Novo Paciente
+        Liberar Novo Paciente para ficha
       </Button>
     </div>
   );
