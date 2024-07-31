@@ -15,15 +15,15 @@ const bottomCards = ({ pontuacao, total, porcentagem }) => {
   return (
     <div className="flex gap-5 justify-between px-5 pb-4 w-full">
       <div className="flex flex-col gap-2">
-        <p className="text-question text-md">Pontuação</p>
-        <p className="flex text-lg text-slate-800 bg-slate-300 rounded-lg  justify-center">
-          {pontuacao}
-        </p>
-      </div>
-      <div className="flex flex-col gap-2">
         <p className="text-question text-md">Pontos Totais</p>
         <p className="flex text-lg text-slate-800 bg-slate-300 rounded-lg  justify-center">
           {total}
+        </p>
+      </div>
+      <div className="flex flex-col gap-2">
+        <p className="text-question text-md">Pontuação</p>
+        <p className="flex text-lg text-slate-800 bg-slate-300 rounded-lg  justify-center">
+          {pontuacao}
         </p>
       </div>
       <div className="flex flex-col gap-2">
