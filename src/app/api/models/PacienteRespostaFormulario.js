@@ -31,6 +31,12 @@ const PacienteRespostaFormularioSchema = new mongoose.Schema(
       type: String,
       required: [true, "Profissão é obrigatória"],
     },
+    remedios: {
+      type: String,
+    },
+    doencaCronica: {
+      type: String,
+    },
     respostas: [
       {
         perguntaId: String,

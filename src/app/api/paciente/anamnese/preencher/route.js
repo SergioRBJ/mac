@@ -25,6 +25,8 @@ export async function POST(request) {
       peso,
       altura,
       tipoSanguineo,
+      remedios,
+      doencaCronica,
       simOuNao,
       multiplaEscolha,
       email,
@@ -106,6 +108,8 @@ export async function POST(request) {
       peso,
       altura,
       respostas,
+      remedios,
+      doencaCronica,
     });
 
     return new Response(

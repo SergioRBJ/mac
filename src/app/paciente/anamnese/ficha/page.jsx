@@ -13,6 +13,7 @@ import { usePacienteContext } from "@/contexts/pacienteContext";
 import { useRouter } from "next/navigation";
 import { useNavegacaoContext } from "@/contexts/navegacaoContext";
 import * as z from "zod";
+import { PerguntasAdicionais } from "@/components/anamnese/ficha/PerguntasAdicionais";
 
 const fichaSchema = z.object({
   nomeCompleto: z.string().min(1, { message: "Nome Completo é obrigatório." }),
@@ -33,6 +34,8 @@ const fichaSchema = z.object({
     .number({ message: "Altura é obrigatória." })
     .positive("Altura deve ser um número positivo."),
   tipoSanguineo: z.string({ required_error: "Tipo Sanguíneo é obrigatório." }),
+  remedios: z.any(),
+  doencaCronica: z.any(),
   simOuNao: z.any(),
   multiplaEscolha: z.any(),
 });
@@ -166,6 +169,7 @@ const Ficha = () => {
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             <DadosCadastrais />
+            <PerguntasAdicionais />
             <SimOuNaoSessao
               hasSimOuNaoErrors={hasSimOuNaoErrors}
               perguntas={perguntasPolar}
