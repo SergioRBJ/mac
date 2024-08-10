@@ -33,6 +33,8 @@ export async function GET(request, { params }) {
       estadoCivil: ficha.estadoCivil,
       tipoSanguineo: paciente.tipoSanguineo,
       profissao: ficha.profissao,
+      remedios: ficha.remedios,
+      doencaCronica: ficha.doencaCronica,
       resultado,
     };
 

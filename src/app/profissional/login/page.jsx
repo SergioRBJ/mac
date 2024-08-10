@@ -49,7 +49,7 @@ const ProfissionalLogin = () => {
       try {
         setTimeout(() => {
           setIsLoading(false);
-          router.push("/paciente/anamnese/liberar");
+          router.push("/paciente/anamnese/listar-fichas");
         }, 2000);
       } catch (error) {
         console.error("Erro ao tentar realizar o login:", error);

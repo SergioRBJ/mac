@@ -29,6 +29,8 @@ const Resultado = async ({ idFicha }) => {
     estadoCivil,
     tipoSanguineo,
     profissao,
+    remedios,
+    doencaCronica,
     resultado,
   } = ficha;
 
@@ -66,8 +68,23 @@ const Resultado = async ({ idFicha }) => {
             <CardDadosPaciente label="Estado Civil" value={estadoCivil} />
             <CardDadosPaciente label="Profissão" value={profissao} />
           </div>
+          <div className="gap-5">
+            {remedios && (
+              <CardDadosPaciente label="Remédios" value={remedios} />
+            )}
+            <div className="pt-5">
+              {doencaCronica && (
+                <CardDadosPaciente
+                  label="Doenças Crônicas"
+                  value={doencaCronica}
+                />
+              )}
+            </div>
+          </div>
         </div>
       </CardBody>
+      <Divider />
+
       <Divider />
       <p className="text-primary text-lg py-4 pl-6">Relatório</p>
       {resultado &&
