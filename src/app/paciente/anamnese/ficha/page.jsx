@@ -26,6 +26,7 @@ const fichaSchema = z.object({
     }),
   }),
   estadoCivil: z.string({ required_error: "Estado Civil é obrigatório." }),
+  sexo: z.string({ required_error: "Sexo é obrigatório." }),
   profissao: z.string().min(1, { message: "Profissão é obrigatória." }),
   peso: z.coerce
     .number({ message: "Peso é obrigatório." })

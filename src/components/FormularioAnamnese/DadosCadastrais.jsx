@@ -13,6 +13,12 @@ const estadosCivis = [
   { value: "Viúvo(a)", label: "Viúvo(a)" },
 ];
 
+const sexos = [
+  { value: "MASCULINO", label: "Masculino" },
+  { value: "FEMININO", label: "Feminino" },
+  { value: "OUTRO", label: "Prefiro não responder" },
+];
+
 const tiposSanguineos = [
   { value: "A+", label: "A+" },
   { value: "A-", label: "A-" },
@@ -40,6 +46,8 @@ const DadosCadastrais = () => {
     (estado) => estado.value === paciente.estadoCivil
   );
 
+  const defaultSexo = sexos.find((sexo) => sexo.value === paciente.sexo);
+
   useEffect(() => {
     if (defaultTipoSanguineo) {
       setValue("tipoSanguineo", defaultTipoSanguineo.value);
@@ -50,7 +58,16 @@ const DadosCadastrais = () => {
     if (paciente.dataNascimento) {
       setValue("dataNascimento", paciente.dataNascimento);
     }
-  }, [defaultTipoSanguineo, defaultEstadoCivil, setValue, paciente]);
+    if (paciente.sexo) {
+      setValue("sexo", defaultSexo.value);
+    }
+  }, [
+    defaultTipoSanguineo,
+    defaultEstadoCivil,
+    defaultSexo,
+    setValue,
+    paciente,
+  ]);
 
   return (
     <>
@@ -77,6 +94,18 @@ const DadosCadastrais = () => {
         />
         {errors.tipoSanguineo && (
           <span className="text-red-500">{errors.tipoSanguineo.message}</span>
+        )}
+      </div>
+      <div className="mb-4">
+        <Select
+          defaultValue={defaultSexo}
+          options={sexos}
+          onChange={(option) => setValue("sexo", option.value)}
+          placeholder="Sexo"
+          instanceId={"sexo"}
+        />
+        {errors.sexo && (
+          <span className="text-red-500">{errors.sexo.message}</span>
         )}
       </div>
       <div className="mb-4">

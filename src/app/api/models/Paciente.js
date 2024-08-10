@@ -11,6 +11,10 @@ const PacienteSchema = new mongoose.Schema(
     dataNascimento: {
       type: Date,
     },
+    sexo: {
+      type: String,
+      enum: ["MASCULINO", "FEMININO", "OUTRO"],
+    },
     tipoSanguineo: {
       type: String,
       enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],

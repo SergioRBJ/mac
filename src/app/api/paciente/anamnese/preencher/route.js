@@ -30,6 +30,7 @@ export async function POST(request) {
       simOuNao,
       multiplaEscolha,
       email,
+      sexo,
     } = body;
 
     const paciente = await Paciente.findOneAndUpdate(
@@ -42,6 +43,7 @@ export async function POST(request) {
           peso,
           altura,
           tipoSanguineo,
+          sexo,
         },
       },
       { new: true }
