@@ -68,19 +68,23 @@ const Resultado = async ({ idFicha }) => {
             <CardDadosPaciente label="Estado Civil" value={estadoCivil} />
             <CardDadosPaciente label="Profissão" value={profissao} />
           </div>
-          <div className="gap-5">
-            {remedios && (
-              <CardDadosPaciente label="Remédios" value={remedios} />
-            )}
-            <div className="pt-5">
-              {doencaCronica && (
-                <CardDadosPaciente
-                  label="Doenças Crônicas"
-                  value={doencaCronica}
-                />
+          {remedios || doencaCronica ? (
+            <div className="gap-5">
+              {remedios && (
+                <CardDadosPaciente label="Remédios" value={remedios} />
               )}
+              <div className="pt-5">
+                {doencaCronica && (
+                  <CardDadosPaciente
+                    label="Doenças Crônicas"
+                    value={doencaCronica}
+                  />
+                )}
+              </div>
             </div>
-          </div>
+          ) : (
+            <></>
+          )}
         </div>
       </CardBody>
       <Divider />
