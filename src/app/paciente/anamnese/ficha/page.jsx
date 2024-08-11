@@ -61,18 +61,28 @@ const Ficha = () => {
   const [formSent, setFormSent] = useState(false);
 
   const fetchData = async () => {
-    setIsLoading(true);
     try {
       const response = await fetch("/api/paciente/anamnese/perguntas");
       const data = await response.json();
-      console.log(data, "DATA");
+
+      console.log(!!pacienteData.sexo, "TESTE");
 
       const perguntasPolarResultado = data.perguntas.filter(
-        (pergunta) => pergunta.tipo === "SIM_NAO"
+        (pergunta) =>
+          pergunta.tipo === "SIM_NAO" &&
+          (pergunta.genero === pacienteData.sexo ||
+            pergunta.genero === "AMBOS" ||
+            pacienteData.sexo === "OUTRO" ||
+            !!pacienteData.sexo === false)
       );
 
       const perguntasMultiplaEscolhaResultado = data.perguntas.filter(
-        (pergunta) => pergunta.tipo !== "SIM_NAO"
+        (pergunta) =>
+          pergunta.tipo !== "SIM_NAO" &&
+          (pergunta.genero === pacienteData.sexo ||
+            pergunta.genero === "AMBOS" ||
+            pacienteData.sexo === "OUTRO" ||
+            !!pacienteData.sexo === false)
       );
 
       setPerguntasPolar(perguntasPolarResultado);
@@ -90,9 +100,8 @@ const Ficha = () => {
       router.push(rotaValida);
     } else {
       fetchData();
-      setNavegacaoValida("");
     }
-  }, []);
+  }, [pacienteData]);
 
   const onSubmit = async (data) => {
     const simOuNaoValues = data.simOuNao || {};
@@ -139,6 +148,8 @@ const Ficha = () => {
       setFormSent(false);
       console.error("Erro ao enviar formulário:", error);
     }
+
+    setNavegacaoValida("");
   };
 
   if (isLoading) {

@@ -36,7 +36,7 @@ const DadosCadastrais = () => {
     setValue,
     formState: { errors },
   } = useFormContext();
-  const { paciente } = usePacienteContext();
+  const { paciente, setPaciente } = usePacienteContext();
 
   const defaultTipoSanguineo = tiposSanguineos.find(
     (tipo) => tipo.value === paciente.tipoSanguineo
@@ -100,7 +100,11 @@ const DadosCadastrais = () => {
         <Select
           defaultValue={defaultSexo}
           options={sexos}
-          onChange={(option) => setValue("sexo", option.value)}
+          onChange={(option) => {
+            setValue("sexo", option.value);
+            setPaciente({ ...paciente, sexo: option.value });
+            console.log(paciente, "BBBBBBB");
+          }}
           placeholder="Sexo"
           instanceId={"sexo"}
         />

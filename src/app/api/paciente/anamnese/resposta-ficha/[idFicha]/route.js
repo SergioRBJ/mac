@@ -31,6 +31,7 @@ export async function GET(request, { params }) {
       peso: ficha.peso,
       altura: ficha.altura,
       estadoCivil: ficha.estadoCivil,
+      sexo: paciente.sexo,
       tipoSanguineo: paciente.tipoSanguineo,
       profissao: ficha.profissao,
       remedios: ficha.remedios,

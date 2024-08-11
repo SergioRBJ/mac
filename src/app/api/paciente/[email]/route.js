@@ -26,6 +26,7 @@ export async function GET(request, { params }) {
       profissao: paciente.profissao,
       peso: paciente.peso,
       altura: paciente.altura,
+      sexo: paciente.sexo,
       tipoSanguineo: paciente.tipoSanguineo,
       metadados: pacienteMetaDados,
     };

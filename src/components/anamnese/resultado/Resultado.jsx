@@ -29,6 +29,7 @@ const Resultado = async ({ idFicha }) => {
     estadoCivil,
     tipoSanguineo,
     profissao,
+    sexo,
     remedios,
     doencaCronica,
     resultado,
@@ -65,6 +66,14 @@ const Resultado = async ({ idFicha }) => {
             <CardDadosPaciente label="Tipo Sanguíneo" value={tipoSanguineo} />
           </div>
           <div className="flex gap-5 justify-between items-start">
+            <CardDadosPaciente
+              label="Sexo"
+              value={
+                sexo
+                  ? sexo.charAt(0).toUpperCase() + sexo.slice(1).toLowerCase()
+                  : " - "
+              }
+            />
             <CardDadosPaciente label="Estado Civil" value={estadoCivil} />
             <CardDadosPaciente label="Profissão" value={profissao} />
           </div>

@@ -8,7 +8,7 @@ const PieChart = ({ data }) => {
       .map((item) => ({
         id: item.label,
         label: item.label,
-        value: (item.quantidade / total).toFixed(2),
+        value: (item.quantidade / total).toFixed(4),
       }))
       .slice(0, 3);
   };
