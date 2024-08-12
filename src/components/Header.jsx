@@ -61,7 +61,7 @@ const Header = () => {
                 radius="sm"
                 variant="light"
               >
-                Paciente
+                Anamnese
               </Button>
             </DropdownTrigger>
           </NavbarItem>

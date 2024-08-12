@@ -5,6 +5,7 @@ import { FormButton } from "@/components/FormButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
 import { useState } from "react";
+import Image from "next/image";
 import FileIcon from "@/icons/FileIcon.svg";
 import { PlusIcon } from "@/icons/PlusIcon.jsx";
 import { Button } from "@nextui-org/react";
@@ -60,12 +61,24 @@ const CadastroPaciente = () => {
   };
 
   const formSuccess = (
-    <div className="flex flex-col items-center pt-10">
-      <p className="my-4 text-2xl p-2 text-primary">
+    <div className="flex flex-col items-center pt-10 gap-5">
+      <Image
+        alt="ficha"
+        height={80}
+        radius="sm"
+        src="/icons/CheckedIcon.svg"
+        width={80}
+        className="text-primary"
+        style={{
+          filter:
+            "invert(34%) sepia(91%) saturate(747%) hue-rotate(201deg) brightness(95%) contrast(92%)",
+        }}
+      />
+      <p className="my-4 text-2xl text-primary text-center w-80">
         Formulário de anamnese liberado para o paciente!
       </p>
       <Button
-        className="text-primary border-primary"
+        className="text-primary border-primary w-80"
         size="lg"
         variant="bordered"
         startContent={<PlusIcon />}
@@ -74,39 +87,54 @@ const CadastroPaciente = () => {
           methods.reset();
         }}
       >
-        Liberar Novo Paciente para ficha
+        Liberar Novo Paciente
       </Button>
     </div>
   );
 
   return (
-    <main className="flex flex-col items-center pt-10">
-      <h1 className="text-5xl text-center w-full text-primary">
-        Ficha Anamnese
-      </h1>
+    <div className="flex h-screen max-h-screen">
+      <img
+        src={"/static/img/liberar.png"}
+        alt="Login Image"
+        width={"1000"}
+        height={"1000"}
+        className="side-img max-w-[50%]"
+      />
+      <section className="remove-scrollbar container">
+        <div className="flex sub-container max-w-[540px] justify-center">
+          <h1 className="flex text-4xl w-full text-primary justify-center text-center">
+            Liberar Ficha Anamnese
+          </h1>
 
-      {!formSent ? (
-        <FormProvider {...methods}>
-          <p className="text-2xl w-[28%] p-2 mt-8 text-primary">
-            Dados do Paciente
-          </p>
-          <form
-            onSubmit={methods.handleSubmit(onSubmit)}
-            className="flex flex-col w-96 gap-4"
-          >
-            <DadosIniciais />
-            <div className="flex justify-center w-full">
-              <FormButton
-                label="Liberar Acesso"
-                icon={isLoading ? <Spinner /> : <FileIcon />}
-              />
-            </div>
-          </form>
-        </FormProvider>
-      ) : (
-        formSuccess
-      )}
-    </main>
+          {!formSent ? (
+            <FormProvider {...methods}>
+              <div className="flex mt-12 justify-center">
+                <div className="flex flex-col items-center w-80">
+                  <h1 className="flex text-left text-2xl pb-2 text-primary w-full">
+                    Dados do Paciente
+                  </h1>
+                  <form
+                    onSubmit={methods.handleSubmit(onSubmit)}
+                    className="flex flex-col w-80 gap-4 justify-center items-center"
+                  >
+                    <DadosIniciais />
+                    <div className="flex justify-center w-full">
+                      <FormButton
+                        label="Liberar Acesso"
+                        icon={isLoading ? <Spinner /> : <FileIcon />}
+                      />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </FormProvider>
+          ) : (
+            formSuccess
+          )}
+        </div>
+      </section>
+    </div>
   );
 };
 
