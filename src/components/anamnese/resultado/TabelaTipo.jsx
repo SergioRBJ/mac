@@ -30,7 +30,6 @@ const TabelaTipo = ({ tipo, respostas }) => {
           const respostaValor = periodicidade.find(
             (obj) => item.resposta in obj
           );
-
           return {
             pergunta: item.pergunta,
             resposta: respostaValor[item.resposta],
@@ -41,7 +40,7 @@ const TabelaTipo = ({ tipo, respostas }) => {
   return (
     <section className="px-6 pb-3">
       <div className="flex items-start flex-col sm:flex-row">
-        <div className="w-full sm:max-w-[50%] min-w-[400px]">
+        <div className="w-full min-w-[400px]">
           <Table
             aria-label={`Tabela que exibe resultados das perguntas de ${periodicidade[tipo]}`}
             selectionMode="none"

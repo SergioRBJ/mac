@@ -86,9 +86,9 @@ const Resultado = async ({ idFicha }) => {
       <Divider />
 
       <div className="flex flex-col py-4">
-        <div className="flex flex-col md:flex-row justify-between items-start pb-1">
+        <div className="flex flex-col md:flex-row items-start pb-1">
           {emocoesSentimentos && emocoesSentimentos.length > 0 && (
-            <div>
+            <div className="w-full max-w-[50%]">
               <p className="text-primary text-lg pl-6 pb-4">
                 Emoções e Sentimentos
               </p>
@@ -99,22 +99,24 @@ const Resultado = async ({ idFicha }) => {
               />
             </div>
           )}
-          <div className="px-6">
-            <p className="text-primary text-lg pb-4">Histórico de Saúde</p>
+          <div className="px-6 w-full max-w-[50%]">
             {remedios || doencaCronica ? (
-              <div className="gap-5">
-                {remedios && (
-                  <CardDadosPaciente label="Remédios" value={remedios} />
-                )}
-                <div className="pt-5">
-                  {doencaCronica && (
-                    <CardDadosPaciente
-                      label="Doenças Crônicas"
-                      value={doencaCronica}
-                    />
+              <>
+                <p className="text-primary text-lg pb-4">Histórico de Saúde</p>
+                <div className="gap-5">
+                  {remedios && (
+                    <CardDadosPaciente label="Remédios" value={remedios} />
                   )}
+                  <div className="pt-5">
+                    {doencaCronica && (
+                      <CardDadosPaciente
+                        label="Doenças Crônicas"
+                        value={doencaCronica}
+                      />
+                    )}
+                  </div>
                 </div>
-              </div>
+              </>
             ) : (
               <></>
             )}
