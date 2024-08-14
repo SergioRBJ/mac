@@ -24,14 +24,19 @@ const TabelaTipo = ({ tipo, respostas }) => {
     },
   ];
 
-  const rowsForTable = respostas.map((item) => {
-    const respostaValor = periodicidade.find((obj) => item.resposta in obj);
+  const rowsForTable =
+    respostas.length > 0
+      ? respostas.map((item) => {
+          const respostaValor = periodicidade.find(
+            (obj) => item.resposta in obj
+          );
 
-    return {
-      pergunta: item.pergunta,
-      resposta: respostaValor[item.resposta],
-    };
-  });
+          return {
+            pergunta: item.pergunta,
+            resposta: respostaValor[item.resposta],
+          };
+        })
+      : [];
 
   return (
     <section className="px-6 pb-3">

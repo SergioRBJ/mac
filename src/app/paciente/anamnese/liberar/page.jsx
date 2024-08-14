@@ -4,6 +4,7 @@ import { DadosIniciais } from "@/components/CadastroPacienteAnamnese/DadosInicia
 import { FormButton } from "@/components/FormButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
+import { Header } from "@/components/Header";
 import { useState } from "react";
 import Image from "next/image";
 import FileIcon from "@/icons/FileIcon.svg";
@@ -93,14 +94,18 @@ const CadastroPaciente = () => {
   );
 
   return (
-    <div className="flex overflow-hidden h-full max-h-screen">
-      <img
+    <div className="flex overflow-hidden h-fit max-h-screen">
+      <Header />
+      <Image
         src={"/static/img/liberar.png"}
-        alt="Login Image"
+        alt="patient"
+        width={1000}
+        height={1000}
         className="side-img max-w-[50%]"
       />
+
       <section className="remove-scrollbar container">
-        <div className="flex sub-container max-w-[540px] remove-scrollbar">
+        <div className="flex flex-col sub-container max-w-[540px] remove-scrollbar">
           <h1 className="flex text-4xl w-full text-primary justify-center text-center">
             Liberar Ficha Anamnese
           </h1>

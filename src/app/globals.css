@@ -53,9 +53,21 @@ body {
 }
 
 .sub-container {
-  @apply mx-auto flex size-full flex-col py-48;
+  @apply mx-auto flex max-h-screen flex-col py-48;
 }
 
 .side-img {
-  @apply hidden h-full object-cover md:block;
+  @apply hidden object-fill md:block;
+}
+
+.container {
+  @apply flex-grow overflow-auto;
+}
+
+.header-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
 }

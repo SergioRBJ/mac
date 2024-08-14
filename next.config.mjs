@@ -14,7 +14,6 @@ const nextConfig = {
       "mac-sergiorbjs-projects.vercel.app",
       "mac-git-main-sergiorbjs-projects.vercel.app",
     ],
-    unoptimized: true,
   },
 };
 

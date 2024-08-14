@@ -22,6 +22,7 @@ import { UserDetails } from "@/components/UserDetails/UserDetails";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { Header } from "@/components/Header";
 
 const INITIAL_VISIBLE_COLUMNS = [
   "nomeCompleto",
@@ -292,8 +293,9 @@ const ListarFichaPacientes = () => {
 
   return (
     <main className="flex flex-col items-center pt-4 px-5">
+      <Header />
       <Table
-        className="w-[80%]"
+        className="w-[80%] mt-20"
         aria-label="lista-fichas"
         isHeaderSticky
         bottomContent={bottomContent}

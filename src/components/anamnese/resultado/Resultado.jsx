@@ -38,7 +38,7 @@ const Resultado = async ({ idFicha }) => {
   } = ficha;
 
   return (
-    <Card className="w-full">
+    <Card className="w-full mt-16">
       <CardHeader className="flex gap-3 px-6">
         <Image
           alt="Paciente"
@@ -87,15 +87,18 @@ const Resultado = async ({ idFicha }) => {
 
       <div className="flex flex-col py-4">
         <div className="flex flex-col md:flex-row justify-between items-start pb-1">
-          <div>
-            <p className="text-primary text-lg pl-6 pb-4">
-              Emoções e Sentimentos
-            </p>
-            <TabelaTipo
-              tipo={"EMOCOES_SENTIMENTOS"}
-              respostas={emocoesSentimentos}
-            />
-          </div>
+          {emocoesSentimentos && emocoesSentimentos.length > 0 && (
+            <div>
+              <p className="text-primary text-lg pl-6 pb-4">
+                Emoções e Sentimentos
+              </p>
+
+              <TabelaTipo
+                tipo={"EMOCOES_SENTIMENTOS"}
+                respostas={emocoesSentimentos}
+              />
+            </div>
+          )}
           <div className="px-6">
             <p className="text-primary text-lg pb-4">Histórico de Saúde</p>
             {remedios || doencaCronica ? (

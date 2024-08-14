@@ -32,7 +32,7 @@ const Header = () => {
   return !shouldHideNavbarContent ? (
     <Navbar
       maxWidth="full"
-      className=" bg-secondary text-clear"
+      className=" bg-secondary text-clear header-fixed"
       classNames={{
         item: [
           "flex",
