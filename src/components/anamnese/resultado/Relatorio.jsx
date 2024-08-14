@@ -61,7 +61,7 @@ const Relatorio = ({ key, anamnese }) => {
       <div className="flex items-start flex-col sm:flex-row">
         <div className="w-full sm:max-w-[50%] min-w-[400px]">
           <Table
-            aria-label="Rows actions table with dynamic content"
+            aria-label="Tabela que exibe resultados da anamnese"
             selectionMode="none"
             removeWrapper
             fullWidth

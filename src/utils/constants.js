@@ -76,4 +76,10 @@ const tipoPerguntaAnamnese = [
   { AMBIENTE: "Ambiente" },
 ];
 
-export { gruposAnamnese, tipoPerguntaAnamnese };
+const periodicidade = [
+  { FREQUENTEMENTE: "Frequentemente" },
+  { AS_VEZES: "Às vezes" },
+  { RARO_NUNCA: "Raro/Nunca" },
+];
+
+export { gruposAnamnese, tipoPerguntaAnamnese, periodicidade };

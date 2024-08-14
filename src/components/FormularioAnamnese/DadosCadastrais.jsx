@@ -103,7 +103,6 @@ const DadosCadastrais = () => {
           onChange={(option) => {
             setValue("sexo", option.value);
             setPaciente({ ...paciente, sexo: option.value });
-            console.log(paciente, "BBBBBBB");
           }}
           placeholder="Sexo"
           instanceId={"sexo"}

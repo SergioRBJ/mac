@@ -9,6 +9,7 @@ import {
 import { BackButton } from "@/components/BackButton";
 import { CardDadosPaciente } from "@/components/anamnese/resultado/CardDadosPaciente";
 import { Relatorio } from "./Relatorio";
+import { TabelaTipo } from "./TabelaTipo";
 
 const getRespostaFicha = async ({ idFicha }) => {
   const response = await fetch(
@@ -33,6 +34,7 @@ const Resultado = async ({ idFicha }) => {
     remedios,
     doencaCronica,
     resultado,
+    emocoesSentimentos,
   } = ficha;
 
   return (
@@ -79,26 +81,51 @@ const Resultado = async ({ idFicha }) => {
             <CardDadosPaciente label="Estado Civil" value={estadoCivil} />
             <CardDadosPaciente label="Profissão" value={profissao} />
           </div>
-          {remedios || doencaCronica ? (
-            <div className="gap-5">
-              {remedios && (
-                <CardDadosPaciente label="Remédios" value={remedios} />
-              )}
-              <div className="pt-5">
-                {doencaCronica && (
-                  <CardDadosPaciente
-                    label="Doenças Crônicas"
-                    value={doencaCronica}
-                  />
-                )}
-              </div>
-            </div>
-          ) : (
-            <></>
-          )}
         </div>
       </CardBody>
       <Divider />
+
+      <div className="flex flex-col py-4">
+        <div className="flex flex-col md:flex-row justify-between items-start pb-1">
+          <div>
+            <p className="text-primary text-lg pl-6 pb-4">
+              Emoções e Sentimentos
+            </p>
+            <TabelaTipo
+              tipo={"EMOCOES_SENTIMENTOS"}
+              respostas={emocoesSentimentos}
+            />
+          </div>
+          <div className="px-6">
+            <p className="text-primary text-lg pb-4">Histórico de Saúde</p>
+            {remedios || doencaCronica ? (
+              <div className="gap-5">
+                {remedios && (
+                  <CardDadosPaciente label="Remédios" value={remedios} />
+                )}
+                <div className="pt-5">
+                  {doencaCronica && (
+                    <CardDadosPaciente
+                      label="Doenças Crônicas"
+                      value={doencaCronica}
+                    />
+                  )}
+                </div>
+              </div>
+            ) : (
+              <></>
+            )}
+          </div>
+        </div>
+      </div>
+      {/* 
+      <div className="py-4">
+        <p className="text-primary text-lg pb-4 pl-6">Emoções e Sentimentos</p>
+        <TabelaTipo
+          tipo={"EMOCOES_SENTIMENTOS"}
+          respostas={emocoesSentimentos}
+        />
+      </div> */}
 
       <Divider />
       <p className="text-primary text-lg py-4 pl-6">Relatório</p>

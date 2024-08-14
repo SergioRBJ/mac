@@ -71,14 +71,14 @@ const ProfissionalLogin = () => {
   return (
     <div className="flex h-screen max-h-screen">
       <img
-        src={"/static/img/login.png"}
+        src={"/static/img/owner.png"}
         alt="Login Image"
         width={"1000"}
         height={"1000"}
         className="side-img max-w-[50%]"
       />
-      <section className="remove-scrollbar container">
-        <div className="flex sub-container max-w-[540px] justify-center">
+      <section className="container">
+        <div className="flex sub-container max-w-[540px] remove-scrollbar">
           <h1 className="flex text-4xl w-full text-primary justify-center text-center">
             Portal Microscopia À Chinesa
           </h1>

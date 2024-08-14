@@ -93,16 +93,14 @@ const CadastroPaciente = () => {
   );
 
   return (
-    <div className="flex h-screen max-h-screen">
+    <div className="flex overflow-hidden h-full max-h-screen">
       <img
         src={"/static/img/liberar.png"}
         alt="Login Image"
-        width={"1000"}
-        height={"1000"}
         className="side-img max-w-[50%]"
       />
       <section className="remove-scrollbar container">
-        <div className="flex sub-container max-w-[540px] justify-center">
+        <div className="flex sub-container max-w-[540px] remove-scrollbar">
           <h1 className="flex text-4xl w-full text-primary justify-center text-center">
             Liberar Ficha Anamnese
           </h1>

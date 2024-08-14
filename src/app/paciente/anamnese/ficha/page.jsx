@@ -65,8 +65,6 @@ const Ficha = () => {
       const response = await fetch("/api/paciente/anamnese/perguntas");
       const data = await response.json();
 
-      console.log(!!pacienteData.sexo, "TESTE");
-
       const perguntasPolarResultado = data.perguntas.filter(
         (pergunta) =>
           pergunta.tipo === "SIM_NAO" &&
