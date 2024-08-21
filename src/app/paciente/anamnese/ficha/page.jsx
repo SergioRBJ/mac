@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { useNavegacaoContext } from "@/contexts/navegacaoContext";
 import * as z from "zod";
 import { PerguntasAdicionais } from "@/components/anamnese/ficha/PerguntasAdicionais";
+import Image from "next/image";
 
 const fichaSchema = z.object({
   nomeCompleto: z.string().min(1, { message: "Nome Completo é obrigatório." }),
@@ -59,6 +60,7 @@ const Ficha = () => {
   const [hasMultiplaEscolhaErrors, setHasMultiplaEscolhaErrors] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [formSent, setFormSent] = useState(false);
+  const [isFormResponseLoading, setIsFormResponseLoading] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -102,6 +104,7 @@ const Ficha = () => {
   }, [pacienteData]);
 
   const onSubmit = async (data) => {
+    setIsFormResponseLoading(true);
     const simOuNaoValues = data.simOuNao || {};
     const multiplaEscolhaValues = data.multiplaEscolha || {};
 
@@ -141,9 +144,11 @@ const Ficha = () => {
       setHasSimOuNaoErrors("");
       const result = await response.json();
       setFormSent(true);
+      setIsFormResponseLoading(false);
       console.log("Dados enviados com sucesso:", result);
     } catch (error) {
       setFormSent(false);
+      setIsFormResponseLoading(false);
       console.error("Erro ao enviar formulário:", error);
     }
 
@@ -163,6 +168,18 @@ const Ficha = () => {
 
   const formSuccess = (
     <div className="fixed inset-0 flex flex-col items-center justify-center h-screen">
+      <Image
+        alt="ficha"
+        height={80}
+        radius="sm"
+        src="/icons/CheckedIcon.svg"
+        width={80}
+        className="text-primary"
+        style={{
+          filter:
+            "invert(34%) sepia(91%) saturate(747%) hue-rotate(201deg) brightness(95%) contrast(92%)",
+        }}
+      />
       <p className="mt-4 text-2xl p-2 text-primary">
         Formulário enviado com sucesso!
       </p>
@@ -189,7 +206,11 @@ const Ficha = () => {
               hasMultiplaEscolhaErrors={hasMultiplaEscolhaErrors}
             />
             <div className="my-8 flex justify-center">
-              <FormButton label="Enviar Ficha" icon={<PlaneIcon />} />
+              <FormButton
+                label="Enviar Ficha"
+                icon={isFormResponseLoading ? <Spinner /> : <PlaneIcon />}
+                isDisabled={isFormResponseLoading === true ? true : false}
+              />
             </div>
           </form>
         </FormProvider>

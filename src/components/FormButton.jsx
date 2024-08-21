@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import { Button } from "@nextui-org/react";
 
-const FormButton = ({ label, icon, props }) => {
+const FormButton = ({ label, icon, ...props }) => {
   const { handleSubmit } = useFormContext();
 
   return (
