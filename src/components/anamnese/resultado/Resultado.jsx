@@ -85,57 +85,39 @@ const Resultado = async ({ idFicha }) => {
       </CardBody>
       <Divider />
 
-      <div className="flex flex-col py-4">
-        <div className="flex flex-col md:flex-row items-start pb-1">
-          {emocoesSentimentos && emocoesSentimentos.length > 0 && (
-            <div className="w-full max-w-[50%]">
-              <p className="text-primary text-lg pl-6 pb-4">
-                Emoções e Sentimentos
-              </p>
-
-              <TabelaTipo
-                tipo={"EMOCOES_SENTIMENTOS"}
-                respostas={emocoesSentimentos}
-              />
-            </div>
-          )}
-          <div className="px-6 w-full max-w-[50%]">
-            {remedios || doencaCronica ? (
-              <>
-                <p className="text-primary text-lg pb-4">Histórico de Saúde</p>
-                <div className="gap-5">
-                  {remedios && (
+      {remedios || doencaCronica ? (
+        <>
+          <div className="flex flex-col pt-4 pb-6">
+            <div className="px-6 w-full">
+              <p className="text-primary text-lg pb-4">Histórico de Saúde</p>
+              <div className="flex justify-between items-start gap-5 h-full">
+                {remedios && (
+                  <div className="flex-1 ">
                     <CardDadosPaciente label="Remédios" value={remedios} />
-                  )}
-                  <div className="pt-5">
-                    {doencaCronica && (
-                      <CardDadosPaciente
-                        label="Doenças Crônicas"
-                        value={doencaCronica}
-                      />
-                    )}
                   </div>
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-          </div>
-        </div>
-      </div>
-      {/* 
-      <div className="py-4">
-        <p className="text-primary text-lg pb-4 pl-6">Emoções e Sentimentos</p>
-        <TabelaTipo
-          tipo={"EMOCOES_SENTIMENTOS"}
-          respostas={emocoesSentimentos}
-        />
-      </div> */}
+                )}
 
-      <Divider />
+                {doencaCronica && (
+                  <div className="flex-1 h-full ">
+                    <CardDadosPaciente
+                      label="Doenças Crônicas"
+                      value={doencaCronica}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          <Divider />
+        </>
+      ) : (
+        <></>
+      )}
+
       <p className="text-primary text-lg py-4 pl-6">Relatório</p>
       {resultado &&
-        resultado.map((relatorio, index) => (
+        emocoesSentimentos &&
+        [emocoesSentimentos, ...resultado].map((relatorio, index) => (
           <Relatorio key={index} anamnese={relatorio} />
         ))}
 

@@ -3,7 +3,7 @@ import Paciente from "@/app/api/models/Paciente";
 import Pergunta from "@/app/api/models/Pergunta";
 import connectToDatabase from "@/app/api/lib/mongodb";
 import { calculateAnamnesis } from "@/app/api/utils/calculateAnamnesis";
-import { getRespostasPorTipo } from "@/app/api/utils/getRespostasPorTipo";
+import { calculateAnamnesisPorTipo } from "@/app/api/utils/calculateAnamnesisPorTipo";
 
 export const dynamic = "force-dynamic";
 
@@ -24,11 +24,12 @@ export async function GET(request, { params }) {
     const perguntas = await Pergunta.find().lean();
 
     const resultado = calculateAnamnesis(ficha.respostas, perguntas);
-    const emocoesSentimentos = getRespostasPorTipo({
-      respostas: ficha.respostas,
+    const emocoesSentimentos = calculateAnamnesisPorTipo(
+      ficha.respostas,
       perguntas,
-      tipo: "EMOCOES_SENTIMENTOS",
-    });
+      "EMOCOES_SENTIMENTOS"
+    );
+    console.log(emocoesSentimentos);
 
     const data = {
       nomeCompleto: paciente.nomeCompleto,

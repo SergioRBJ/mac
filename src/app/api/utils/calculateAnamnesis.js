@@ -1,4 +1,4 @@
-import { gruposAnamnese, tipoPerguntaAnamnese } from "@/utils/constants";
+import { gruposAnamnese } from "@/utils/constants";
 
 const calculateAnamnesis = (respostas, perguntas) => {
   // AGRUPA PERGUNTAS POR GRUPO
