@@ -26,7 +26,9 @@ const calculateAnamnesisPorTipo = (respostas, perguntas, tipo) => {
   // SOMA TODOS OS PESOS DAS RESPOSTAS DO TIPO
   // SIM = 5, NÃO = 0, FREQUENTEMENTE = 100% DO PESO DA PERGUNTA, AS_VEZES = 75% DO PESO DA PERGUNTA, RARO_NUNCA = 0
   // PONTUAÇÃO = (RESPOSTA * PESO) / SOMA DE TODOS OS PESOS
-  const somaPesos = agrupamentoPerguntas.perguntas.length * 5;
+  const somaPesos = perguntasPeso.reduce((acc, pergunta) => {
+    return acc + pergunta.peso;
+  }, 0);
 
   const somaRespostas = respostas.reduce((acc, resposta) => {
     const pergunta = agrupamentoPerguntas.perguntas.find(
