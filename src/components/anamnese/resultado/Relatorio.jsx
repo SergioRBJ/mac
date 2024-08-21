@@ -56,6 +56,8 @@ const Relatorio = ({ key, anamnese }) => {
     quantidade: item.quantidade,
   }));
 
+  console.log(rowsForChart, "rowsForChart");
+
   return (
     <section className="px-6 pb-6">
       <div className="flex items-start flex-col sm:flex-row">

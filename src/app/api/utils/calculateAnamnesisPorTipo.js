@@ -132,6 +132,12 @@ const calculateAnamnesisPorTipo = (respostas, perguntas, tipo) => {
     []
   );
 
+  agrupamentoTipoResposta.sort((a, b) => {
+    if (a.tipo === "RARO_NUNCA_FALSE") return 1;
+    if (b.tipo === "RARO_NUNCA_FALSE") return -1;
+    return 0;
+  });
+
   return {
     value: agrupamentoPerguntas.value,
     label: agrupamentoPerguntas.label,
