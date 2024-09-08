@@ -28,7 +28,7 @@ const CardDadosPaciente = ({ label, value, variant }) => {
   }
 
   return (
-    <Card className="flex items-center w-full">
+    <Card className="flex items-center w-full" fullWidth={true}>
       <CardHeader className="flex items-center justify-center bg-slate-700">
         <p className="text-question">{label}</p>
       </CardHeader>

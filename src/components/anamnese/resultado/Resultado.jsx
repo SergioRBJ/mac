@@ -9,7 +9,6 @@ import {
 import { BackButton } from "@/components/BackButton";
 import { CardDadosPaciente } from "@/components/anamnese/resultado/CardDadosPaciente";
 import { Relatorio } from "./Relatorio";
-import { TabelaTipo } from "./TabelaTipo";
 
 const getRespostaFicha = async ({ idFicha }) => {
   const response = await fetch(
@@ -37,6 +36,7 @@ const Resultado = async ({ idFicha }) => {
     resultado,
     emocoesSentimentos,
   } = ficha;
+  const formattedDate = new Date(nascimento).toLocaleDateString("pt-BR");
 
   return (
     <Card className="w-full mt-16">
@@ -59,7 +59,7 @@ const Resultado = async ({ idFicha }) => {
         <p className="text-primary text-lg pb-4">Dados Cadastrais</p>
         <div className="flex flex-col gap-5">
           <div className="flex gap-5 justify-between items-start">
-            <CardDadosPaciente label="Nascimento" value={nascimento} />
+            <CardDadosPaciente label="Nascimento" value={formattedDate} />
             <CardDadosPaciente label="Idade" value={idade} variant={"idade"} />
             <CardDadosPaciente
               label="Altura"
@@ -92,20 +92,15 @@ const Resultado = async ({ idFicha }) => {
           <div className="flex flex-col pt-4 pb-6">
             <div className="px-6 w-full">
               <p className="text-primary text-lg pb-4">Histórico de Saúde</p>
-              <div className="flex justify-between items-start gap-5 h-full">
+              <div className="grid auto-rows-fr grid-cols-2 justify-between items-start gap-5">
                 {remedios && (
-                  <div className="flex-1 ">
-                    <CardDadosPaciente label="Remédios" value={remedios} />
-                  </div>
+                  <CardDadosPaciente label="Remédios" value={remedios} />
                 )}
-
                 {doencaCronica && (
-                  <div className="flex-1 h-full ">
-                    <CardDadosPaciente
-                      label="Doenças Crônicas"
-                      value={doencaCronica}
-                    />
-                  </div>
+                  <CardDadosPaciente
+                    label="Doenças Crônicas"
+                    value={doencaCronica}
+                  />
                 )}
               </div>
             </div>
