@@ -145,8 +145,6 @@ const calculateAnamnesis = (respostas, perguntas) => {
       return 0;
     });
 
-    console.log(agrupamentoTipoResposta, "agrupamentoTipoResposta");
-
     return {
       value: grupo.value,
       label: grupo.label,

@@ -29,11 +29,11 @@ export async function GET(request, { params }) {
       perguntas,
       "EMOCOES_SENTIMENTOS"
     );
-    console.log(emocoesSentimentos);
 
     const data = {
       nomeCompleto: paciente.nomeCompleto,
       email: paciente.email,
+      nascimento: paciente.dataNascimento,
       idade: ficha.idade,
       peso: ficha.peso,
       altura: ficha.altura,

@@ -24,6 +24,7 @@ const Resultado = async ({ idFicha }) => {
   const {
     nomeCompleto,
     email,
+    nascimento,
     idade,
     altura,
     peso,
@@ -58,6 +59,7 @@ const Resultado = async ({ idFicha }) => {
         <p className="text-primary text-lg pb-4">Dados Cadastrais</p>
         <div className="flex flex-col gap-5">
           <div className="flex gap-5 justify-between items-start">
+            <CardDadosPaciente label="Nascimento" value={nascimento} />
             <CardDadosPaciente label="Idade" value={idade} variant={"idade"} />
             <CardDadosPaciente
               label="Altura"
@@ -65,9 +67,9 @@ const Resultado = async ({ idFicha }) => {
               variant={"altura"}
             />
             <CardDadosPaciente label="Peso" value={peso} variant={"peso"} />
-            <CardDadosPaciente label="Tipo Sanguíneo" value={tipoSanguineo} />
           </div>
           <div className="flex gap-5 justify-between items-start">
+            <CardDadosPaciente label="Tipo Sanguíneo" value={tipoSanguineo} />
             {sexo && (
               <CardDadosPaciente
                 label="Sexo"
