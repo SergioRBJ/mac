@@ -9,25 +9,54 @@ import {
   TableCell,
   TableRow,
   getKeyValue,
+  Tooltip,
 } from "@nextui-org/react";
+import InfoIcon from "@/icons/InfoIcon.svg";
+import {
+  anamnesePontosTotais,
+  anamnesePontuacao,
+  anamnesePorcentagem,
+} from "@/utils/tooltips";
 
 const bottomCards = ({ pontuacao, total, porcentagem }) => {
   return (
     <div className="flex gap-5 justify-between px-5 pb-4 w-full">
       <div className="flex flex-col gap-2">
-        <p className="text-question text-md">Pontos Totais</p>
-        <p className="flex text-lg text-slate-800 bg-slate-300 rounded-lg  justify-center">
+        <p className="flex text-question text-md">
+          Pontos Totais
+          <Tooltip content={anamnesePontosTotais} className="w-[55%]">
+            <button>
+              <InfoIcon className="w-[20px] h-[20px] ml-1" />
+            </button>
+          </Tooltip>
+        </p>
+
+        <p className="flex text-lg text-slate-800 bg-slate-300 rounded-lg justify-center">
           {total}
         </p>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-question text-md">Pontuação</p>
+        <p className="flex text-question text-md">
+          Pontuação
+          <Tooltip content={anamnesePontuacao} className="w-[55%]">
+            <button>
+              <InfoIcon className="w-[20px] h-[20px] ml-1" />
+            </button>
+          </Tooltip>
+        </p>
         <p className="flex text-lg text-slate-800 bg-slate-300 rounded-lg  justify-center">
           {pontuacao}
         </p>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-question text-md">Porcentagem</p>
+        <p className="flex text-question text-md">
+          Porcentagem
+          <Tooltip content={anamnesePorcentagem} className="w-[55%]">
+            <button>
+              <InfoIcon className="w-[20px] h-[20px] ml-1" />
+            </button>
+          </Tooltip>
+        </p>
         <p className="flex text-lg text-slate-800 bg-slate-300 rounded-lg  justify-center">
           {porcentagem}%
         </p>
