@@ -4,7 +4,7 @@ import { getToken } from "next-auth/jwt";
 // Public routes inside the matcher to be more performant
 export const config = {
   matcher: [
-    "/((?!_next|api/auth|profissional/login|paciente/anamnese/preencher|paciente/anamnese/ficha|api).*)(.+)",
+    "/((?!_next|api/auth|profissional/login|paciente/anamnese/preencher|paciente/anamnese/ficha|api|static/img/owner.png).*)(.+)",
   ],
 };
 
