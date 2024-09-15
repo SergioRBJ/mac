@@ -93,7 +93,7 @@ const CadastroPaciente = () => {
             startContent={isLoading ? <Spinner /> : <PatientIcon />}
             type="submit"
           >
-            Preencher Formulário
+            Preencher Ficha
           </Button>
         </form>
       </div>
