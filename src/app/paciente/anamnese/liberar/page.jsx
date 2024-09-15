@@ -76,7 +76,7 @@ const CadastroPaciente = () => {
         }}
       />
       <p className="my-4 text-2xl text-primary text-center w-80">
-        Formulário de anamnese liberado para o paciente!
+        Ficha de anamnese liberado para o paciente!
       </p>
       <Button
         className="text-primary border-primary w-80"
