@@ -1,22 +1,26 @@
 import { ResponsivePie } from "@nivo/pie";
 
 const PieChart = ({ data }) => {
-  // tranformar data.quantidade em porcentagem para passar para o grafico
   const mapDataToChart = (data) => {
-    const total = data[3].quantidade;
-    return data
-      .map((item) => ({
-        id: item.label,
-        label: item.label,
-        value: (item.quantidade / total).toFixed(4),
-      }))
-      .slice(0, 3);
+    const filteredData = data.filter((item) => item.label !== "Total");
+    const asVezesIndex = filteredData.findIndex(
+      (item) => item.label === "Às vezes"
+    );
+    const asVezesItem = filteredData.splice(asVezesIndex, 1)[0];
+    filteredData.push(asVezesItem);
+    const total = data.find((item) => item.label === "Total").quantidade;
+
+    return filteredData.map((item) => ({
+      id: item.label,
+      label: item.label,
+      value: (item.quantidade / total).toFixed(4),
+    }));
   };
 
   return (
     <ResponsivePie
       data={mapDataToChart(data)}
-      margin={{ top: 40, right: -20, bottom: 58, left: 20 }}
+      margin={{ top: 40, right: 20, bottom: 58, left: 20 }}
       innerRadius={0.5}
       padAngle={0.7}
       cornerRadius={3}
@@ -54,10 +58,10 @@ const PieChart = ({ data }) => {
           anchor: "bottom",
           direction: "row",
           justify: false,
-          translateX: 0,
+          translateX: 15,
           translateY: 56,
           itemsSpacing: 0,
-          itemWidth: 170,
+          itemWidth: 160,
           itemHeight: 18,
           itemDirection: "left-to-right",
           itemTextColor: "#000",

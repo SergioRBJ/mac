@@ -71,3 +71,65 @@ body {
   width: 100%;
   z-index: 1000;
 }
+
+.print-table-resultado {
+  width: 48%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .print-container {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+  }
+
+  .print-table-resultado {
+    width: 480px !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    margin-top: 50px !important;
+  }
+
+  .print-piechart-width {
+    display: none !important;
+  }
+
+  .print-resultado {
+    margin-top: 5px !important;
+  }
+
+  .print-resultado-relatorio-text {
+    margin-top: 0px !important;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+  }
+
+  .print-health {
+  }
+
+  .page-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .page-break-container {
+    break-before: always !important;
+    page-break-before: always !important;
+    margin-top: 15px !important;
+  }
+
+  .print-relatorio {
+    padding-bottom: 3px !important;
+  }
+}

@@ -86,9 +86,9 @@ const Relatorio = ({ key, anamnese }) => {
   }));
 
   return (
-    <section className="px-6 pb-6">
-      <div className="flex items-start flex-col sm:flex-row">
-        <div className="w-full sm:max-w-[50%] min-w-[400px]">
+    <section className="px-6 pb-6 print-relatorio">
+      <div className="flex print-container page-break">
+        <div className="w-full print-table-resultado">
           <Table
             aria-label="Tabela que exibe resultados da anamnese"
             selectionMode="none"
@@ -123,7 +123,7 @@ const Relatorio = ({ key, anamnese }) => {
             </TableBody>
           </Table>
         </div>
-        <div className="h-[250px] w-full p-0 m-0">
+        <div className="h-[250px] w-[48%] p-0 m-0 no-print">
           <PieChart data={rowsForChart} />
         </div>
       </div>

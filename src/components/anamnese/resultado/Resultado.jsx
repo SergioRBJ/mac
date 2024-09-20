@@ -9,6 +9,7 @@ import {
 import { BackButton } from "@/components/BackButton";
 import { CardDadosPaciente } from "@/components/anamnese/resultado/CardDadosPaciente";
 import { Relatorio } from "./Relatorio";
+import { PrintButton } from "@/components/PrintButton";
 
 const getRespostaFicha = async ({ idFicha }) => {
   const response = await fetch(
@@ -39,7 +40,7 @@ const Resultado = async ({ idFicha }) => {
   const formattedDate = new Date(nascimento).toLocaleDateString("pt-BR");
 
   return (
-    <Card className="w-full mt-16">
+    <Card className="w-full mt-16 print-resultado">
       <CardHeader className="flex gap-3 px-6">
         <Image
           alt="Paciente"
@@ -55,7 +56,7 @@ const Resultado = async ({ idFicha }) => {
         </div>
       </CardHeader>
       <Divider />
-      <CardBody className="p-6">
+      <CardBody className="p-6" id="printable-content">
         <p className="text-primary text-lg pb-4">Dados Cadastrais</p>
         <div className="flex flex-col gap-5">
           <div className="flex gap-5 justify-between items-start">
@@ -92,15 +93,20 @@ const Resultado = async ({ idFicha }) => {
           <div className="flex flex-col pt-4 pb-6">
             <div className="px-6 w-full">
               <p className="text-primary text-lg pb-4">Histórico de Saúde</p>
-              <div className="grid auto-rows-fr grid-cols-2 justify-between items-start gap-5">
+              <div className="flex justify-between items-start gap-5 h-full">
                 {remedios && (
-                  <CardDadosPaciente label="Remédios" value={remedios} />
+                  <div className="flex-1 h-full print-health">
+                    <CardDadosPaciente label="Remédios" value={remedios} />
+                  </div>
                 )}
+
                 {doencaCronica && (
-                  <CardDadosPaciente
-                    label="Doenças Crônicas"
-                    value={doencaCronica}
-                  />
+                  <div className="flex-1 h-full print-health">
+                    <CardDadosPaciente
+                      label="Doenças Crônicas"
+                      value={doencaCronica}
+                    />
+                  </div>
                 )}
               </div>
             </div>
@@ -111,18 +117,20 @@ const Resultado = async ({ idFicha }) => {
         <></>
       )}
 
-      <p className="text-primary text-lg py-4 pl-6">Relatório</p>
-      {resultado &&
-        emocoesSentimentos &&
-        [emocoesSentimentos, ...resultado].map((relatorio, index) => (
-          <Relatorio key={index} anamnese={relatorio} />
-        ))}
+      <div className="print-container page-break-container">
+        <p className="text-primary text-lg py-4 pl-6 print-resultado-relatorio-text w-full">
+          Relatório
+        </p>
+        {resultado &&
+          emocoesSentimentos &&
+          [emocoesSentimentos, ...resultado].map((relatorio, index) => (
+            <Relatorio key={index} anamnese={relatorio} />
+          ))}
+      </div>
 
-      <CardFooter className="gap-5 p-6">
+      <CardFooter className="gap-5 p-6 no-print">
         <BackButton>Voltar</BackButton>
-        {/* <Button className="bg-slate-700" color="primary">
-          <p className="text-white">Salvar PDF</p>
-        </Button> */}
+        <PrintButton> Salvar PDF </PrintButton>
       </CardFooter>
     </Card>
   );
