@@ -13,6 +13,7 @@ import {
   Button,
 } from "@nextui-org/react";
 import { usePathname, useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 import { ChevronDownIcon } from "@/icons/ChevronDownIcon";
 
 const Header = () => {
@@ -29,6 +30,11 @@ const Header = () => {
   const handleNavigation = (path) => {
     router.push(path);
   };
+
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: "/profissional/login" });
+  };
+
   return !shouldHideNavbarContent ? (
     <Navbar
       maxWidth="full"
@@ -66,7 +72,7 @@ const Header = () => {
             </DropdownTrigger>
           </NavbarItem>
           <DropdownMenu
-            aria-label="ACME features"
+            aria-label="anamnese-opcoes"
             className="w-[340px]"
             itemClasses={{
               base: "gap-4",
@@ -107,6 +113,47 @@ const Header = () => {
               }
             >
               Listar Fichas
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+
+        <Dropdown>
+          <NavbarItem>
+            <DropdownTrigger>
+              <Button
+                disableRipple
+                className="p-0 data-[hover=true]:bg-transparent text-clear text-medium"
+                endContent={<ChevronDownIcon />}
+                radius="sm"
+                variant="light"
+              >
+                Mais Ações
+              </Button>
+            </DropdownTrigger>
+          </NavbarItem>
+          <DropdownMenu
+            aria-label="mais-acoes"
+            className="w-[340px]"
+            itemClasses={{
+              base: "gap-4",
+            }}
+          >
+            <DropdownItem
+              key="paciente-listar-fichas"
+              description="Fazer o logout do sistema."
+              startContent={
+                <Image
+                  alt="sair"
+                  height={40}
+                  radius="sm"
+                  src="/icons/ExitIcon.svg"
+                  width={40}
+                  className="text-primary"
+                />
+              }
+              onClick={handleLogout}
+            >
+              Sair
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
