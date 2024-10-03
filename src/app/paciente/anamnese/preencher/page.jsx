@@ -76,6 +76,7 @@ const CadastroPaciente = () => {
         >
           <div className="mb-6">
             <Input
+              className="border-primary border-2 rounded-xl"
               fullWidth
               placeholder="Email"
               type="email"
@@ -87,7 +88,7 @@ const CadastroPaciente = () => {
           </div>
           {errorAPI && <span className="text-red-500 mb-2">{errorAPI}</span>}
           <Button
-            className="text-primary border-primary"
+            className="text-primary border-primary w-full"
             size="lg"
             variant="bordered"
             startContent={isLoading ? <Spinner /> : <PatientIcon />}

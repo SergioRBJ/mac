@@ -35,6 +35,10 @@ const Header = () => {
     await signOut({ callbackUrl: "/profissional/login" });
   };
 
+  const handleChangePassword = () => {
+    router.push("/profissional/alterar-senha");
+  };
+
   return !shouldHideNavbarContent ? (
     <Navbar
       maxWidth="full"
@@ -139,11 +143,28 @@ const Header = () => {
             }}
           >
             <DropdownItem
-              key="paciente-listar-fichas"
+              key="profissional-trocar-senha"
+              description="Alterar a senha do seu usuário."
+              startContent={
+                <Image
+                  alt="trocar-senha-icone"
+                  height={40}
+                  radius="sm"
+                  src="/icons/PasswordIcon.svg"
+                  width={40}
+                  className="text-primary"
+                />
+              }
+              onClick={handleChangePassword}
+            >
+              Alterar Senha
+            </DropdownItem>
+            <DropdownItem
+              key="profissional-logout"
               description="Fazer o logout do sistema."
               startContent={
                 <Image
-                  alt="sair"
+                  alt="sair-icone"
                   height={40}
                   radius="sm"
                   src="/icons/ExitIcon.svg"
