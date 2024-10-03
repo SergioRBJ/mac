@@ -79,6 +79,15 @@ body {
   box-sizing: border-box;
 }
 
+.fade-in {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+}
+
 @media print {
   .no-print {
     display: none !important;

@@ -8,7 +8,7 @@ import LoginIcon from "@/icons/LoginIcon.svg";
 import { Button } from "@nextui-org/react";
 import { signIn } from "next-auth/react";
 import * as z from "zod";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Spinner } from "@nextui-org/react";
 
 const loginSchema = z.object({
@@ -33,6 +33,11 @@ const ProfissionalLogin = () => {
   });
   const [errorLogin, setErrorLogin] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   const onSubmit = async (data) => {
     setErrorLogin(null);
@@ -78,7 +83,11 @@ const ProfissionalLogin = () => {
         className="side-img max-w-[50%]"
       />
       <section className="container">
-        <div className="flex sub-container max-w-[540px] remove-scrollbar">
+        <div
+          className={`flex sub-container max-w-[540px] remove-scrollbar fade-in ${
+            isVisible ? "visible" : ""
+          }`}
+        >
           <h1 className="flex text-4xl w-full text-primary justify-center text-center">
             Portal Microscopia À Chinesa
           </h1>

@@ -22,6 +22,10 @@ export const options = {
           email: credentials.email,
         });
 
+        if (profissional.active === false) {
+          return null;
+        }
+
         const isPasswordValid = await bcrypt.compare(
           credentials.password,
           profissional.password
