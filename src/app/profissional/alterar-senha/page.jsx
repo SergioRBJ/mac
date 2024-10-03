@@ -93,9 +93,9 @@ const TrocaSenha = () => {
           <h1 className="text-5xl text-center w-full text-primary mb-4">
             Alterar Senha
           </h1>
-          <p className="text-center w-full text-primary mb-12">
-            Após a mudança de senha, você será redirecionado para a página de
-            login.
+          <p className="text-center w-full text-primary mb-12 px-12">
+            Após a alteração da senha, você será redirecionado para a página
+            inicial, onde poderá fazer o login utilizando sua nova senha.
           </p>
           <form
             onSubmit={handleSubmit(onSubmit)}
