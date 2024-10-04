@@ -22,9 +22,10 @@ export const options = {
           email: credentials.email,
         });
 
-        if (profissional.active === false) {
-          return null;
-        }
+        // LIBERADO PARA PERIODO DE TESTES
+        // if (profissional.active === false) {
+        //  return null;
+        // }
 
         const isPasswordValid = await bcrypt.compare(
           credentials.password,
