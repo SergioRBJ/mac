@@ -62,7 +62,7 @@ const CadastroPaciente = () => {
   };
 
   const formSuccess = (
-    <div className="flex flex-col items-center pt-10 gap-5">
+    <div className="flex flex-col items-center pt-6 gap-5">
       <Image
         alt="ficha"
         height={80}
@@ -75,8 +75,20 @@ const CadastroPaciente = () => {
             "invert(34%) sepia(91%) saturate(747%) hue-rotate(201deg) brightness(95%) contrast(92%)",
         }}
       />
-      <p className="my-4 text-2xl text-primary text-center w-80">
-        Ficha de anamnese liberado para o paciente!
+      <p className="text-2xl text-primary text-center w-80">
+        Ficha de anamnese liberada para o paciente!
+      </p>
+      <p className="text-lg text-primary text-center w-96 px-5">
+        Compartilhe este link
+        <br />
+        <a
+          href="https://mac.drsergiobernardi.com.br/paciente/anamnese/preencher"
+          className="break-words text-black bold"
+          target="_blank"
+        >
+          https://mac.drsergiobernardi.com.br/paciente/anamnese/preencher
+        </a>{" "}
+        com o paciente para que ele possa preencher a ficha de anamnese.
       </p>
       <Button
         className="text-primary border-primary w-80"
@@ -105,7 +117,7 @@ const CadastroPaciente = () => {
       />
 
       <section className="remove-scrollbar container">
-        <div className="flex flex-col sub-container max-w-[540px] remove-scrollbar">
+        <div className="flex flex-col sub-container max-w-[540px] remove-scrollbar !pt-32">
           <h1 className="flex text-4xl w-full text-primary justify-center text-center">
             Liberar Ficha Anamnese
           </h1>
