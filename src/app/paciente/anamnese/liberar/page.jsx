@@ -79,7 +79,7 @@ const CadastroPaciente = () => {
         Ficha de anamnese liberada para o paciente!
       </p>
       <p className="text-lg text-primary text-center w-96 px-5">
-        Compartilhe este link
+        Compartilhe este link:
         <br />
         <a
           href="https://mac.drsergiobernardi.com.br/paciente/anamnese/preencher"
