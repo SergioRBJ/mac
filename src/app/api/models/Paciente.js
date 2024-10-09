@@ -17,7 +17,7 @@ const PacienteSchema = new mongoose.Schema(
     },
     tipoSanguineo: {
       type: String,
-      enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
+      enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", "Desconhecido"],
     },
     estadoCivil: {
       type: String,

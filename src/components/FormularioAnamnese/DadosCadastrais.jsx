@@ -20,6 +20,7 @@ const sexos = [
 ];
 
 const tiposSanguineos = [
+  { value: "Desconhecido", label: "Não me lembro" },
   { value: "A+", label: "A+" },
   { value: "A-", label: "A-" },
   { value: "B+", label: "B+" },
