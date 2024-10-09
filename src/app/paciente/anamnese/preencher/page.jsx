@@ -1,15 +1,14 @@
 "use client";
 
-import { Input } from "@nextui-org/react";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import PatientIcon from "@/icons/PatientIcon.svg";
-import { Button, Spinner } from "@nextui-org/react";
+import { useState } from "react";
 import * as z from "zod";
+import { Input, Button, Spinner } from "@nextui-org/react";
+import PatientIcon from "@/icons/PatientIcon.svg";
 import { usePacienteContext } from "@/contexts/pacienteContext";
 import { useNavegacaoContext } from "@/contexts/navegacaoContext";
-import { useState } from "react";
 
 const formularioSchema = z.object({
   email: z
@@ -40,7 +39,6 @@ const CadastroPaciente = () => {
     setErrorAPI(null);
     try {
       const response = await fetch(`/api/paciente/${data.email}`);
-
       const result = await response.json();
       if (!response.ok) {
         setErrorAPI("Formulário ainda não liberado para este paciente.");
@@ -65,40 +63,50 @@ const CadastroPaciente = () => {
   };
 
   return (
-    <main className="flex flex-col items-center pt-10">
-      <h1 className="text-5xl text-center w-full text-primary">
-        Ficha de Anamnese
-      </h1>
-      <div className="mt-12">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center"
-        >
-          <div className="mb-6">
-            <Input
-              className="border-primary border-2 rounded-xl"
-              fullWidth
-              placeholder="Email"
-              type="email"
-              {...register("email")}
-            />
-            {errors.email && (
-              <span className="text-red-500">{errors.email.message}</span>
-            )}
-          </div>
-          {errorAPI && <span className="text-red-500 mb-2">{errorAPI}</span>}
-          <Button
-            className="text-primary border-primary w-full"
-            size="lg"
-            variant="bordered"
-            startContent={isLoading ? <Spinner /> : <PatientIcon />}
-            type="submit"
+    <div className="flex h-screen">
+      <div
+        className="w-1/2 bg-cover bg-center"
+        style={{ backgroundImage: "url('/static/img/docs.png')" }}
+      ></div>
+      <main className="flex flex-col items-center justify-center w-1/2 p-10">
+        <h1 className="text-5xl text-center w-full text-primary mb-4">
+          Ficha de Anamnese
+        </h1>
+        <p className="text-lg text-center w-full text-primary px-24">
+          Olá, paciente! Por favor, preencha o campo abaixo com o email que você
+          forneceu ao doutor.
+        </p>
+        <div className="mt-10">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col items-center w-full max-w-md"
           >
-            Preencher Ficha
-          </Button>
-        </form>
-      </div>
-    </main>
+            <div className="mb-6 w-full">
+              <Input
+                className="border-primary border-2 rounded-xl w-full"
+                fullWidth
+                placeholder="Email"
+                type="email"
+                {...register("email")}
+              />
+              {errors.email && (
+                <span className="text-red-500">{errors.email.message}</span>
+              )}
+            </div>
+            {errorAPI && <span className="text-red-500 mb-2">{errorAPI}</span>}
+            <Button
+              className="text-primary border-primary w-full"
+              size="lg"
+              variant="bordered"
+              startContent={isLoading ? <Spinner /> : <PatientIcon />}
+              type="submit"
+            >
+              Preencher Ficha
+            </Button>
+          </form>
+        </div>
+      </main>
+    </div>
   );
 };
 
