@@ -89,29 +89,51 @@ body {
 }
 
 @media print {
+  @page {
+    size: A4 landscape; /* Define o tamanho da página e a orientação */
+    margin: 0; /* Remove margens da página */
+  }
+
+  body {
+    width: 297mm; /* Largura fixa para A4 landscape */
+    height: 100% !important; /* Altura fixa para A4 landscape */
+    margin: 0 auto; /* Centraliza o conteúdo */
+    padding: 0 !important; /* Adiciona um pouco de padding */
+    box-sizing: border-box;
+  }
+
   .no-print {
     display: none !important;
   }
 
   .print-container {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: space-between !important;
-    align-items: flex-start !important;
+    display: block !important; /* Altera para block para facilitar a quebra de página */
     width: 100% !important;
+    height: auto !important;
+    gap: 0 !important; /* Remove qualquer espaçamento entre os itens */
   }
 
   .print-table-resultado {
-    width: 480px !important;
+    width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
-    padding: 0 !important;
+    padding-left: 200px !important;
+    padding-right: 200px !important;
+    padding-bottom: 45px !important;
     box-sizing: border-box !important;
     margin-top: 50px !important;
   }
 
   .print-piechart-width {
-    display: none !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding-top: 0 !important;
+    padding-left: 200px !important;
+    padding-right: 185px !important;
+    padding-bottom: 25px !important;
+    box-sizing: border-box !important;
   }
 
   .print-resultado {
@@ -139,6 +161,10 @@ body {
   }
 
   .print-relatorio {
-    padding-bottom: 3px !important;
+    padding: 0px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: column !important;
   }
 }
