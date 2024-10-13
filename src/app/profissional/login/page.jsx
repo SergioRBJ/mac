@@ -43,7 +43,6 @@ const ProfissionalLogin = () => {
     setErrorLogin(null);
     setIsLoading(true);
 
-    // NEXTAUTH AUTHENTICATION
     const response = await signIn("credentials", {
       email: data.email,
       password: data.password,
@@ -52,22 +51,55 @@ const ProfissionalLogin = () => {
 
     if (response.ok) {
       try {
-        setTimeout(() => {
-          setIsLoading(false);
-          router.push("/paciente/anamnese/listar-fichas");
-        }, 2000);
+        setIsLoading(false);
+        router.push("/paciente/anamnese/listar-fichas");
       } catch (error) {
         console.error("Erro ao tentar realizar o login:", error);
       }
     } else {
-      const errorMessage =
-        response.error === "CredentialsSignin"
-          ? "Email ou senha incorretos."
-          : "Erro ao tentar realizar o login.";
-      setTimeout(() => {
-        setErrorLogin(errorMessage);
-        setIsLoading(false);
-      }, 2000);
+      let errorMessage;
+
+      switch (response.error) {
+        case "CredentialsSignin":
+          errorMessage = "Email ou senha incorretos.";
+          break;
+        case "SUBSCRIPTION_EXPIRED":
+          errorMessage = (
+            <>
+              Seu período de assinatura expirou. Renove agora sua assinatura{" "}
+              <a
+                className="font-bold underline"
+                target="_blank"
+                href="https://go.hotmart.com/W93427824V"
+              >
+                aqui
+              </a>
+              .
+            </>
+          );
+          break;
+        case "TEST_EXPIRED":
+          errorMessage = (
+            <>
+              Seu período de testes expirou. Adquira agora sua assinatura{" "}
+              <a
+                className="font-bold underline"
+                target="_blank"
+                href="https://go.hotmart.com/W93427824V"
+              >
+                aqui
+              </a>
+              .
+            </>
+          );
+          break;
+        default:
+          errorMessage = "Erro ao tentar realizar o login.";
+          break;
+      }
+
+      setErrorLogin(errorMessage);
+      setIsLoading(false);
 
       return;
     }

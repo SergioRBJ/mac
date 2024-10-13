@@ -5,7 +5,12 @@ const ProfissionalSaudeSchema = new mongoose.Schema(
     nomeCompleto: String,
     email: { type: String, unique: true },
     password: String,
-    active: { type: Boolean, default: true },
+    status: {
+      type: String,
+    },
+    subscriptionEndDate: {
+      type: Date,
+    },
   },
   { collection: "profissionais_saude", timestamps: true }
 );

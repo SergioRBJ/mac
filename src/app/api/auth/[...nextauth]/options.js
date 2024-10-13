@@ -22,17 +22,24 @@ export const options = {
           email: credentials.email,
         });
 
-        // LIBERADO PARA PERIODO DE TESTES
-        // if (profissional.active === false) {
-        //  return null;
-        // }
-
         const isPasswordValid = await bcrypt.compare(
           credentials.password,
           profissional.password
         );
 
         if (isPasswordValid) {
+          if (profissional.status === "TEST_EXPIRED") {
+            throw new Error("TEST_EXPIRED");
+          }
+
+          const currentTimestamp = Date.now();
+          if (
+            profissional.subscriptionEndDate &&
+            profissional.subscriptionEndDate < currentTimestamp
+          ) {
+            throw new Error("SUBSCRIPTION_EXPIRED");
+          }
+
           return {
             id: profissional._id,
             name: profissional.nameCompleto,
