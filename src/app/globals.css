@@ -129,7 +129,10 @@ body {
     height: auto !important;
     max-width: 100% !important;
     margin: 0 !important;
-    padding: 0 !important;
+    padding-top: 0 !important;
+    padding-left: 200px !important;
+    padding-right: 185px !important;
+    padding-bottom: 25px !important;
     box-sizing: border-box !important;
   }
 
