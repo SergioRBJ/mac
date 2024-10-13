@@ -123,7 +123,7 @@ const Relatorio = ({ key, anamnese }) => {
             </TableBody>
           </Table>
         </div>
-        <div className="h-[250px] w-[48%] p-0 m-0 no-print">
+        <div className="h-[250px] w-[48%] p-0 m-0 print-piechart-width">
           <PieChart data={rowsForChart} />
         </div>
       </div>
