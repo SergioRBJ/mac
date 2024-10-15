@@ -292,10 +292,10 @@ const ListarFichaPacientes = () => {
   }
 
   return (
-    <main className="flex flex-col items-center pt-4 px-5">
+    <main className="flex flex-col items-center px-5">
       <Header />
       <Table
-        className="w-[80%] mt-20"
+        className="w-[80%] mt-16"
         aria-label="lista-fichas"
         isHeaderSticky
         bottomContent={bottomContent}

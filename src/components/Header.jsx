@@ -43,6 +43,7 @@ const Header = () => {
     <Navbar
       maxWidth="full"
       className=" bg-secondary text-clear header-fixed no-print"
+      height="55px"
       classNames={{
         item: [
           "flex",
@@ -188,8 +189,8 @@ const Header = () => {
         <Image
           src={"/assets/logo.png"}
           alt="logo"
-          width={80}
-          height={80}
+          width={60}
+          height={60}
           className="rounded-lg"
         />
       </NavbarBrand>
