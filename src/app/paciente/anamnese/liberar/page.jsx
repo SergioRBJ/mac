@@ -82,11 +82,11 @@ const CadastroPaciente = () => {
         Compartilhe este link:
         <br />
         <a
-          href="https://mac.drsergiobernardi.com.br/paciente/anamnese/preencher"
+          href="https://estudosanguevivomtc.com.br/paciente/anamnese/preencher"
           className="break-words text-black bold"
           target="_blank"
         >
-          https://mac.drsergiobernardi.com.br/paciente/anamnese/preencher
+          https://estudosanguevivomtc.com.br/paciente/anamnese/preencher
         </a>{" "}
         com o paciente para que ele possa preencher a ficha de anamnese.
       </p>
