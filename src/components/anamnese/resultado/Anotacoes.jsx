@@ -45,7 +45,7 @@ const Anotacoes = ({ anotacoes: initialAnotacoes, idFicha }) => {
   return (
     <div className="flex flex-col w-full px-6 pt-4 pb-6 gap-5 no-print">
       <ToastContainer /> {/* Adiciona o contêiner de toast */}
-      <p className="text-primary text-lg w-full">
+      <p className="flex items-center text-primary text-lg w-full">
         Anotações
         <Tooltip
           content="Espaço destinado a anotações gerais sobre o paciente. Essas informações não serão incluídas no PDF."
