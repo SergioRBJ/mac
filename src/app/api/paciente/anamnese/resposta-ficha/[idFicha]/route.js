@@ -43,6 +43,7 @@ export async function GET(request, { params }) {
       profissao: ficha.profissao,
       remedios: ficha.remedios,
       doencaCronica: ficha.doencaCronica,
+      anotacoes: ficha.anotacoes,
       resultado,
       emocoesSentimentos,
     };

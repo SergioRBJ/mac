@@ -146,9 +146,6 @@ body {
     padding-top: 0px !important;
   }
 
-  .print-health {
-  }
-
   .page-break {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
@@ -166,5 +163,15 @@ body {
     justify-content: center !important;
     align-items: center !important;
     flex-direction: column !important;
+  }
+
+  .print-anotacoes {
+    break-before: always !important;
+    page-break-before: always !important;
+  }
+
+  .print-page-break {
+    page-break-before: always !important;
+    break-before: always !important;
   }
 }

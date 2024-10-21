@@ -10,6 +10,7 @@ import { BackButton } from "@/components/BackButton";
 import { CardDadosPaciente } from "@/components/anamnese/resultado/CardDadosPaciente";
 import { Relatorio } from "./Relatorio";
 import { PrintButton } from "@/components/PrintButton";
+import { Anotacoes } from "./Anotacoes";
 
 const getRespostaFicha = async ({ idFicha }) => {
   const response = await fetch(
@@ -36,6 +37,7 @@ const Resultado = async ({ idFicha }) => {
     doencaCronica,
     resultado,
     emocoesSentimentos,
+    anotacoes,
   } = ficha;
   const formattedDate = new Date(nascimento).toLocaleDateString("pt-BR");
 
@@ -95,13 +97,13 @@ const Resultado = async ({ idFicha }) => {
               <p className="text-primary text-lg pb-4">Histórico de Saúde</p>
               <div className="flex justify-between items-start gap-5 h-full">
                 {remedios && (
-                  <div className="flex-1 h-full print-health">
+                  <div className="flex-1 h-full">
                     <CardDadosPaciente label="Remédios" value={remedios} />
                   </div>
                 )}
 
                 {doencaCronica && (
-                  <div className="flex-1 h-full print-health">
+                  <div className="flex-1 h-full">
                     <CardDadosPaciente
                       label="Doenças Crônicas"
                       value={doencaCronica}
@@ -111,11 +113,15 @@ const Resultado = async ({ idFicha }) => {
               </div>
             </div>
           </div>
-          <Divider />
+          <Divider className="no-print" />
         </>
       ) : (
         <></>
       )}
+
+      <Anotacoes anotacoes={anotacoes} idFicha={idFicha} />
+
+      <Divider className="no-print" />
 
       <div className="print-container page-break-container">
         <p className="text-primary text-lg py-4 pl-6 print-resultado-relatorio-text w-full">

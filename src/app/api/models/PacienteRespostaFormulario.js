@@ -37,6 +37,9 @@ const PacienteRespostaFormularioSchema = new mongoose.Schema(
     doencaCronica: {
       type: String,
     },
+    anotacoes: {
+      type: String,
+    },
     respostas: [
       {
         perguntaId: String,
