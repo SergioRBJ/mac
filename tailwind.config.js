@@ -14,6 +14,9 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      textStroke: {
+        black: "1px black",
+      },
       colors: {
         primary: "#4f5de3",
         secondary: "#4654e0",
@@ -32,5 +35,14 @@ module.exports = {
     },
   },
   darkMode: "class",
-  plugins: [nextui()],
+  plugins: [
+    nextui(),
+    function ({ addUtilities }) {
+      addUtilities({
+        ".text-stroke-black": {
+          "-webkit-text-stroke": "1px black",
+        },
+      });
+    },
+  ],
 };

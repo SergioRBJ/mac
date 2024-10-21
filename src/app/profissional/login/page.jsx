@@ -78,24 +78,8 @@ const ProfissionalLogin = () => {
             </>
           );
           break;
-        case "TEST_EXPIRED":
-          errorMessage = (
-            <>
-              Seu período de testes expirou. Adquira agora sua assinatura{" "}
-              <a
-                className="font-bold underline"
-                target="_blank"
-                href="https://go.hotmart.com/W93427824V"
-              >
-                aqui
-              </a>
-              .
-            </>
-          );
-          break;
         default:
-          errorMessage = "Erro ao tentar realizar o login.";
-          break;
+          errorMessage = "Ocorreu um erro ao fazer login. Tente novamente.";
       }
 
       setErrorLogin(errorMessage);
@@ -106,68 +90,85 @@ const ProfissionalLogin = () => {
   };
 
   return (
-    <div className="flex h-screen max-h-screen">
-      <img
-        src={"/static/img/owner.png"}
-        alt="Login Image"
-        width={"1000"}
-        height={"1000"}
-        className="side-img max-w-[50%]"
-      />
-      <section className="container">
-        <div
-          className={`flex sub-container max-w-[540px] remove-scrollbar fade-in ${
-            isVisible ? "visible" : ""
-          }`}
+    <div className="relative flex h-screen max-h-screen">
+      <div className="relative flex w-[45%] hidden md:flex">
+        <img
+          src={"/static/img/owner.png"}
+          alt="Login Image"
+          width={"1000"}
+          height={"1000"}
+          className="side-img"
+        />
+      </div>
+      <div className="relative flex w-full md:w-[55%]">
+        <video
+          autoPlay
+          loop
+          muted
+          className="absolute inset-0 w-full h-full object-cover video-bg"
+          style={{ objectPosition: "right center" }}
         >
-          <h1 className="flex text-4xl w-full text-primary justify-center text-center">
-            Portal Microscopia À Chinesa
-          </h1>
-          <div className="flex mt-12 justify-center">
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col items-center gap-4 w-80"
-            >
-              <Input
-                fullWidth
-                placeholder="Email"
-                type="email"
-                {...register("email")}
-                className="w-full border-primary border-2 rounded-xl"
-              />
-              {errors.email && (
-                <span className="text-red-500 text-left w-full">
-                  {errors.email.message}
-                </span>
-              )}
-
-              <Input
-                fullWidth
-                placeholder="Senha"
-                type="password"
-                {...register("password")}
-                className="w-full border-primary border-2 rounded-xl"
-              />
-              {errors.password && (
-                <span className="text-red-500 text-left w-full">
-                  {errors.password.message}
-                </span>
-              )}
-
-              {errorLogin && <span className="text-red-500">{errorLogin}</span>}
-              <Button
-                className="text-primary border-primary w-full"
-                size="lg"
-                variant="bordered"
-                startContent={isLoading ? <Spinner /> : <LoginIcon />}
-                type="submit"
+          <source src="/videos/bg-login.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black opacity-45"></div>
+        <section className="relative flex w-full video-container">
+          <div
+            className={`flex sub-container max-w-[540px] remove-scrollbar fade-in ${
+              isVisible ? "visible" : ""
+            }`}
+          >
+            <h1 className="flex text-5xl w-full text-white justify-center text-center font-extrabold">
+              Portal Microscopia À Chinesa
+            </h1>
+            <div className="flex mt-12 justify-center">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col items-center gap-4 w-80"
               >
-                Acessar
-              </Button>
-            </form>
+                <Input
+                  fullWidth
+                  placeholder="Email"
+                  type="email"
+                  {...register("email")}
+                  className="w-full border-primary border-3 rounded-2xl"
+                />
+                {errors.email && (
+                  <span className="text-red-500 text-left w-full text-xl text-stroke-black font-bold">
+                    {errors.email.message}
+                  </span>
+                )}
+
+                <Input
+                  fullWidth
+                  placeholder="Senha"
+                  type="password"
+                  {...register("password")}
+                  className="w-full border-primary border-3 rounded-2xl"
+                />
+                {errors.password && (
+                  <span className="text-red-500 text-left w-full text-xl text-stroke-black font-bold">
+                    {errors.password.message}
+                  </span>
+                )}
+
+                {errorLogin && (
+                  <span className="text-xl text-red-500 text-stroke-black font-bold">
+                    {errorLogin}
+                  </span>
+                )}
+                <Button
+                  className="bg-terciary border-primary border-3 w-full text-primary"
+                  size="lg"
+                  startContent={isLoading ? <Spinner /> : <LoginIcon />}
+                  type="submit"
+                >
+                  Acessar
+                </Button>
+              </form>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 };
