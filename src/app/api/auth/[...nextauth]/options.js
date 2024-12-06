@@ -42,8 +42,9 @@ export const options = {
 
           return {
             id: profissional._id,
-            name: profissional.nameCompleto,
+            name: profissional.nomeCompleto,
             email: profissional.email,
+            subscriptionEndDate: profissional.subscriptionEndDate,
           };
         } else {
           return null;
@@ -53,11 +54,9 @@ export const options = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      // The user present here gets the same data as received from DB call
       return { ...token, ...user };
     },
     async session({ session, user, token }) {
-      // User param present in the session(function) does not recive all the data from DB call
       return token;
     },
   },

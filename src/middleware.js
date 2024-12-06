@@ -18,5 +18,14 @@ export async function middleware(req) {
     return NextResponse.redirect(new URL("/profissional/login", req.url));
   }
 
+  const currentTimestamp = Date.now();
+
+  if (
+    token.subscriptionEndDate &&
+    new Date(token.subscriptionEndDate).getTime() < currentTimestamp
+  ) {
+    return NextResponse.redirect(new URL("/profissional/login", req.url));
+  }
+
   return NextResponse.next();
 }
