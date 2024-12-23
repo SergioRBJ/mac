@@ -67,6 +67,22 @@ const gruposAnamnese = [
     value: "DEFICIENCIA_YIN_SHEN_RIM",
     label: "DEFICIÊNCIA DE YIN DO SHEN - RIM",
   },
+  {
+    value: "ESTASE_XUE",
+    label: "ESTASE DE XUE",
+  },
+  {
+    value: "ESTAGNACAO_QI",
+    label: "ESTAGNAÇÃO DO QI",
+  },
+  {
+    value: "DEFICIENCIA_SANGUE_XUE",
+    label: "DEFICIÊNCIA DE SANGUE (XUE)",
+  },
+  {
+    value: "DEFICIENCIA_QI",
+    label: "DEFICIÊNCIA DE QI",
+  },
 ];
 
 const tipoPerguntaAnamnese = [

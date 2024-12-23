@@ -165,7 +165,13 @@ const calculateAnamnesis = (respostas, perguntas) => {
     };
   });
 
-  return pontuacaoPorGrupo;
+  const gruposComRespostas = pontuacaoPorGrupo.filter((grupo) =>
+    grupo.quantidadeTipoResposta.some(
+      (item) => item.tipo !== "TOTAL" && item.quantidade > 0
+    )
+  );
+
+  return gruposComRespostas;
 };
 
 export { calculateAnamnesis };
