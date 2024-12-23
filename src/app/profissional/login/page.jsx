@@ -61,6 +61,7 @@ const ProfissionalLogin = () => {
 
       switch (response.error) {
         case "CredentialsSignin":
+        case "Cannot read properties of null (reading 'password')":
           errorMessage = "Email ou senha incorretos.";
           break;
         case "SUBSCRIPTION_EXPIRED":
@@ -133,7 +134,7 @@ const ProfissionalLogin = () => {
                   className="w-full border-primary border-3 rounded-2xl"
                 />
                 {errors.email && (
-                  <span className="text-red-500 text-left w-full text-xl text-stroke-black font-bold">
+                  <span className="text-terciary text-left w-full text-xl font-bold">
                     {errors.email.message}
                   </span>
                 )}
@@ -146,13 +147,13 @@ const ProfissionalLogin = () => {
                   className="w-full border-primary border-3 rounded-2xl"
                 />
                 {errors.password && (
-                  <span className="text-red-500 text-left w-full text-xl text-stroke-black font-bold">
+                  <span className="text-terciary text-left w-full text-xl font-bold">
                     {errors.password.message}
                   </span>
                 )}
 
                 {errorLogin && (
-                  <span className="text-xl text-red-500 text-stroke-black font-bold">
+                  <span className="text-xl text-left w-full text-terciary font-bold">
                     {errorLogin}
                   </span>
                 )}
