@@ -132,6 +132,7 @@ const ProfissionalLogin = () => {
                   type="email"
                   {...register("email")}
                   className="w-full border-primary border-3 rounded-2xl"
+                  isInvalid={false}
                 />
                 {errors.email && (
                   <span className="text-terciary text-left w-full text-xl font-bold">
